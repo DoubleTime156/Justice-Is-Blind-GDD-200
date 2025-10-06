@@ -12,6 +12,8 @@ Shader "Custom/2DCircleVision"
         _Darkness ("Darkness Color", Color) = (0,0,0,1)
         //What youve seen
         _FogTex ("Fog Memory", 2D) = "white" {}
+
+        
     }
     SubShader
     {
@@ -47,11 +49,14 @@ Shader "Custom/2DCircleVision"
             float4 _Darkness;
             sampler2D _FogTex;
 
+            float4 _WorldMin;
+            float4 _WorldSize;
+
             v2f vert(appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xy; // XY only
+                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xy; 
                 o.uv = v.uv;
                 return o;
             }
@@ -63,13 +68,19 @@ Shader "Custom/2DCircleVision"
                 // calculates how big the circle will be
                 float mask = smoothstep(_Radius - _Falloff, _Radius, dist);
                 //Fog memory
-                float2 fogUV = (i.worldPos * 0.5) + 0.5;
+                float2 fogUV = (i.worldPos - _WorldMin.xy) / _WorldSize.xy;
+
                 float fog = tex2D(_FogTex, fogUV).r;
                 //reduce darkness on see
                 float explored = saturate(fog + (1 - mask));
+
+                float seen = 1 - mask;
                 //combine no see and have seen
-                float visibility = max(1 - mask, fog);
-                return fixed4(_Darkness.rgb, 1 - visibility);
+                float visibility = max(seen, fog * 0.5);
+                //edits _darkness material color to make it a gray fog
+                fixed3 baseColor = lerp(_Darkness.rgb, float3(0.5, 0.5, 0.5), fog);
+
+                return fixed4(baseColor, 1 - seen);
             }
             ENDCG
         }

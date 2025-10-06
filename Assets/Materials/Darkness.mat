@@ -52,7 +52,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Darkness: {r: 0, g: 0, b: 0, a: 1}
-    - _PlayerPos: {r: 6.6689234, g: 0.31825185, b: 0, a: 0}
+    - _PlayerPos: {r: 9.704198, g: 6.9508147, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _WorldMax: {r: 10, g: 10, b: 0, a: 0}
     - _WorldMin: {r: -10, g: -10, b: 0, a: 0}

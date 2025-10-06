@@ -428,8 +428,8 @@ Transform:
   m_GameObject: {fileID: 729693380}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.34679, y: 2.487, z: 0}
-  m_LocalScale: {x: 35.095623, y: 78.87469, z: 1}
+  m_LocalPosition: {x: 5.3468, y: 2.487, z: 0}
+  m_LocalScale: {x: 159.68509, y: 133.10103, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -551,7 +551,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.0498, y: 0.3219, z: 10}
-  m_LocalScale: {x: 34.491993, y: 17.661232, z: 1}
+  m_LocalScale: {x: 56.91179, y: 17.661232, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 319968520}
@@ -888,7 +888,7 @@ MonoBehaviour:
   visionMaterial: {fileID: 2100000, guid: 24efac89a47560449b45e6350ed67b64, type: 2}
   player: {fileID: 1622224631}
   radius: 5
-  falloff: 4
+  falloff: 12
 --- !u!4 &1782535075
 Transform:
   m_ObjectHideFlags: 0
