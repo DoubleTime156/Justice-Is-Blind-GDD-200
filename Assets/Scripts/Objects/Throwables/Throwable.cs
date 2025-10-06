@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Throwable : MonoBehaviour
@@ -6,19 +7,31 @@ public class Throwable : MonoBehaviour
     private float speed;
     private int item;
     private Rigidbody2D rb;
+    private float distance;
 
-    public void Init(Vector3 targetPos, float moveSpeed, int heldItem)
+    public float timeToReach = 1.5f;
+    public void Init(Vector3 targetPos, float initMoveSpeed, int heldItem)
     {
         target = targetPos;
-        speed = moveSpeed;
+        speed = initMoveSpeed;
         item = heldItem;
         rb = GetComponent<Rigidbody2D>();
+        distance = Vector2.Distance(transform.position, targetPos);
+        timeToReach = distance / speed;
     }
 
     void Update()
     {
         // Move towards target (Mouse position)
-        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+        Vector2 direction = (target - transform.position).normalized;
+        distance = Vector2.Distance(transform.position, target);
+        speed = distance / timeToReach;
+
+        // Option 1: Direct velocity
+        rb.linearVelocity = direction * speed;
+
+        // Option 2: Impulse force
+        // rb.AddForce(direction * speed * rb.mass, ForceMode2D.Impulse);    
 
         // Stop when reached
         if (transform.position == target)
