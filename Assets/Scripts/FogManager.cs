@@ -13,12 +13,12 @@ public class FogManager : MonoBehaviour
     private RenderTexture fogMemory;
 
     [Header("World mapping (set to your map bounds)")]
-    public Vector2 worldMin = new Vector2(-10f, -10f);
-    public Vector2 worldMax = new Vector2(10f, 10f);
+    public Vector2 worldMin = new Vector2(-100f, -100f);
+    public Vector2 worldMax = new Vector2(100f, 100f);
 
     [Header("Paint settings (UV space)")]
     [Range(0.01f, 1f)]
-    public float revealRadiusUV = 0.05f; 
+    public float revealRadiusUV = 0.25f; 
 
 
     private static readonly int PositionID = Shader.PropertyToID("_Position");
@@ -77,18 +77,21 @@ public class FogManager : MonoBehaviour
 
     void Update()
     {
-        if (player == null || fogPainterMaterial == null || fogMemory == null) return;
-
+        //player pos to world pos
         Vector2 worldPos = new Vector2(player.position.x, player.position.y);
+        //sets the shaders to cover world size
         Vector2 worldSize = worldMax - worldMin;
+        // gets player pos in given world size
         Vector2 uv = (worldPos - worldMin);
         uv.x = worldSize.x != 0 ? uv.x / worldSize.x : 0f;
         uv.y = worldSize.y != 0 ? uv.y / worldSize.y : 0f;
 
         uv = new Vector2(Mathf.Clamp01(uv.x), Mathf.Clamp01(uv.y));
 
+        //puts material where player is
         fogPainterMaterial.SetVector(PositionID, new Vector4(uv.x, uv.y, 0, 0));
         fogPainterMaterial.SetFloat(RadiusID, revealRadiusUV);
+
 
         RenderTexture temp = RenderTexture.GetTemporary(fogMemory.width, fogMemory.height, 0, fogMemory.format);
         Graphics.Blit(fogMemory, temp);                    

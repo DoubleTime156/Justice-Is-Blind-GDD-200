@@ -76,9 +76,9 @@ Shader "Custom/2DCircleVision"
 
                 float seen = 1 - mask;
                 //combine no see and have seen
-                float visibility = max(seen, fog * 0.5);
+                float visibility = max(seen, fog);
                 //edits _darkness material color to make it a gray fog
-                fixed3 baseColor = lerp(_Darkness.rgb, float3(0.5, 0.5, 0.5), fog);
+                fixed3 baseColor = lerp(_Darkness.rgb, float3(0.2, 0.2, 0.2), fog);
 
                 return fixed4(baseColor, 1 - seen);
             }

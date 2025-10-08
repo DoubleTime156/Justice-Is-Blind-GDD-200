@@ -2,16 +2,17 @@ Shader "Unlit/FogPainter"
 {
     Properties
     {
-        _MainTex ("Base (Fog Texture)", 2D) = "black" {}
-        _Position ("Position (UV)", Vector) = (0, 0, 0, 0)
-        _Radius ("Radius (UV)", Float) = 0.05
+        _MainTex ("Base", 2D) = "black" {}
+        _Position ("Position", Vector) = (0, 0, 0, 0)
+        _Radius ("Radius", Float) = 0.05
     }
 
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags {"Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent"}
         LOD 100
         Blend One OneMinusSrcAlpha
+        ZWrite Off
 
         Pass
         {
@@ -46,7 +47,7 @@ Shader "Unlit/FogPainter"
                 
                 float newFog = max(currentFog, reveal);
 
-                return fixed4(newFog, newFog, newFog, 1.0);
+                return fixed4(newFog, newFog, newFog, 1);
             }
             ENDCG
         }
