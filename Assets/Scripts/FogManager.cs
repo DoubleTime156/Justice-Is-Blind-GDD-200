@@ -3,20 +3,20 @@ using UnityEngine;
 [ExecuteAlways]
 public class FogManager : MonoBehaviour
 {
-    [Header("References")]
+    //material refrences
     public Material fogPainterMaterial;  
     public Material fogDisplayMaterial;   
     public Transform player;               
 
-    [Header("Fog RT")]
-    public int rtSize = 512;
+    //fog rt and memory
+    public int rtSize = 1024;
     private RenderTexture fogMemory;
 
-    [Header("World mapping (set to your map bounds)")]
+    //world bounds, if map is bigger then this vector vision will glitch out
     public Vector2 worldMin = new Vector2(-100f, -100f);
     public Vector2 worldMax = new Vector2(100f, 100f);
 
-    [Header("Paint settings (UV space)")]
+    //revela radius in UV
     [Range(0.01f, 1f)]
     public float revealRadiusUV = 0.25f; 
 
@@ -64,11 +64,13 @@ public class FogManager : MonoBehaviour
         Vector2 worldSize = worldMax - worldMin;
         if (fogPainterMaterial)
         {
+            //sets the paint to where it needs to be in the world
             fogPainterMaterial.SetVector("_WorldMin", new Vector4(worldMin.x, worldMin.y, 0, 0));
             fogPainterMaterial.SetVector("_WorldSize", new Vector4(worldSize.x, worldSize.y, 0, 0));
         }
         if (fogDisplayMaterial)
         {
+            //sets the paint to where it needs to be in the world
             fogDisplayMaterial.SetVector("_WorldMin", new Vector4(worldMin.x, worldMin.y, 0, 0));
             fogDisplayMaterial.SetVector("_WorldSize", new Vector4(worldSize.x, worldSize.y, 0, 0));
             fogDisplayMaterial.SetTexture("_FogTex", fogMemory);

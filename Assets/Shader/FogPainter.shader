@@ -42,7 +42,8 @@ Shader "Unlit/FogPainter"
                 float2 pos = i.uv;
                 float dist = distance(pos, _Position.xy);
 
-                float reveal = 1.0 - smoothstep(0.0, _Radius, dist);
+                float reveal = pow(saturate(1.0 - dist / _Radius), 2.0);
+
 
                 
                 float newFog = max(currentFog, reveal);

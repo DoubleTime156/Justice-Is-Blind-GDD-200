@@ -43,12 +43,12 @@ Shader "Custom/2DCircleVision"
                 float2 uv : TEXCOORD1;
             };
 
+            //Declare Variables
             float4 _PlayerPos;
             float _Radius;
             float _Falloff;
             float4 _Darkness;
             sampler2D _FogTex;
-
             float4 _WorldMin;
             float4 _WorldSize;
 
@@ -63,25 +63,44 @@ Shader "Custom/2DCircleVision"
 
             fixed4 frag(v2f i) : SV_Target
             {
-                // getting where the player is
+                //pos of circle
                 float dist = distance(i.worldPos, _PlayerPos.xy);
-                // calculates how big the circle will be
+                // determines what number mask is
                 float mask = smoothstep(_Radius - _Falloff, _Radius, dist);
-                //Fog memory
+
+
                 float2 fogUV = (i.worldPos - _WorldMin.xy) / _WorldSize.xy;
-
                 float fog = tex2D(_FogTex, fogUV).r;
-                //reduce darkness on see
-                float explored = saturate(fog + (1 - mask));
 
-                float seen = 1 - mask;
-                //combine no see and have seen
-                float visibility = max(seen, fog);
-                //edits _darkness material color to make it a gray fog
-                fixed3 baseColor = lerp(_Darkness.rgb, float3(0.2, 0.2, 0.2), fog);
 
-                return fixed4(baseColor, 1 - seen);
+                // 1 = visible now, 0 = outside circle
+                float seen = 1 - mask; 
+
+                float3 baseColor;
+                float alpha;
+
+                // Visible right now no fog overlay
+                if (seen > 0.01)
+                {
+                    baseColor = float3(0.0, 0.0, 0.0);
+                    alpha = 0.0;
+                }
+                // Not visible but has been seen before gray fog memory
+                else if (fog > 0.001)
+                {
+                    baseColor = float3(0.3, 0.3, 0.3);
+                    alpha = 0.5;
+                }
+                // Completely unseen full darkness
+                else
+                {
+                    baseColor = _Darkness.rgb;
+                    alpha = 1.0;
+                }
+
+                return fixed4(baseColor, alpha);
             }
+
             ENDCG
         }
     }
