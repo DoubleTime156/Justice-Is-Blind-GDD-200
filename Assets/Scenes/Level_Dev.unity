@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 669738748}
   - component: {fileID: 669738747}
   - component: {fileID: 669738749}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Wall
   m_TagString: World
   m_Icon: {fileID: 0}

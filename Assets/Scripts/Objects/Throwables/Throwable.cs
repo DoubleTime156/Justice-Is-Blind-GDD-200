@@ -8,15 +8,17 @@ public class Throwable : MonoBehaviour
     private int item;
     private Rigidbody2D rb;
     private float distance;
+    private float targetRadius = 0.05f;
+    private float[] forceMultiplier = { 1, 3 };
 
-    public float timeToReach = 1.5f;
+    public float timeToReach;
     public void Init(Vector3 targetPos, float initMoveSpeed, int heldItem)
     {
         target = targetPos;
         speed = initMoveSpeed;
         item = heldItem;
         rb = GetComponent<Rigidbody2D>();
-        distance = Vector2.Distance(transform.position, targetPos);
+        distance = Vector2.Distance(transform.position, targetPos / forceMultiplier[heldItem]);
         timeToReach = distance / speed;
     }
 
@@ -27,46 +29,34 @@ public class Throwable : MonoBehaviour
         distance = Vector2.Distance(transform.position, target);
         speed = distance / timeToReach;
 
-        // Option 1: Direct velocity
         rb.linearVelocity = direction * speed;
 
-        // Option 2: Impulse force
-        // rb.AddForce(direction * speed * rb.mass, ForceMode2D.Impulse);    
-
-        // Stop when reached
-        if (transform.position == target)
+        // When destination reached, perform behaviors
+        if (Vector2.Distance(transform.position, target) <= targetRadius) //rb.linearVelocity.magnitude < 0.5
         {
             switch (item)
             {
                 case 0:
-                    enabled = false; break;
+                    rb.linearVelocity = new Vector2(0,0); break;
                 case 1:
                     Destroy(gameObject); break;
             }
         }
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    public void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("hit wall!");
 
         if (collision.gameObject.CompareTag("World"))
         {
-            CorrectCollision();
             switch (item)
             {
                 case 0:
-                    enabled = false;
                     break;
                 case 1:
                     Destroy(gameObject); break;
             }
         }
     }
-
-    private void CorrectCollision()
-    {
-
-    }
-
 }

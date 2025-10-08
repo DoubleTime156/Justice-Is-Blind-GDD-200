@@ -4,7 +4,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerThrow : MonoBehaviour
 {
-    private float[] speed = {20,15};
+    private float[] speed = {30,60};
+    private float[] finalPosition = { 1, 2 };
     public GameObject Coin;
     public GameObject Bottle;
     private int heldItem = 0; // (0 - coin, 1 - bottle)
