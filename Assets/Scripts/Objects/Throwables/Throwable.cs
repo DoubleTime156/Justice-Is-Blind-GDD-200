@@ -10,6 +10,8 @@ public class Throwable : MonoBehaviour
     private float distance;
     private float targetRadius = 0.05f;
     private float[] forceMultiplier = { 1, 3 };
+    private bool isTriggered = false;
+    private float previousDistance;
 
     public float timeToReach;
     public void Init(Vector3 targetPos, float initMoveSpeed, int heldItem)
@@ -25,22 +27,34 @@ public class Throwable : MonoBehaviour
     void Update()
     {
         // Move towards target (Mouse position)
-        Vector2 direction = (target - transform.position).normalized;
+        Vector2 direction = (target - transform.position).normalized; 
         distance = Vector2.Distance(transform.position, target);
         speed = distance / timeToReach;
 
         rb.linearVelocity = direction * speed;
 
-        // When destination reached, perform behaviors
-        if (Vector2.Distance(transform.position, target) <= targetRadius) //rb.linearVelocity.magnitude < 0.5
+        // When destination reached, perform item specific behaviors
+        if (Vector2.Distance(transform.position, target) <= targetRadius && !isTriggered) //rb.linearVelocity.magnitude < 0.5
         {
-            switch (item)
-            {
-                case 0:
-                    rb.linearVelocity = new Vector2(0,0); break;
-                case 1:
-                    Destroy(gameObject); break;
-            }
+            itemBehavior();
+        }
+        previousDistance = Vector2.Distance(transform.position, target);
+    }
+
+    private void itemBehavior()
+    {
+        switch (item)
+        {
+            case 0:
+                Debug.Log("Coin landed");
+                rb.linearVelocity = new Vector2(0, 0); 
+                isTriggered = true;
+                break;
+            case 1:
+                Debug.Log("Bottle Landed");
+                Destroy(gameObject);
+                isTriggered = true;
+                break;
         }
     }
 
@@ -48,15 +62,12 @@ public class Throwable : MonoBehaviour
     {
         Debug.Log("hit wall!");
 
-        if (collision.gameObject.CompareTag("World"))
+        switch (item)
         {
-            switch (item)
-            {
-                case 0:
-                    break;
-                case 1:
-                    Destroy(gameObject); break;
-            }
+            case 0:
+                break;
+            case 1:
+                Destroy(gameObject); break;
         }
     }
 }
