@@ -1,12 +1,9 @@
-using UnityEditor;
-using UnityEditor.SearchService;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Goal : MonoBehaviour
 {
-    private BoxCollider2D goalCollider; // Collider of the associated game object, assigned on Start()
-
     public string levelName; // Name of the level file to load
 
 
@@ -14,8 +11,6 @@ public class Goal : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // Assign components
-        goalCollider = GetComponent<BoxCollider2D>();
 
     }
 
@@ -30,11 +25,15 @@ public class Goal : MonoBehaviour
 
 
     // Runs when something enters this trigger
-    private void OnCollisionEnter2D(Collision2D other)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
         // If the colliding object is a player, switch scenes
-        if (other.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
+            // Stop anything that needs to be stopped, show results screen,
+            // whatever we plan to do BEFORE scene is switched
+
+            // Switch scene to the next level
             SceneManager.LoadSceneAsync(levelName);
         }
     }
