@@ -1030,6 +1030,7 @@ GameObject:
   - component: {fileID: 1845043085}
   - component: {fileID: 1845043084}
   - component: {fileID: 1845043087}
+  - component: {fileID: 1845043088}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1105,7 +1106,7 @@ Transform:
   m_GameObject: {fileID: 1845043083}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 1.21, y: -0.11, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1155,6 +1156,20 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &1845043088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845043083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5111f6b7d94a7e546b4d49b45fbea2c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1854087846}
+  offset: {x: 0, y: 0, z: -15}
 --- !u!1 &1854087845
 GameObject:
   m_ObjectHideFlags: 0
@@ -1166,11 +1181,11 @@ GameObject:
   - component: {fileID: 1854087846}
   - component: {fileID: 1854087847}
   - component: {fileID: 1854087849}
-  - component: {fileID: 1854087851}
   - component: {fileID: 1854087850}
+  - component: {fileID: 1854087852}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1309,7 +1324,7 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
---- !u!114 &1854087851
+--- !u!114 &1854087852
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1318,78 +1333,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1854087845}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 604f60842cfa7f845beff7aae1db6b70, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d7f40b3a6b8f5349b60a27b348dccd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 1854087849}
   speed: 5
-  speedMult: 1
-  playerMovement:
-    m_Name: Player Movement
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 0721132b-2c0b-4a24-983c-0456c2d3d5d1
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: WASD
-      m_Id: 1091f77b-353a-424e-81a9-b74cf67d8ad8
-      m_Path: 2DVector
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Movement
-      m_Flags: 4
-    - m_Name: up
-      m_Id: 15364fdf-51b9-435d-8aa6-b0cd41cd205a
-      m_Path: <Keyboard>/w
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Movement
-      m_Flags: 8
-    - m_Name: down
-      m_Id: 64dd200b-cc7b-42b1-b1fb-a164d7625ea3
-      m_Path: <Keyboard>/s
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Movement
-      m_Flags: 8
-    - m_Name: left
-      m_Id: 54fec4d2-f415-47bf-96ea-cecdc0b599ec
-      m_Path: <Keyboard>/a
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Movement
-      m_Flags: 8
-    - m_Name: right
-      m_Id: c6a86ff2-d1f0-4e60-80c5-f130367c1aa3
-      m_Path: <Keyboard>/d
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Movement
-      m_Flags: 8
-    m_Flags: 0
-  playerRun:
-    m_Name: Player Run
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: bce87cdb-5cf6-4aad-b6b7-ccef239f9b7b
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 79c38616-2082-43b2-adfe-085b07ebe7f2
-      m_Path: <Keyboard>/shift
-      m_Interactions: Hold
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Run
-      m_Flags: 0
-    m_Flags: 0
+  speedMulti: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
