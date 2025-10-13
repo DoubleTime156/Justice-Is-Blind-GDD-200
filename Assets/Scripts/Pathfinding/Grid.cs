@@ -23,7 +23,7 @@ public class Grid : MonoBehaviour
         CreateGrid();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         CreateGrid();
     }
@@ -103,4 +103,5 @@ public class Grid : MonoBehaviour
         }
     }
     */
+    
 }
