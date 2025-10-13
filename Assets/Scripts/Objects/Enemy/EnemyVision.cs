@@ -21,7 +21,7 @@ public class EnemyVision : MonoBehaviour
 
             if (angle <= viewAngle)
             {
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, viewRadius, 
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, distance, 
                     LayerMask.GetMask("Obstacle")); // Check for obstacles
 
                 if (!hit)
