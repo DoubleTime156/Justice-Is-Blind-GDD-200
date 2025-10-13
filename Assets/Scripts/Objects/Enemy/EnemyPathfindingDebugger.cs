@@ -8,6 +8,7 @@ public class EnemyPathfindingDebugger : MonoBehaviour
     public float speed = 3f;
     public float nextNodeDistance = 0.5f;
     public float pathUpdateInterval = 0.2f; // seconds
+    public float rotateSpeed = 3f;
 
     private List<Node> path;
     private int currentNodeIndex;
@@ -18,7 +19,7 @@ public class EnemyPathfindingDebugger : MonoBehaviour
         lastPathUpdateTime = -pathUpdateInterval;
     }
 
-    void Update()
+    public void UpdateMovement()
     {
         if (Time.time - lastPathUpdateTime >= pathUpdateInterval)
         {
@@ -42,6 +43,12 @@ public class EnemyPathfindingDebugger : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void UpdateDirection(Vector2 dir)
+    {
+        Vector2 newDir = Vector2.Lerp(transform.up, dir.normalized, rotateSpeed);
+        transform.up = newDir;
     }
 
     void UpdatePath()

@@ -89,7 +89,7 @@ public class Grid : MonoBehaviour
     }
 
     // Debug - Grid visual
-    
+    /*
     void OnDrawGizmos()
     {
         if (grid != null)
@@ -102,5 +102,6 @@ public class Grid : MonoBehaviour
             }
         }
     }
+    */
     
 }
