@@ -1,0 +1,338 @@
+fileFormatVersion: 2
+guid: c21c7dd806443ce45b274d668ab51fdb
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3889088333524351347
+    second: Wendt_Marissa_Lvl1_SpriteSheet_0
+  - first:
+      213: 6157712298165247379
+    second: Wendt_Marissa_Lvl1_SpriteSheet_1
+  - first:
+      213: 6861037080799957455
+    second: Wendt_Marissa_Lvl1_SpriteSheet_2
+  - first:
+      213: 3158365869348365631
+    second: Wendt_Marissa_Lvl1_SpriteSheet_3
+  - first:
+      213: 8534902451653587110
+    second: Wendt_Marissa_Lvl1_SpriteSheet_4
+  - first:
+      213: -5507159694100565447
+    second: Wendt_Marissa_Lvl1_SpriteSheet_5
+  - first:
+      213: 8356413249080143736
+    second: Wendt_Marissa_Lvl1_SpriteSheet_6
+  - first:
+      213: -7534205554216550096
+    second: Wendt_Marissa_Lvl1_SpriteSheet_7
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Wendt_Marissa_Lvl1_SpriteSheet_0
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 383
+        width: 60
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 379b5dbeb31d8f530800000000000000
+      internalID: 3889088333524351347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wendt_Marissa_Lvl1_SpriteSheet_1
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 383
+        width: 66
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39d9131d5b6947550800000000000000
+      internalID: 6157712298165247379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wendt_Marissa_Lvl1_SpriteSheet_2
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 380
+        width: 25
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc15dd7afdc473f50800000000000000
+      internalID: 6861037080799957455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wendt_Marissa_Lvl1_SpriteSheet_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 385
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f352a314605c4db20800000000000000
+      internalID: 3158365869348365631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wendt_Marissa_Lvl1_SpriteSheet_4
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 255
+        width: 84
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a03c675f80127670800000000000000
+      internalID: 8534902451653587110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wendt_Marissa_Lvl1_SpriteSheet_5
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 255
+        width: 84
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93279c7bf63a293b0800000000000000
+      internalID: -5507159694100565447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wendt_Marissa_Lvl1_SpriteSheet_6
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 255
+        width: 44
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87f2acb6391f7f370800000000000000
+      internalID: 8356413249080143736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wendt_Marissa_Lvl1_SpriteSheet_7
+      rect:
+        serializedVersion: 2
+        x: 415
+        y: 254
+        width: 66
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 031c52467ff117790800000000000000
+      internalID: -7534205554216550096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Wendt_Marissa_Lvl1_SpriteSheet_0: 3889088333524351347
+      Wendt_Marissa_Lvl1_SpriteSheet_1: 6157712298165247379
+      Wendt_Marissa_Lvl1_SpriteSheet_2: 6861037080799957455
+      Wendt_Marissa_Lvl1_SpriteSheet_3: 3158365869348365631
+      Wendt_Marissa_Lvl1_SpriteSheet_4: 8534902451653587110
+      Wendt_Marissa_Lvl1_SpriteSheet_5: -5507159694100565447
+      Wendt_Marissa_Lvl1_SpriteSheet_6: 8356413249080143736
+      Wendt_Marissa_Lvl1_SpriteSheet_7: -7534205554216550096
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
