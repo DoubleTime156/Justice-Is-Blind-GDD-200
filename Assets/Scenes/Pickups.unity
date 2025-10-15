@@ -675,7 +675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e693be3c3cafaa49b93c1f662055102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 0.1
   inventory: 0000000000000000
 --- !u!114 &1070297377
 MonoBehaviour:
