@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 262c6c78429c149da9223b3e2a5a72b7
+guid: ca8f57d3406a141158c93d86ec1f8d1f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5026212786248902096
-    second: alphaBigBad 1_0
+      213: 2064580934669760479
+    second: alphaJustineCase_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -47,12 +47,12 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 1
-  spriteExtrude: 1
+  spriteExtrude: 0
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 57, y: 10, z: 56, w: 25}
+  spriteBorder: {x: 46, y: 10, z: 45, w: 20}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -96,17 +96,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: alphaBigBad 1_0
+      name: alphaJustineCase_0
       rect:
         serializedVersion: 2
-        x: 56
+        x: 45
         y: 9
-        width: 48
-        height: 127
+        width: 71
+        height: 132
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0d564e926e1b0c540800000000000000
-      internalID: 5026212786248902096
+      spriteID: fd7f805eb6dd6ac10800000000000000
+      internalID: 2064580934669760479
       vertices: []
       indices: 
       edges: []
@@ -135,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      alphaBigBad 1_0: 5026212786248902096
+      alphaJustineCase_0: 2064580934669760479
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
