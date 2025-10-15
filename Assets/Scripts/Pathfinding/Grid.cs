@@ -12,33 +12,39 @@ public class Grid : MonoBehaviour
     public float nodeSize = 1f;
     public Transform player;
 
-    Node[,] grid;
-
-    float halfWidth, halfHeight;
+    private Node[,] grid;
+    private Vector3 worldPoint;
+    private Vector3 bottomLeft;
+    private float halfWidth, halfHeight;
 
     void Awake()
     {
         halfWidth = gridSizeX / 2f;
         halfHeight = gridSizeY / 2f;
         CreateGrid();
+        UpdateGrid();
     }
 
     void FixedUpdate()
     {
-        CreateGrid();
+        UpdateGrid();
     }
 
     void CreateGrid()
     {
         grid = new Node[gridSizeX, gridSizeY];
-        Vector3 bottomLeft = player.position - new Vector3(halfWidth * nodeSize, halfHeight * nodeSize, 0);
+        bottomLeft = player.position - new Vector3(halfWidth * nodeSize, halfHeight * nodeSize, 0);
         //bottomLeft = RoundVector3(bottomLeft);
+    }
 
+    void UpdateGrid()
+    {
+        bottomLeft = player.position - new Vector3(halfWidth * nodeSize, halfHeight * nodeSize, 0);
         for (int x = 0; x < gridSizeX; x++)
         {
             for (int y = 0; y < gridSizeY; y++)
             {
-                Vector3 worldPoint = bottomLeft + new Vector3(x * nodeSize + nodeSize / 2f, y * nodeSize + nodeSize / 2f, 0);
+                worldPoint = bottomLeft + new Vector3(x * nodeSize + nodeSize / 2f, y * nodeSize + nodeSize / 2f, 0);
                 bool walkable = !Physics2D.OverlapCircle(new Vector3(worldPoint.x, worldPoint.y, 0), nodeSize / 2f, unwalkableMask) &&
                                 (worldPoint - player.position).magnitude < 13.0f;
                 grid[x, y] = new Node(walkable, worldPoint, x, y);
