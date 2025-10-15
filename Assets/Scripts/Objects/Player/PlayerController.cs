@@ -32,6 +32,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             gameManager.gameOver();
+            Destroy(gameObject);
         }
     }
 }
