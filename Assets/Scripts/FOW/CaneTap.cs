@@ -56,10 +56,9 @@ public class CaneTap : MonoBehaviour
                 {
                     fogManager.revealRadiusUV /= noiseMultiplier;
 
-                    if (canTap == true)
-                    {
+                 
                         isTapping = false;
-                    }
+                 
                 }
 
             }
