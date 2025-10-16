@@ -81,6 +81,10 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+<<<<<<< Updated upstream
     - _Position: {r: 0.515, g: 0.5075, b: 0, a: 0}
+=======
+    - _Position: {r: 0.50810003, g: 0.49905, b: 0, a: 0}
+>>>>>>> Stashed changes
   m_BuildTextureStacks: []
   m_AllowLocking: 1
