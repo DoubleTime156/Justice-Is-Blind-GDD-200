@@ -82,14 +82,14 @@ Shader "Custom/2DCircleVision"
                 // Visible right now no fog overlay
                 if (seen > 0.01)
                 {
-                    baseColor = float3(0.0, 0.0, 0.0);
+                    baseColor = float3(0.3, 0.3, 0.3);
                     alpha = 0.0;
                 }
                 // Not visible but has been seen before gray fog memory
                 else if (fog > 0.001)
                 {
-                    baseColor = float3(0.3, 0.3, 0.3);
-                    alpha = 0.5;
+                    baseColor = float3(0.5, 0.5, 0.5);
+                    alpha = 0.1;
                 }
                 // Completely unseen full darkness
                 else
