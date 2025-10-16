@@ -8,13 +8,16 @@ public class CaneTap : MonoBehaviour
     public PlayerPosition playerVision;
     public FogManager fogManager;
     public float noiseMultiplier = 2f;
-    public float cooldown = 2f;
+<<<<<<< Updated upstream
+=======
+    public float cooldown = 1f;
+>>>>>>> Stashed changes
     public float noiseDuration = 1f;
+    public float cooldown = 2f;
 
     private float originalRadius;
     private float timer = 0f;
     private float coolDownTimer = 0f;
-
     private bool isTapping = false;
     private bool canTap = true;
     void Update()
