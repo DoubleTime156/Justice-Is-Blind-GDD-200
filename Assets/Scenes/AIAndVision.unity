@@ -657,11 +657,19 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       addedObject: {fileID: 904271313}
     - targetCorrespondingSourceObject: {fileID: 7126914669921339014, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 904271312}
+=======
+      addedObject: {fileID: 1131946984}
+    - targetCorrespondingSourceObject: {fileID: 7126914669921339014, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1131946983}
+>>>>>>> Stashed changes
 =======
       addedObject: {fileID: 1131946984}
     - targetCorrespondingSourceObject: {fileID: 7126914669921339014, guid: 114436765f7463c49826ba3a8920a5a2,
@@ -1451,7 +1459,11 @@ PrefabInstance:
       propertyPath: player
       value: 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       objectReference: {fileID: 904271311}
+=======
+      objectReference: {fileID: 260479362}
+>>>>>>> Stashed changes
 =======
       objectReference: {fileID: 260479362}
 >>>>>>> Stashed changes
@@ -1460,7 +1472,11 @@ PrefabInstance:
       propertyPath: player
       value: 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       objectReference: {fileID: 0}
+=======
+      objectReference: {fileID: 260479362}
+>>>>>>> Stashed changes
 =======
       objectReference: {fileID: 260479362}
 >>>>>>> Stashed changes
@@ -1947,7 +1963,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visionMaterial: {fileID: 2100000, guid: 24efac89a47560449b45e6350ed67b64, type: 2}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   player: {fileID: 904271311}
+=======
+  player: {fileID: 260479362}
+>>>>>>> Stashed changes
 =======
   player: {fileID: 260479362}
 >>>>>>> Stashed changes
@@ -2517,6 +2537,40 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+--- !u!1 &1409929142
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1409929143}
+  m_Layer: 0
+  m_Name: Game_Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1409929143
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409929142}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 >>>>>>> Stashed changes
 --- !u!1001 &1574311001
 PrefabInstance:
@@ -2551,7 +2605,11 @@ PrefabInstance:
       propertyPath: player
       value: 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       objectReference: {fileID: 904271311}
+=======
+      objectReference: {fileID: 260479362}
+>>>>>>> Stashed changes
 =======
       objectReference: {fileID: 260479362}
 >>>>>>> Stashed changes
@@ -2570,7 +2628,11 @@ PrefabInstance:
       propertyPath: player
       value: 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       objectReference: {fileID: 0}
+=======
+      objectReference: {fileID: 260479362}
+>>>>>>> Stashed changes
 =======
       objectReference: {fileID: 260479362}
 >>>>>>> Stashed changes
@@ -2700,7 +2762,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   m_Father: {fileID: 904271311}
+=======
+  m_Father: {fileID: 260479362}
+>>>>>>> Stashed changes
 =======
   m_Father: {fileID: 260479362}
 >>>>>>> Stashed changes
@@ -3067,7 +3133,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   player: {fileID: 904271311}
+=======
+  player: {fileID: 260479362}
+>>>>>>> Stashed changes
 =======
   player: {fileID: 260479362}
 >>>>>>> Stashed changes
@@ -3197,7 +3267,11 @@ MonoBehaviour:
   fogPainterMaterial: {fileID: 2100000, guid: 62c38e4fd275e5b40aa8ec157c960444, type: 2}
   fogDisplayMaterial: {fileID: 2100000, guid: 24efac89a47560449b45e6350ed67b64, type: 2}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   player: {fileID: 904271311}
+=======
+  player: {fileID: 260479362}
+>>>>>>> Stashed changes
 =======
   player: {fileID: 260479362}
 >>>>>>> Stashed changes
@@ -3293,7 +3367,11 @@ PrefabInstance:
       propertyPath: player
       value: 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       objectReference: {fileID: 0}
+=======
+      objectReference: {fileID: 260479362}
+>>>>>>> Stashed changes
 =======
       objectReference: {fileID: 260479362}
 >>>>>>> Stashed changes
@@ -3365,7 +3443,11 @@ PrefabInstance:
       propertyPath: player
       value: 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       objectReference: {fileID: 904271311}
+=======
+      objectReference: {fileID: 260479362}
+>>>>>>> Stashed changes
 =======
       objectReference: {fileID: 260479362}
 >>>>>>> Stashed changes
@@ -3374,7 +3456,11 @@ PrefabInstance:
       propertyPath: player
       value: 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       objectReference: {fileID: 0}
+=======
+      objectReference: {fileID: 260479362}
+>>>>>>> Stashed changes
 =======
       objectReference: {fileID: 260479362}
 >>>>>>> Stashed changes
@@ -3479,7 +3565,11 @@ SceneRoots:
   - {fileID: 1840027018}
   - {fileID: 900500553}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   - {fileID: 958479898}
+=======
+  - {fileID: 1409929143}
+>>>>>>> Stashed changes
 =======
   - {fileID: 1409929143}
 >>>>>>> Stashed changes

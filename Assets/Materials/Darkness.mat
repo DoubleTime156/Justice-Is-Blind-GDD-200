@@ -53,7 +53,11 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Darkness: {r: 0, g: 0, b: 0, a: 1}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     - _PlayerPos: {r: 3.266908, g: -6.091111, b: 0, a: 0}
+=======
+    - _PlayerPos: {r: 4.4228735, g: -2.220177, b: 0, a: 0}
+>>>>>>> Stashed changes
 =======
     - _PlayerPos: {r: 4.4228735, g: -2.220177, b: 0, a: 0}
 >>>>>>> Stashed changes
