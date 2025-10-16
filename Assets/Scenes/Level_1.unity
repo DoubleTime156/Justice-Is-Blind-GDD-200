@@ -869,7 +869,6 @@ GameObject:
   m_Component:
   - component: {fileID: 280326297}
   - component: {fileID: 280326300}
-  - component: {fileID: 280326299}
   - component: {fileID: 280326298}
   m_Layer: 20
   m_Name: FogCamera
@@ -937,14 +936,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &280326299
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 280326296}
-  m_Enabled: 1
 --- !u!20 &280326300
 Camera:
   m_ObjectHideFlags: 0
@@ -2100,8 +2091,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7634611626566338985, guid: aadde9abc1e357541817097cdf7e7d78,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7634611626566338985, guid: aadde9abc1e357541817097cdf7e7d78,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 1366813656}
+    - target: {fileID: 7634611626566338985, guid: aadde9abc1e357541817097cdf7e7d78,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7634611626566338985, guid: aadde9abc1e357541817097cdf7e7d78,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RestartGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 7634611626566338985, guid: aadde9abc1e357541817097cdf7e7d78,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
