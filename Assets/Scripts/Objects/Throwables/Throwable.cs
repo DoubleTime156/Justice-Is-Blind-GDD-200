@@ -47,16 +47,32 @@ public class Throwable : MonoBehaviour
         {
             case 0:
                 Debug.Log("Coin landed");
+                RevealFog(0.05f);
                 rb.linearVelocity = new Vector2(0, 0); 
                 isTriggered = true;
                 break;
             case 1:
                 Debug.Log("Bottle Landed");
+                RevealFog(0.15f);
                 Destroy(gameObject);
                 isTriggered = true;
                 break;
         }
     }
+
+    void RevealFog(float radius)
+    {
+        FogManager fog = FindObjectOfType<FogManager>();
+        if (fog == null) return;
+
+        FogRevealer revealer = gameObject.AddComponent<FogRevealer>();
+        revealer.fogManager = fog;
+        revealer.revealRadiusUV = radius;
+        revealer.fullRevealDuration = 2f; // how long it stays fully visible
+        revealer.fadeDuration = 3f;       // how long it takes to fade back
+        revealer.TriggerReveal();
+    }
+
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
