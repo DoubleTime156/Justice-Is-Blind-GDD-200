@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 126969566}
   - component: {fileID: 126969568}
   - component: {fileID: 126969567}
-  m_Layer: 20
+  m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -652,6 +652,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1499498758}
+    - targetCorrespondingSourceObject: {fileID: 2540400004305357987, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1499498766}
   m_SourcePrefab: {fileID: 100100000, guid: 114436765f7463c49826ba3a8920a5a2, type: 3}
 --- !u!1 &286135836
 GameObject:
@@ -885,7 +889,7 @@ GameObject:
   m_Component:
   - component: {fileID: 311199098}
   - component: {fileID: 311199099}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1321,7 +1325,7 @@ GameObject:
   m_Component:
   - component: {fileID: 753799048}
   - component: {fileID: 753799049}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Light 2D (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1492,6 +1496,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Goober (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415120481951345619, guid: f1f0a8780a2273f4da51be4faf6c8a14,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415120481951345619, guid: f1f0a8780a2273f4da51be4faf6c8a14,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1856,7 +1870,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1030901661}
   - component: {fileID: 1030901662}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Light 2D (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1942,9 +1956,9 @@ GameObject:
   - component: {fileID: 1060742609}
   - component: {fileID: 1060742608}
   - component: {fileID: 1060742607}
-  m_Layer: 20
+  m_Layer: 0
   m_Name: FogCamera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1958,7 +1972,7 @@ Transform:
   m_GameObject: {fileID: 1060742605}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.99174, y: 2.91059, z: -10}
+  m_LocalPosition: {x: 5.99174, y: 2.91059, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2051,13 +2065,13 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 31
+  orthographic size: 10
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 58720503
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: fdab0d3862f96624db10105abc1ff380, type: 2}
+  m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -2351,6 +2365,23 @@ MonoBehaviour:
   noiseMultiplier: 2
   noiseDuration: 2.5
   cooldown: 2
+--- !u!114 &1499498766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499498750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9046416eebdf084da0d8d352cd19e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewRadius: 5
+  player: {fileID: 1261751984}
+  enemy: {fileID: 0}
+  multipler: 2
+  timer: 2.5
 --- !u!1001 &1574311001
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2438,6 +2469,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Goober (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415120481951345619, guid: f1f0a8780a2273f4da51be4faf6c8a14,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415120481951345619, guid: f1f0a8780a2273f4da51be4faf6c8a14,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2737,7 +2778,7 @@ Camera:
   m_GameObject: {fileID: 1845043083}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 4
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -2764,7 +2805,7 @@ Camera:
   field of view: 60
   orthographic: 1
   orthographic size: 10
-  m_Depth: -1
+  m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -2792,8 +2833,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1060742606}
   - {fileID: 126969566}
+  - {fileID: 1060742606}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1845043087
@@ -2812,7 +2853,8 @@ MonoBehaviour:
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
-  m_Cameras: []
+  m_Cameras:
+  - {fileID: 1060742609}
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
@@ -3203,6 +3245,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Goober
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415120481951345619, guid: f1f0a8780a2273f4da51be4faf6c8a14,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7415120481951345619, guid: f1f0a8780a2273f4da51be4faf6c8a14,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
