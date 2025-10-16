@@ -2349,7 +2349,8 @@ MonoBehaviour:
   playerVision: {fileID: 983540460}
   fogManager: {fileID: 2093677144}
   noiseMultiplier: 2
-  noiseDuration: 0.1
+  noiseDuration: 2.5
+  cooldown: 2
 --- !u!1001 &1574311001
 PrefabInstance:
   m_ObjectHideFlags: 0
