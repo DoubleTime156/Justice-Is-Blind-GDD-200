@@ -8,6 +8,7 @@ public class CaneTap : MonoBehaviour
     public PlayerPosition playerVision;
     public FogManager fogManager;
     public float noiseMultiplier = 2f;
+
     public float cooldown = 1f;
     public float noiseDuration = 1f;
 
