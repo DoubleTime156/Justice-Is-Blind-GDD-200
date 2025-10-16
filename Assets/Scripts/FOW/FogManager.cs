@@ -76,7 +76,10 @@ public class FogManager : MonoBehaviour
             fogDisplayMaterial.SetTexture("_FogTex", fogMemory);
         }
     }
-
+    public RenderTexture GetFogMemory()
+    {
+        return fogMemory;
+    }
     void Update()
     {
         //player pos to world pos
