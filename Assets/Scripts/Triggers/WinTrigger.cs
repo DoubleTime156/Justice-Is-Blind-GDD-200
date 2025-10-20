@@ -4,22 +4,22 @@ using TMPro;
 
 public class WinTrigger2D : MonoBehaviour
 {
-    public GameObject winText; // Drag your UI Text or TextMeshPro object here
+    public GameObject winText; 
 
     void Start()
     {
         if (winText != null)
-            winText.SetActive(false); // Hide text at start
+            winText.SetActive(false);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Triggered with: " + other.name);
+        Debug.Log("Triggered Win");
 
         if (other.CompareTag("Player"))
         {
             if (winText != null)
-                winText.SetActive(true); // Show the "You Win" text
+                winText.SetActive(true);
         }
     }
 }
