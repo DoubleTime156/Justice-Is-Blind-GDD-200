@@ -15,6 +15,6 @@ MonoBehaviour:
   enemyName: Goober
   maxHealth: 5
   damage: 1
-  chaseSpeed: 0.15
+  chaseSpeed: 0.16
   roamingSpeed: 0.05
   rotateSpeed: 0.3

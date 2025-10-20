@@ -5,9 +5,8 @@ public class HideEnemies : MonoBehaviour
 {
     public float viewRadius = 5f;
     public Transform player;
-    public Transform enemy;
     public float multipler = 2f;
-    public float timer = 2.5f;
+    public float timer = 1f;
 
     private float time = 0f;
     private Boolean pressed = false;
