@@ -7,10 +7,11 @@ using Vector3 = UnityEngine.Vector3;
 public class Grid : MonoBehaviour
 {
     public LayerMask unwalkableMask;
-    public int gridSizeX = 27;
-    public int gridSizeY = 27;
-    public float nodeSize = 1f;
-    public Transform player;
+    public int gridSizeX;
+    public int gridSizeY;
+    public int bottomLeftX;
+    public int bottomLeftY;
+    public float nodeSize;
 
     private Node[,] grid;
     private Vector3 worldPoint;
@@ -33,37 +34,38 @@ public class Grid : MonoBehaviour
     void CreateGrid()
     {
         grid = new Node[gridSizeX, gridSizeY];
-        bottomLeft = player.position - new Vector3(halfWidth * nodeSize, halfHeight * nodeSize, 0);
-        //bottomLeft = RoundVector3(bottomLeft);
+        bottomLeft = new Vector3(0f, 0f, 0f);
+        //bottomLeft = player.position - new Vector3(halfWidth * nodeSize, halfHeight * nodeSize, 0);
+        //bottomLeft = DivVector3(bottomLeft);
     }
 
     void UpdateGrid()
     {
-        bottomLeft = player.position - new Vector3(halfWidth * nodeSize, halfHeight * nodeSize, 0);
+        //bottomLeft = player.position - new Vector3(halfWidth * nodeSize, halfHeight * nodeSize, 0);
         for (int x = 0; x < gridSizeX; x++)
         {
             for (int y = 0; y < gridSizeY; y++)
             {
                 worldPoint = bottomLeft + new Vector3(x * nodeSize + nodeSize / 2f, y * nodeSize + nodeSize / 2f, 0);
                 bool walkable = !Physics2D.OverlapCircle(new Vector3(worldPoint.x, worldPoint.y, 0), nodeSize / 2f, unwalkableMask) &&
-                                (worldPoint - player.position).magnitude < 13.0f;
+                                (worldPoint - bottomLeft).magnitude < 13.0f; // BOTTOM LEFT???
                 grid[x, y] = new Node(walkable, worldPoint, x, y);
             }
         }
     }
 
-    Vector3 RoundVector3(Vector3 vec)
+    Vector3 DivVector3(Vector3 vec)
     {
-        vec.x = MathF.Round(vec.x);
-        vec.y = MathF.Round(vec.y);
-        vec.z = MathF.Round(vec.z);
+        vec.x = 2.8f * MathF.Round(vec.x/2.8f);
+        vec.y = 2.8f * MathF.Round(vec.y / 2.8f);
+        vec.z = 2.8f * MathF.Round(vec.z / 2.8f);
         return vec;
     }
 
     public Node NodeFromWorldPoint(Vector3 worldPos)
     {
-        float percentX = Mathf.Clamp01((worldPos.x - (player.position.x - halfWidth * nodeSize)) / (gridSizeX * nodeSize));
-        float percentY = Mathf.Clamp01((worldPos.y - (player.position.y - halfHeight * nodeSize)) / (gridSizeY * nodeSize));
+        float percentX = Mathf.Clamp01((worldPos.x - (bottomLeft.x - halfWidth * nodeSize)) / (gridSizeX * nodeSize));
+        float percentY = Mathf.Clamp01((worldPos.y - (bottomLeft.y - halfHeight * nodeSize)) / (gridSizeY * nodeSize));
 
         int x = Mathf.FloorToInt((gridSizeX - 1) * percentX);
         int y = Mathf.FloorToInt((gridSizeY - 1) * percentY);
@@ -95,7 +97,7 @@ public class Grid : MonoBehaviour
     }
 
     // Debug - Grid visual
-    /*
+    
     void OnDrawGizmos()
     {
         if (grid != null)
@@ -108,7 +110,7 @@ public class Grid : MonoBehaviour
             }
         }
     }
-    */
+    
     
     
 }

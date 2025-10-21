@@ -1594,6 +1594,21 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 2039852819}
+    - target: {fileID: 5477427776460520072, guid: 48670f6e95e84b54d9e96dd5c81d67fd,
+        type: 3}
+      propertyPath: nodeSize
+      value: 1.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 5477427776460520072, guid: 48670f6e95e84b54d9e96dd5c81d67fd,
+        type: 3}
+      propertyPath: gridSizeX
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5477427776460520072, guid: 48670f6e95e84b54d9e96dd5c81d67fd,
+        type: 3}
+      propertyPath: gridSizeY
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
