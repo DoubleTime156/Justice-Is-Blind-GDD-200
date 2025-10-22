@@ -9,6 +9,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movement;
     public int[] inventory = { 0, 0 }; //{Coins held, Bottles Held}
+    public bool hasKey = false;
     private GameManager gameManager;
 
     void Start()
@@ -33,6 +34,12 @@ public class PlayerController2D_InputSystem : MonoBehaviour
         {
             gameManager.gameOver();
             //Destroy(gameObject);
+
+        // Handle key pickup
+        } else if (collision.gameObject.CompareTag("Pickup") && collision.gameObject.name == "Key")
+        {
+            Destroy(collision.gameObject);
+            hasKey = true;
         }
     }
 }

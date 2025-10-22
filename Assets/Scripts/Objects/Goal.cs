@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -5,36 +6,24 @@ using UnityEngine.SceneManagement;
 public class Goal : MonoBehaviour
 {
     public string levelName; // Name of the level file to load
-
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    public bool keyRequired = true; // If true, this goal does nothing if the player doesn't have a key
 
 
     // Runs when something enters this trigger
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        // If the colliding object is a player, switch scenes
+        // Check for player and key, if applicable
         if (collision.gameObject.CompareTag("Player"))
         {
-            // Stop anything that needs to be stopped, show results screen,
-            // whatever we plan to do BEFORE scene is switched
+            PlayerController2D_InputSystem playerController = collision.gameObject.GetComponent<PlayerController2D_InputSystem>();
+            if (!keyRequired || playerController.hasKey)
+            {
+                // Use key
+                playerController.hasKey = false;
 
-            // Switch scene to the next level
-            SceneManager.LoadSceneAsync(levelName);
+                // Switch scene to the next level
+                SceneManager.LoadSceneAsync(levelName);
+            }
         }
     }
 }
