@@ -40,7 +40,7 @@ public class Pathfinding : MonoBehaviour
                 }
             }
         }
-
+        Debug.Log("No Path Found");
         return null; // No path found
     }
 
