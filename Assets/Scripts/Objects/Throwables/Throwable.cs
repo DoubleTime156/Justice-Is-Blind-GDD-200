@@ -83,7 +83,7 @@ public class Throwable : MonoBehaviour
             case 0:
                 break;
             case 1:
-                Destroy(gameObject); break;
+                break;
         }
     }
 }
