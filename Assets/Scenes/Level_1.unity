@@ -768,6 +768,7 @@ GameObject:
   - component: {fileID: 199230033}
   - component: {fileID: 199230035}
   - component: {fileID: 199230034}
+  - component: {fileID: 199230036}
   m_Layer: 20
   m_Name: Square
   m_TagString: Untagged
@@ -868,6 +869,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &199230036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199230032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd9bfadd32574ee4884aea0ee2a0e2d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundMaterial: {fileID: 2100000, guid: 24efac89a47560449b45e6350ed67b64, type: 2}
+  startRadius: 0
+  endRadius: 5
+  duration: 1.5
 --- !u!4 &258494677 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3812348469501226874, guid: f1f0a8780a2273f4da51be4faf6c8a14,
@@ -40544,11 +40561,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3258e2aab4649f4e9c8df42b7e03530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerVision: {fileID: 533483512}
-  fogManager: {fileID: 1671347468}
-  noiseMultiplier: 2
+  soundPulsePrefab: {fileID: 0}
+  player: {fileID: 2039852819}
   cooldown: 1
-  noiseDuration: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
