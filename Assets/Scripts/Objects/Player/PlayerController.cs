@@ -33,6 +33,11 @@ public class PlayerController2D_InputSystem : MonoBehaviour
         {
             gameManager.gameOver();
             //Destroy(gameObject);
+        }else if (collision.gameObject.CompareTag("Pickup"))
+        {
+            inventory[collision.GetComponent<Pickup>().pickupType]++;
+            Debug.Log("Pickup collected");
+            Destroy(collision.gameObject);
         }
     }
 }
