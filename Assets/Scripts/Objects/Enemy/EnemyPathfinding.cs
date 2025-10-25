@@ -4,62 +4,47 @@ using System.Collections.Generic;
 public class EnemyPathfinding : MonoBehaviour
 {
     public EnemyData data;
-    public Transform player;
     public Pathfinding pathfinder;
-    public float nextNodeDistance = 0.5f;
-    public float pathUpdateInterval = 0.2f; // seconds
+    public float nextNodeDistance;
 
-    private float _speed;
-    private float _rotateSpeed;
     private List<Node> _path;
     private int _atNode;
-    private float _lastPathUpdateTime;
 
-    void Awake()
+    public Vector3 TargetPos { get; private set; }
+    public Vector2 TargetDir { get; private set; }
+
+
+    public void SetTargetNodeOnPath()
     {
-        _speed = data.chaseSpeed;
-        _rotateSpeed = data.rotateSpeed;
+        if (_path == null || _path.Count < 0) return;
 
-        _lastPathUpdateTime = -pathUpdateInterval;
+        // Set target position and direction to node
+        TargetPos = _path.Count > 0 
+            ? _path[_atNode].worldPosition 
+            : pathfinder.TargetPos;
+        TargetDir = (TargetPos - transform.position).normalized;
     }
 
-    public void UpdateMovement()
+    public void SetNextTargetNode()
     {
-        if (Time.time - _lastPathUpdateTime >= pathUpdateInterval)
-        {
-            UpdatePath();
-            _lastPathUpdateTime = Time.time;
-        }
+        if (_path == null || _path.Count <= 0) return;
 
-        // Move along _path if it exists and within distance of player
-        if (_path != null && _path.Count > 0 && (player.position - transform.position).magnitude <= 13.0f)
+        // Check if arrived at next node, if so, set the next node
+        if (Vector3.Distance(transform.position, TargetPos) < nextNodeDistance)
         {
-            Vector3 targetPos = _path[_atNode].worldPosition;
-            Vector3 dir = (targetPos - transform.position).normalized;
-            transform.position += _speed * dir;
-
-            if (Vector3.Distance(transform.position, targetPos) < nextNodeDistance)
+            _atNode++;
+            if (_atNode >= _path.Count)
             {
-                _atNode++;
-                if (_atNode >= _path.Count)
-                {
-                    _atNode = _path.Count - 1;
-                }
+                _atNode = _path.Count - 1;
             }
         }
     }
 
-    public void UpdateDirection(Vector2 dir)
+    public void UpdatePath(Vector3 targetPos)
     {
-        Vector2 newDir = Vector2.Lerp(transform.up, dir.normalized, _rotateSpeed);
-        transform.up = newDir;
-    }
-
-    void UpdatePath()
-    {
-        if (player != null && pathfinder != null)
+        if (pathfinder != null)
         {
-            _path = pathfinder.FindPath(transform.position, player.position);
+            _path = pathfinder.FindPath(transform.position, targetPos);
             _atNode = 0;
         }
     }

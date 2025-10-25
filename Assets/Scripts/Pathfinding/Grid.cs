@@ -8,6 +8,7 @@ using Vector3 = UnityEngine.Vector3;
 public class Grid : MonoBehaviour
 {
     public Tilemap tilemap;
+    public Tilemap collisionMap;
     public LayerMask unwalkableMask;
     public float nodeSize;
 
@@ -19,6 +20,8 @@ public class Grid : MonoBehaviour
     private Vector3 worldPoint;
     private Vector3 bottomLeft;
     private float halfWidth, halfHeight;
+
+    private float tiny = 0.001f;
 
     void Awake()
     {
@@ -63,7 +66,8 @@ public class Grid : MonoBehaviour
             for (int y = 0; y < gridSizeY; y++)
             {
                 worldPoint = bottomLeft + new Vector3(x * nodeSize + nodeSize / 2f, y * nodeSize + nodeSize / 2f, 0);
-                bool walkable = !Physics2D.OverlapCircle(new Vector3(worldPoint.x, worldPoint.y, 0), nodeSize / 2f, unwalkableMask);
+                bool walkable = !collisionMap.HasTile(new Vector3Int(x-6, y-9, 0));
+                //bool walkable = !Physics2D.OverlapCircle(new Vector3(worldPoint.x, worldPoint.y, 0), nodeSize / 2f - tiny, unwalkableMask);
                 grid[x, y] = new Node(walkable, worldPoint, x, y);
             }
         }
@@ -94,25 +98,44 @@ public class Grid : MonoBehaviour
 
     public List<Node> GetNeighbors(Node node)
     {
-        List<Node> neighbours = new List<Node>();
+        List<Node> neighbors = new List<Node>();
 
         for (int x = -1; x <= 1; x++)
         {
             for (int y = -1; y <= 1; y++)
             {
                 if (x == 0 && y == 0) continue;
+                
                 int checkX = node.gridX + x;
                 int checkY = node.gridY + y;
 
                 if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
-                    neighbours.Add(grid[checkX, checkY]);
+                {
+                    // Walkable check
+                    if (!grid[checkX, checkY].walkable) continue;
+
+                    // Diagonal Check
+                    if (x != 0 && y != 0)
+                    {
+                        if (!grid[checkX, node.gridY].walkable || !grid[node.gridX, checkY].walkable)
+                        {
+                            continue;
+                        }
+                    }
+                    neighbors.Add(grid[checkX, checkY]);
+                }
+
             }
         }
-        return neighbours;
+
+        return neighbors;
+    }
+    int GetIndex(int x, int y)
+    {
+        return 4 + y + 3 * x;
     }
 
     // Debug - Grid visual
-    
     void OnDrawGizmos()
     {
         if (grid != null)
@@ -121,7 +144,7 @@ public class Grid : MonoBehaviour
             {
                 Gizmos.color = n.walkable ? Color.white : Color.darkBlue;
                 // Draw a small sphere at each node
-                Gizmos.DrawCube(n.worldPosition + Vector3.forward, new Vector3(nodeSize * 0.5f, nodeSize * 0.5f, 0.01f));
+                Gizmos.DrawWireCube(n.worldPosition + Vector3.forward, new Vector3(nodeSize - 0.5f, nodeSize - 0.5f, 0.01f));
             }
         }
     }

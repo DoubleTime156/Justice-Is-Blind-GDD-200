@@ -4,11 +4,14 @@ using System.Linq;
 
 public class Pathfinding : MonoBehaviour
 {
-    public Transform target; // Pathfinding target
     public Grid grid; // Reference grid to pathfind on
+
+    public Vector3 TargetPos { get; private set; }
 
     public List<Node> FindPath(Vector3 startPos, Vector3 targetPos)
     {
+        TargetPos = targetPos;
+
         Node startNode = grid.NodeFromWorldPoint(startPos);
         Node targetNode = grid.NodeFromWorldPoint(targetPos);
 
@@ -24,9 +27,11 @@ public class Pathfinding : MonoBehaviour
             if (currentNode == targetNode)
                 return RetracePath(startNode, targetNode);
 
-            foreach (Node neighbor in grid.GetNeighbors(currentNode))
+            List<Node> neighbors = grid.GetNeighbors(currentNode);
+
+            foreach (Node neighbor in neighbors)
             {
-                if (!neighbor.walkable || closedSet.Contains(neighbor)) continue;
+                if (closedSet.Contains(neighbor)) continue;
 
                 int newG = currentNode.gCost + GetDistance(currentNode, neighbor);
                 if (newG < neighbor.gCost || !openSet.Contains(neighbor))
