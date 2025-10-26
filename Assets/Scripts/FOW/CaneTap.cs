@@ -1,71 +1,30 @@
 using UnityEngine;
-using System.Diagnostics;
-
 
 public class CaneTap : MonoBehaviour
 {
-
-    public PlayerPosition playerVision;
-    public FogManager fogManager;
-    public float noiseMultiplier = 2f;
-
+    public GameObject soundPulsePrefab;  // Prefab with MeshRenderer + SoundPulse
+    public Transform player;
     public float cooldown = 1f;
-    public float noiseDuration = 1f;
 
-    private float originalRadius;
-    private float timer = 0f;
-    private float coolDownTimer = 0f;
-    private bool isTapping = false;
     private bool canTap = true;
+    private float cooldownTimer = 0f;
+
     void Update()
     {
-        UnityEngine.Debug.Log("Cooldown" + coolDownTimer);
-
-        UnityEngine.Debug.Log("Timer" + timer);
-
-        if (Input.GetKeyDown(KeyCode.Space) && !isTapping && canTap)
+        if (Input.GetKeyDown(KeyCode.Space) && canTap)
         {
-            originalRadius = playerVision.radius;
-            playerVision.radius *= noiseMultiplier;
+            // Spawn a pulse at player's current position
+            Instantiate(soundPulsePrefab, player.position, Quaternion.identity);
 
-            if (fogManager != null)
-            {
-                fogManager.revealRadiusUV *= noiseMultiplier;
-            }
-
-            isTapping = true;
             canTap = false;
-            timer = noiseDuration;
-            coolDownTimer = cooldown;
+            cooldownTimer = cooldown;
         }
+
         if (!canTap)
         {
-            coolDownTimer -= Time.deltaTime;
-            if (coolDownTimer <= 0f)
-            {
+            cooldownTimer -= Time.deltaTime;
+            if (cooldownTimer <= 0f)
                 canTap = true;
-            }
-        }
-        if (isTapping)
-        {
-            timer -= Time.deltaTime;
-            if (timer <= 0f)
-            {
-                playerVision.radius = originalRadius;
-
-                if (fogManager != null)
-                {
-                    fogManager.revealRadiusUV /= noiseMultiplier;
-
-                 
-                        isTapping = false;
-                 
-                }
-
-            }
-            
-           
-
         }
     }
 }
