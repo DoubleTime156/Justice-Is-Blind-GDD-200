@@ -5,7 +5,7 @@ public class FogPainter : MonoBehaviour
     public RenderTexture fogTexture;
     public Material paintMaterial; 
     public Transform player;
-    public float radius = 3f;
+    public float radius = 2f;
 
     private void Update()
     {

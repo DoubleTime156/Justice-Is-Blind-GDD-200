@@ -280,8 +280,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visionMaterial: {fileID: 2100000, guid: 24efac89a47560449b45e6350ed67b64, type: 2}
   player: {fileID: 1693850737}
-  radius: 5
-  falloff: 12
+  radius: 2
+  falloff: 2
 --- !u!4 &597052646
 Transform:
   m_ObjectHideFlags: 0

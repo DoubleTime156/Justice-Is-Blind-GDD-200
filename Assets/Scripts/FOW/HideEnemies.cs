@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class HideEnemies : MonoBehaviour
 {
-    public float viewRadius = 5f;
+    public float viewRadius = 2f;
     public Transform player;
     public float multipler = 2f;
     public float timer = 1f;
@@ -34,7 +34,7 @@ public class HideEnemies : MonoBehaviour
         
         if (pressed)
         {
-            viewRadius = 10;
+            viewRadius = 4;
         }
 
         foreach (GameObject enemy in enemies)

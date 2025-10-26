@@ -5,7 +5,7 @@ Shader "Custom/2DCircleVision"
         // player pos
         _PlayerPos ("Player Position", Vector) = (0,0,0,0)
         //circle radius
-        _Radius ("Radius", Float) = 3
+        _Radius ("Radius", Float) = 2
         //transition between black and vision
         _Falloff ("Falloff", Float) = 0.5
         //color of no see
