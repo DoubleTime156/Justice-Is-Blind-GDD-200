@@ -1,24 +1,17 @@
-Shader "Custom/2DCircleVision"
+Shader "Unlit/2DCircleVision"
 {
     Properties
     {
-        // player pos
-        _PlayerPos ("Player Position", Vector) = (0,0,0,0)
-        //circle radius
-        _Radius ("Radius", Float) = 2
-        //transition between black and vision
-        _Falloff ("Falloff", Float) = 0.5
-        //color of no see
-        _Darkness ("Darkness Color", Color) = (0,0,0,1)
-        //What youve seen
-        _FogTex ("Fog Memory", 2D) = "white" {}
-
-        
+        _MainTex ("Texture", 2D) = "white" {}
+        _Position ("Position", Vector) = (0, 0, 0, 0)
+        _Radius ("Radius", Float) = 0.05
+        _EdgeSoftness ("Edge Softness", Float) = 0.02
+        _FogColor ("Fog Color", Color) = (0, 0, 0, 0)
     }
+
     SubShader
     {
-        Tags { "Queue"="Transparent" "RenderType"="Transparent" }
-        LOD 100
+        Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" }
         Blend SrcAlpha OneMinusSrcAlpha
         ZWrite Off
 
@@ -33,73 +26,41 @@ Shader "Custom/2DCircleVision"
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
-
             };
 
             struct v2f
             {
+                float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
-                float2 worldPos : TEXCOORD0;
-                float2 uv : TEXCOORD1;
             };
 
-            //Declare Variables
-            float4 _PlayerPos;
+            sampler2D _MainTex;
+            float4 _Position;
             float _Radius;
-            float _Falloff;
-            float4 _Darkness;
-            sampler2D _FogTex;
-            float4 _WorldMin;
-            float4 _WorldSize;
+            float _EdgeSoftness;
+            fixed4 _FogColor;
 
-            v2f vert(appdata v)
+            v2f vert (appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xy; 
                 o.uv = v.uv;
                 return o;
             }
 
             fixed4 frag(v2f i) : SV_Target
-            {
-                //pos of circle
-                float dist = distance(i.worldPos, _PlayerPos.xy);
-                // determines what number mask is
-                float mask = smoothstep(_Radius - _Falloff, _Radius, dist);
+{
+    float dist = distance(i.uv, _Position.xy);
 
+    // 0 = fully clear near player, 1 = full fog far away
+    float edge = smoothstep(_Radius - _EdgeSoftness, _Radius, dist);
 
-                float2 fogUV = (i.worldPos - _WorldMin.xy) / _WorldSize.xy;
-                float fog = tex2D(_FogTex, fogUV).r;
+    // Fog fades in from transparent to _FogColor
+    fixed4 fogged = _FogColor;
+    fogged.a = edge;
 
-
-                // 1 = visible now, 0 = outside circle
-                float seen = 1 - mask; 
-
-                float3 baseColor;
-                float alpha;
-
-                // Visible right now no fog overlay
-                if (seen > 0.01)
-                {
-                    baseColor = float3(0.0, 0.0, 0.0);
-                    alpha = 0.0;
-                }
-                // Not visible but has been seen before gray fog memory
-                else if (fog > 0.001)
-                {
-                    baseColor = float3(0.3, 0.3, 0.3);
-                    alpha = 0.5;
-                }
-                // Completely unseen full darkness
-                else
-                {
-                    baseColor = _Darkness.rgb;
-                    alpha = 1.0;
-                }
-
-                return fixed4(baseColor, alpha);
-            }
+    return fogged;
+}
 
             ENDCG
         }

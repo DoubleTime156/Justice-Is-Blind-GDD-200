@@ -838,7 +838,7 @@ SpriteRenderer:
   m_SortingOrder: 100
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -4142,6 +4142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90478f3abaf4425418730d1ffbf8566b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  circleVisionMaterial: {fileID: 0}
   fogPainterMaterial: {fileID: 2100000, guid: 62c38e4fd275e5b40aa8ec157c960444, type: 2}
   fogDisplayMaterial: {fileID: 2100000, guid: 24efac89a47560449b45e6350ed67b64, type: 2}
   player: {fileID: 1693850737}
@@ -4176,11 +4177,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3258e2aab4649f4e9c8df42b7e03530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerVision: {fileID: 597052645}
-  fogManager: {fileID: 1964412763}
-  noiseMultiplier: 2
+  soundPulsePrefab: {fileID: 0}
+  player: {fileID: 0}
   cooldown: 1
-  noiseDuration: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

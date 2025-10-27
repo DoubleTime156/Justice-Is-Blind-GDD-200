@@ -4,6 +4,8 @@ using UnityEngine;
 public class FogManager : MonoBehaviour
 {
     //material refrences
+    public Material circleVisionMaterial;
+
     public Material fogPainterMaterial;  
     public Material fogDisplayMaterial;   
     public Transform player;               
@@ -92,6 +94,8 @@ public class FogManager : MonoBehaviour
         uv.y = worldSize.y != 0 ? uv.y / worldSize.y : 0f;
 
         uv = new Vector2(Mathf.Clamp01(uv.x), Mathf.Clamp01(uv.y));
+        fogDisplayMaterial.SetVector("_PlayerPos", new Vector4(uv.x, uv.y, 0, 0));
+        fogDisplayMaterial.SetFloat("_Radius", revealRadiusUV);
 
         //puts material where player is
         fogPainterMaterial.SetVector(PositionID, new Vector4(uv.x, uv.y, 0, 0));
@@ -102,5 +106,11 @@ public class FogManager : MonoBehaviour
         Graphics.Blit(fogMemory, temp);                    
         Graphics.Blit(temp, fogMemory, fogPainterMaterial);
         RenderTexture.ReleaseTemporary(temp);
+
+        if (circleVisionMaterial)
+        {
+            circleVisionMaterial.SetVector(PositionID, new Vector4(uv.x, uv.y, 0, 0));
+            circleVisionMaterial.SetFloat(RadiusID, revealRadiusUV);
+        }
     }
 }

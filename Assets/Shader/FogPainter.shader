@@ -39,13 +39,9 @@ Shader "Unlit/FogPainter"
             fixed4 frag(v2f i) : SV_Target
             {
                 float currentFog = tex2D(_MainTex, i.uv).r;
-                float2 pos = i.uv;
-                float dist = distance(pos, _Position.xy);
+                float dist = distance(i.uv, _Position.xy);
 
                 float reveal = pow(saturate(1.0 - dist / _Radius), 2.0);
-
-
-                
                 float newFog = max(currentFog, reveal);
 
                 return fixed4(newFog, newFog, newFog, 1);
