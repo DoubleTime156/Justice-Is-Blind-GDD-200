@@ -4,6 +4,7 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
     public bool IsChasing { get; private set; }
+    public bool IsRoaming { get; private set; }
 
     [SerializeField] private EnemyData data;
     [SerializeField] private EnemyTransformer transformer;
@@ -13,6 +14,7 @@ public class EnemyAI : MonoBehaviour
 
     private GameObject player;
     private Vector3 lastKnownPos;
+    private float waitTimer;
 
     private Vector3 dir;
 
@@ -22,6 +24,7 @@ public class EnemyAI : MonoBehaviour
         if (player == null) Debug.LogError("Missing Player Object!");
 
         IsChasing = false;
+        IsRoaming = true;
     }
 
     void FixedUpdate()
@@ -31,9 +34,12 @@ public class EnemyAI : MonoBehaviour
         if (vision.CanSeeTarget /* || "hears sound" */)
         {
             IsChasing = true;
+            IsRoaming = false;
+            waitTimer = 0f;
+
             lastKnownPos = player.transform.position;
         }
-        else if (Vector3.Distance(transform.position, lastKnownPos) <= data.chaseSpeed)
+        else if (Vector3.Distance(transform.position, lastKnownPos) <= 1)
         {
             IsChasing = false;
         }
@@ -41,6 +47,7 @@ public class EnemyAI : MonoBehaviour
         if (IsChasing)
         {
             transformer.SetSpeed(data.chaseSpeed);
+
             if (vision.CanSeeTarget)
             {
                 dir = vision.TargetDir;
@@ -48,20 +55,34 @@ public class EnemyAI : MonoBehaviour
             else
             {
                 pathfind.UpdatePath(lastKnownPos);
-                pathfind.SetTargetNodeOnPath();
+                pathfind.SetTargetNodeTransforms();
                 dir = pathfind.TargetDir;
             }
         }
-        else
+        else if (IsRoaming)
         {
             transformer.SetSpeed(data.roamingSpeed);
-
-            pathfind.UpdatePath(roam.nodes[0].position);
-            pathfind.SetTargetNodeOnPath();
-            dir = pathfind.TargetDir;
-
-            //roam.UpdateMovement();
+            roam.UpdateMovement();
         }
+        else // wait then return to roaming location
+        {
+            if (waitTimer >= 3.0f)
+            {
+                transformer.SetSpeed(data.roamingSpeed);
+
+                pathfind.UpdatePath(roam.nodes[0].position);
+                pathfind.SetTargetNodeTransforms();
+                dir = pathfind.TargetDir;
+            }
+            else
+            {
+                waitTimer += Time.fixedDeltaTime;
+                dir = new Vector3(0, 0, 0);
+            }
+            
+        }
+
+        if (IsRoaming) return; // TEMPORARY SOLUTION: Roaming handles transforms already
 
         // Transform Enemy
         transformer.UpdateMovement(dir);
@@ -69,5 +90,7 @@ public class EnemyAI : MonoBehaviour
 
         // Check any changes after transform
         pathfind.SetNextTargetNode();
+
+        if (!IsChasing && Vector3.Distance(transform.position, roam.nodes[0].position) < 1) IsRoaming = true;
     }
 }

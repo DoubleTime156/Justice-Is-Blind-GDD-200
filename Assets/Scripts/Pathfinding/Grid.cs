@@ -31,11 +31,6 @@ public class Grid : MonoBehaviour
         UpdateGrid();
     }
 
-    void FixedUpdate()
-    {
-        UpdateGrid();
-    }
-
     void CreateGrid()
     {
         BoundsInt bounds = tilemap.cellBounds;
@@ -124,7 +119,6 @@ public class Grid : MonoBehaviour
                     }
                     neighbors.Add(grid[checkX, checkY]);
                 }
-
             }
         }
 
@@ -136,6 +130,7 @@ public class Grid : MonoBehaviour
     }
 
     // Debug - Grid visual
+    /*
     void OnDrawGizmos()
     {
         if (grid != null)
@@ -148,7 +143,5 @@ public class Grid : MonoBehaviour
             }
         }
     }
-    
-    
-    
+    */
 }

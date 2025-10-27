@@ -6,12 +6,8 @@ public class Pathfinding : MonoBehaviour
 {
     public Grid grid; // Reference grid to pathfind on
 
-    public Vector3 TargetPos { get; private set; }
-
     public List<Node> FindPath(Vector3 startPos, Vector3 targetPos)
     {
-        TargetPos = targetPos;
-
         Node startNode = grid.NodeFromWorldPoint(startPos);
         Node targetNode = grid.NodeFromWorldPoint(targetPos);
 
@@ -45,7 +41,7 @@ public class Pathfinding : MonoBehaviour
                 }
             }
         }
-        Debug.Log("No Path Found");
+
         return null; // No path found
     }
 
