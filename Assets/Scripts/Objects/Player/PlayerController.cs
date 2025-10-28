@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +10,8 @@ public class PlayerController2D_InputSystem : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movement;
     private GameManager gameManager;
+    public AudioSource coinPickup;
+    public AudioSource bottlePickup;
 
     void Start()
     {
@@ -37,6 +40,15 @@ public class PlayerController2D_InputSystem : MonoBehaviour
             data.inventory[collision.GetComponent<Pickup>().pickupType]++;
             gameManager.updateAmount();
             Debug.Log("Pickup collected");
+            switch (collision.GetComponent<Pickup>().pickupType) // Play audio for pickups
+            {
+                case 0:
+                    coinPickup.Play();
+                    break;
+                case 1:
+                    bottlePickup.Play();
+                    break;
+            }   
             Destroy(collision.gameObject);
         }
     }
