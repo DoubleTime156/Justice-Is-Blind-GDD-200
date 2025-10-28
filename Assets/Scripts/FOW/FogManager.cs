@@ -1,9 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [ExecuteAlways]
 public class FogManager : MonoBehaviour
 {
     //material refrences
+    public PlayerPosition playerVision;
     public Material fogPainterMaterial;  
     public Material fogDisplayMaterial;   
     public Transform player;               
@@ -82,25 +83,43 @@ public class FogManager : MonoBehaviour
     }
     void Update()
     {
-        //player pos to world pos
+        if (player == null || fogPainterMaterial == null) return;
+
+        // Get world size and position
         Vector2 worldPos = new Vector2(player.position.x, player.position.y);
-        //sets the shaders to cover world size
         Vector2 worldSize = worldMax - worldMin;
-        // gets player pos in given world size
+
+        // Convert player world position to UV coordinates (0–1)
         Vector2 uv = (worldPos - worldMin);
         uv.x = worldSize.x != 0 ? uv.x / worldSize.x : 0f;
         uv.y = worldSize.y != 0 ? uv.y / worldSize.y : 0f;
-
         uv = new Vector2(Mathf.Clamp01(uv.x), Mathf.Clamp01(uv.y));
 
-        //puts material where player is
-        fogPainterMaterial.SetVector(PositionID, new Vector4(uv.x, uv.y, 0, 0));
-        fogPainterMaterial.SetFloat(RadiusID, revealRadiusUV);
+        // Convert the player's world radius to UV radius
+        float radiusUV = revealRadiusUV; 
+        if (playerVision != null)
+        {
+            // Convert from world-space radius to UV-space radius
+            radiusUV = playerVision.radius / Mathf.Max(worldSize.x, worldSize.y);
+        }
 
+        // Update the fog shader
+        fogPainterMaterial.SetVector("_Position", new Vector4(uv.x, uv.y, 0, 0));
+        fogPainterMaterial.SetFloat("_Radius", radiusUV);
 
+        // Paint the vision area into the fog memory texture
         RenderTexture temp = RenderTexture.GetTemporary(fogMemory.width, fogMemory.height, 0, fogMemory.format);
-        Graphics.Blit(fogMemory, temp);                    
+        Graphics.Blit(fogMemory, temp);
         Graphics.Blit(temp, fogMemory, fogPainterMaterial);
         RenderTexture.ReleaseTemporary(temp);
+
+        float radiusUV = revealRadiusUV;
+        if (playerVision != null)
+        {
+            float radiusX = playerVision.radius / (worldSize.x != 0 ? worldSize.x : 1f);
+            float radiusY = playerVision.radius / (worldSize.y != 0 ? worldSize.y : 1f);
+            radiusUV = Mathf.Sqrt(radiusX * radiusY);
+        }
     }
+
 }
