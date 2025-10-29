@@ -182,9 +182,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3812348469501226874}
   - component: {fileID: 2650066838671895175}
+  - component: {fileID: 7894084507588658219}
   - component: {fileID: 3710078822244877346}
   - component: {fileID: 2532074790492072682}
   - component: {fileID: 1540599939337548769}
+  - component: {fileID: -8701913800614786865}
   m_Layer: 0
   m_Name: Goober
   m_TagString: Untagged
@@ -265,6 +267,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7894084507588658219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7415120481951345619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5859ed261de9f747b371f4afc3543ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 6aeb3d898ea22b94d9b3e1cbdc5460af, type: 2}
+  transformer: {fileID: -8701913800614786865}
+  vision: {fileID: 2532074790492072682}
+  pathfind: {fileID: 3710078822244877346}
+  roam: {fileID: 1540599939337548769}
 --- !u!114 &3710078822244877346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,10 +297,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 6aeb3d898ea22b94d9b3e1cbdc5460af, type: 2}
-  player: {fileID: 0}
   pathfinder: {fileID: 0}
   nextNodeDistance: 0.1
-  pathUpdateInterval: 0.2
 --- !u!114 &2532074790492072682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,9 +311,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18306dddd08948f4a80409078dc72ca7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  chase: {fileID: 3710078822244877346}
-  roam: {fileID: 1540599939337548769}
   viewRadius: 6
   viewAngle: 40
 --- !u!114 &1540599939337548769
@@ -312,5 +326,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 6aeb3d898ea22b94d9b3e1cbdc5460af, type: 2}
-  roamingType: 
+  roamType: 
   nodes: []
+--- !u!114 &-8701913800614786865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7415120481951345619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f17adcad69d9ce4dbebdf5e3abf3465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 6aeb3d898ea22b94d9b3e1cbdc5460af, type: 2}

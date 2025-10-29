@@ -77,6 +77,8 @@ public class EnemyAI : MonoBehaviour
                 pathfind.UpdatePath(roam.nodes[0].position);
                 pathfind.SetTargetNodeTransforms();
                 dir = pathfind.TargetDir;
+
+
             }
             else
             {
