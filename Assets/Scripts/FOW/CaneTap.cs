@@ -11,6 +11,7 @@ public class CaneTap : MonoBehaviour
 
     public float cooldown = 1f;
     public float noiseDuration = 1f;
+    public AudioSource tapSound;
 
     private float originalRadius;
     private float timer = 0f;
@@ -25,6 +26,7 @@ public class CaneTap : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && !isTapping && canTap)
         {
+            tapSound.Play();
             originalRadius = playerVision.radius;
             playerVision.radius *= noiseMultiplier;
 
