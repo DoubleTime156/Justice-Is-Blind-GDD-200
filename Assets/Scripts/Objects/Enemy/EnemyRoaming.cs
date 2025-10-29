@@ -7,12 +7,13 @@ using UnityEngine;
 public class EnemyRoaming : MonoBehaviour
 {
     public EnemyData data;
-    public string roamingType; // [empty for no path], "path", "circular"
-    public Transform[] nodes;
 
     private int _atNode = 0;
     private float _roamingSpeed;
     private float _rotateSpeed;
+
+    public string roamType; // [empty for no path], "path", "circular"
+    public Transform[] nodes;
 
 
     private void Awake()
@@ -36,7 +37,7 @@ public class EnemyRoaming : MonoBehaviour
 
     public void UpdateMovement()
     {
-        switch (roamingType)
+        switch (roamType)
         {
             case "path":
                 if (nodes.Length > 1) 
@@ -74,13 +75,13 @@ public class EnemyRoaming : MonoBehaviour
         Transform target = nodes[_atNode];
         Vector3 dir = (target.position - transform.position).normalized;
 
-        // When pathfinding script is ready, use A* for each node instead
+        // When pathfinding script is ready, use A* for each node instead if raycast to next code is hit
         transform.position += _roamingSpeed * dir;
         Vector2 newDir = Vector2.Lerp(transform.up, dir.normalized, _rotateSpeed);
         transform.up = newDir;
 
         if (Vector3.Distance(transform.position, target.position) < _roamingSpeed
-            && roamingType == "path")
+            && roamType == "path")
         {
             _atNode++;
             if (_atNode >= nodes.Length)
