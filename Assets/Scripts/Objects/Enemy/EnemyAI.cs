@@ -25,6 +25,8 @@ public class EnemyAI : MonoBehaviour
 
         IsChasing = false;
         IsRoaming = true;
+
+        //lastKnownPos = new Vector3(5.6f, 0f, 0f);
     }
 
     void FixedUpdate()
@@ -39,10 +41,12 @@ public class EnemyAI : MonoBehaviour
 
             lastKnownPos = player.transform.position;
         }
-        else if (Vector3.Distance(transform.position, lastKnownPos) <= 1)
+        else if (Vector3.Distance(transform.position, lastKnownPos) <= data.chaseSpeed)
         {
             IsChasing = false;
         }
+
+        Debug.Log("position: " + transform.position + "; lastKnownPos: "+ lastKnownPos);
 
         if (IsChasing)
         {

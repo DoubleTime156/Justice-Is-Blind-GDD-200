@@ -17,24 +17,24 @@ public class EnemyPathfinding : MonoBehaviour
     {
         if (pathfinder == null) return;
 
-        // Don't calculate path if already at target
-        if (Vector3.Distance(transform.position, targetPos) <= 1)
+        // Don't create path if already next to target
+        if (Vector3.Distance(transform.position, targetPos) <= 1f)
         {
+            _path = null;
             TargetPos = targetPos;
             TargetDir = (TargetPos - transform.position).normalized;
             return;
         }
 
-        // Recalculate path
-        var newPath = pathfinder.FindPath(transform.position, targetPos);
-        if (newPath == null || newPath.Count == 0)
-            return;
+        // Calculate path
+        List<Node> newPath = pathfinder.FindPath(transform.position, targetPos);
+        if (newPath == null || newPath.Count == 0) return;
 
-        // Try to keep the current node if it's still close in the new path
+        // Keep the current node if it's still close in the new path
         if (_path != null && _nextNode < _path.Count)
         {
-            var currentNode = _path[_nextNode];
-            int closestIndex = newPath.FindIndex(n => Vector3.Distance(n.worldPosition, currentNode.worldPosition) < 0.1f);
+            Node curNode = _path[_nextNode];
+            int closestIndex = newPath.FindIndex(n => Vector3.Distance(n.worldPosition, curNode.worldPosition) < data.chaseSpeed);
             _nextNode = Mathf.Clamp(closestIndex, 0, newPath.Count - 1);
         }
         else

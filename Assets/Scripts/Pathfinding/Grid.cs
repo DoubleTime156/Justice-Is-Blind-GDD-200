@@ -33,7 +33,7 @@ public class Grid : MonoBehaviour
 
     void CreateGrid()
     {
-        BoundsInt bounds = tilemap.cellBounds;
+        BoundsInt bounds = collisionMap.cellBounds;
 
         // Width and height in cells
         gridSizeX = bounds.size.x;
@@ -41,7 +41,7 @@ public class Grid : MonoBehaviour
 
         // Set grid size and bottomleft position
         grid = new Node[gridSizeX, gridSizeY];
-        bottomLeft = tilemap.CellToWorld(bounds.min);
+        bottomLeft = collisionMap.CellToWorld(bounds.min);
 
         //Debug.Log(gridSizeX);
 
@@ -61,7 +61,7 @@ public class Grid : MonoBehaviour
             for (int y = 0; y < gridSizeY; y++)
             {
                 worldPoint = bottomLeft + new Vector3(x * nodeSize + nodeSize / 2f, y * nodeSize + nodeSize / 2f, 0);
-                bool walkable = !collisionMap.HasTile(new Vector3Int(x-6, y-9, 0));
+                bool walkable = !collisionMap.HasTile(new Vector3Int(collisionMap.cellBounds.xMin + x, collisionMap.cellBounds.yMin + y, 0));
                 //bool walkable = !Physics2D.OverlapCircle(new Vector3(worldPoint.x, worldPoint.y, 0), nodeSize / 2f - tiny, unwalkableMask);
                 grid[x, y] = new Node(walkable, worldPoint, x, y);
             }
@@ -78,17 +78,23 @@ public class Grid : MonoBehaviour
 
     public Node NodeFromWorldPoint(Vector3 worldPos)
     {
+        /*
         float percentX = Mathf.Clamp01((worldPos.x - (bottomLeft.x - halfWidth * nodeSize)) / (gridSizeX * nodeSize));
         float percentY = Mathf.Clamp01((worldPos.y - (bottomLeft.y - halfHeight * nodeSize)) / (gridSizeY * nodeSize));
 
         int x = Mathf.FloorToInt((gridSizeX - 1) * percentX);
         int y = Mathf.FloorToInt((gridSizeY - 1) * percentY);
+        */
+
+        int x = Mathf.FloorToInt((worldPos.x - bottomLeft.x) / nodeSize) % gridSizeX;
+        int y = Mathf.FloorToInt((worldPos.y - bottomLeft.y) / nodeSize) % gridSizeY;
 
         x = Mathf.Clamp(x, 0, gridSizeX - 1);
         y = Mathf.Clamp(y, 0, gridSizeY - 1);
 
         return grid[x, y];
     }
+
 
 
     public List<Node> GetNeighbors(Node node)
