@@ -1,15 +1,17 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController2D_InputSystem : MonoBehaviour
 {
-    public float moveSpeed;
+    public PlayerData data;
 
     private Rigidbody2D rb;
     private Vector2 movement;
-    public int[] inventory = { 0, 0 }; //{Coins held, Bottles Held}
     private GameManager gameManager;
+    public AudioSource coinPickup;
+    public AudioSource bottlePickup;
 
     void Start()
     {
@@ -24,7 +26,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * moveSpeed);
+        rb.MovePosition(rb.position + movement * data.moveSpeed);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -32,7 +34,22 @@ public class PlayerController2D_InputSystem : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             gameManager.gameOver();
-            Destroy(gameObject);
+            //Destroy(gameObject);
+        }else if (collision.gameObject.CompareTag("Pickup"))
+        {
+            data.inventory[collision.GetComponent<Pickup>().pickupType]++;
+            gameManager.updateAmount();
+            Debug.Log("Pickup collected");
+            switch (collision.GetComponent<Pickup>().pickupType) // Play audio for pickups
+            {
+                case 0:
+                    coinPickup.Play();
+                    break;
+                case 1:
+                    bottlePickup.Play();
+                    break;
+            }   
+            Destroy(collision.gameObject);
         }
     }
 }

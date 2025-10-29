@@ -12,8 +12,10 @@ public class Throwable : MonoBehaviour
     private float[] forceMultiplier = { 1, 3 };
     private bool isTriggered = false;
     private float previousDistance;
+    private float timeToReach;
 
-    public float timeToReach;
+    public AudioSource throwSound;
+    public AudioSource impactSound;
     public void Init(Vector3 targetPos, float initMoveSpeed, int heldItem)
     {
         target = targetPos;
@@ -22,6 +24,7 @@ public class Throwable : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         distance = Vector2.Distance(transform.position, targetPos / forceMultiplier[heldItem]);
         timeToReach = distance / speed;
+        throwSound.Play();
     }
 
     void Update()
@@ -47,27 +50,46 @@ public class Throwable : MonoBehaviour
         {
             case 0:
                 Debug.Log("Coin landed");
+                impactSound.Play();
+                RevealFog(0.05f);
                 rb.linearVelocity = new Vector2(0, 0); 
                 isTriggered = true;
                 break;
             case 1:
                 Debug.Log("Bottle Landed");
-                Destroy(gameObject);
+                impactSound.Play();
+                RevealFog(0.07f);
                 isTriggered = true;
                 break;
         }
     }
 
+    void RevealFog(float radius)
+    {
+        FogManager fog = FindObjectOfType<FogManager>();
+        if (fog == null) return;
+
+        FogRevealer revealer = gameObject.AddComponent<FogRevealer>();
+        revealer.fogManager = fog;
+        revealer.revealRadiusUV = radius;
+        revealer.fullRevealDuration = 2f; // how long it stays fully visible
+        revealer.fadeDuration = 3f;       // how long it takes to fade back
+        revealer.TriggerReveal();
+    }
+
+
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("hit wall!");
+        Debug.Log("throwable hit wall!");
 
         switch (item)
         {
             case 0:
+                itemBehavior();
                 break;
             case 1:
-                Destroy(gameObject); break;
+                itemBehavior();
+                break;
         }
     }
 }
