@@ -17,6 +17,12 @@ public class PlayerThrow : MonoBehaviour
         playerController = GetComponent<PlayerController2D_InputSystem>();
     }
 
+    /*
+    public void OnSwing(InputAction.CallbackContext context)
+    {
+        Debug.Log("Player swung weapon!");
+    }
+    */
 
     // Player presses F to throw object
     public void OnThrow(InputAction.CallbackContext context)
