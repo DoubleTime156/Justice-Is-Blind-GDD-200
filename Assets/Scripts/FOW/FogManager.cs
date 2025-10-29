@@ -19,8 +19,7 @@ public class FogManager : MonoBehaviour
 
     //revela radius in UV
     [Range(0.01f, 1f)]
-    public float revealRadiusUV = 0.25f; 
-
+    public float revealRadiusUV = 0.25f;
 
     private static readonly int PositionID = Shader.PropertyToID("_Position");
     private static readonly int RadiusID = Shader.PropertyToID("_Radius");
@@ -100,7 +99,9 @@ public class FogManager : MonoBehaviour
         if (playerVision != null)
         {
             // Convert from world-space radius to UV-space radius
-            radiusUV = playerVision.radius / Mathf.Max(worldSize.x, worldSize.y);
+            float radiusX = playerVision.radius / worldSize.x;
+            float radiusY = playerVision.radius / worldSize.y;
+            radiusUV = Mathf.Sqrt(radiusX * radiusY);
         }
 
         // Update the fog shader
@@ -111,14 +112,14 @@ public class FogManager : MonoBehaviour
         RenderTexture temp = RenderTexture.GetTemporary(fogMemory.width, fogMemory.height, 0, fogMemory.format);
         Graphics.Blit(fogMemory, temp);
         Graphics.Blit(temp, fogMemory, fogPainterMaterial);
-        RenderTexture.ReleaseTemporary(temp);
 
-        float radiusUV = revealRadiusUV;
+        radiusUV = revealRadiusUV;
         if (playerVision != null)
         {
-            float radiusX = playerVision.radius / (worldSize.x != 0 ? worldSize.x : 1f);
-            float radiusY = playerVision.radius / (worldSize.y != 0 ? worldSize.y : 1f);
-            radiusUV = Mathf.Sqrt(radiusX * radiusY);
+            radiusUV = playerVision.radius / worldSize.x;   
+
+            float correction = 0.93f;   
+            radiusUV *= correction;
         }
     }
 

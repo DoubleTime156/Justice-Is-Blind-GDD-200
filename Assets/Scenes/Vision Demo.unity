@@ -148,7 +148,7 @@ MonoBehaviour:
   fogManager: {fileID: 1952149074}
   noiseSystem: {fileID: 1512744263}
   player: {fileID: 94677653}
-  radius: 0.02
+  radius: 0.03
 --- !u!1 &335692897
 GameObject:
   m_ObjectHideFlags: 0

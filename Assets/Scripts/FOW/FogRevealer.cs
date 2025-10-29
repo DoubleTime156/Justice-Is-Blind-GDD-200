@@ -55,14 +55,13 @@ public class FogRevealer : MonoBehaviour
             float t = (timer - fullRevealDuration) / fadeDuration;
             t = Mathf.Clamp01(t);
 
-            // Gradually lower visibility toward “gray fog memory” (~0.3)
             float visibility = Mathf.Lerp(1f, 0.3f, t);
             PaintFog(visibility);
 
             if (t >= 1f)
             {
                 isRevealing = false;
-                Destroy(this); // optional cleanup
+                Destroy(this); 
             }
         }
     }

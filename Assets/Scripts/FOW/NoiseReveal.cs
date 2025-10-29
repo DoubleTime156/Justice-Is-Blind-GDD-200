@@ -60,14 +60,19 @@ public class NoiseReveal : MonoBehaviour
         }
     }
 
-    private void PaintFog(float strength)
+    void PaintFog(float intensity)
     {
+        if (paintMaterial == null || fogTex == null) return;
+
         paintMaterial.SetVector("_Position", new Vector4(uvPos.x, uvPos.y, 0, 0));
         paintMaterial.SetFloat("_Radius", revealRadiusUV);
+        paintMaterial.SetFloat("_Intensity", intensity); 
+        paintMaterial.SetFloat("_Edge", 0.02f);            
 
-        RenderTexture temp = RenderTexture.GetTemporary(fogTex.width, fogTex.height, 0, fogTex.format);
-        Graphics.Blit(fogTex, temp);
-        Graphics.Blit(temp, fogTex, paintMaterial);
+        var temp = RenderTexture.GetTemporary(fogTex.width, fogTex.height, 0, fogTex.format);
+        Graphics.Blit(fogTex, temp, paintMaterial); 
+        Graphics.Blit(temp, fogTex);                 
         RenderTexture.ReleaseTemporary(temp);
     }
+
 }
