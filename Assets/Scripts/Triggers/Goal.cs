@@ -15,11 +15,11 @@ public class Goal : MonoBehaviour
         // Check for player and key, if applicable
         if (collision.gameObject.CompareTag("Player"))
         {
-            PlayerController2D_InputSystem playerController = collision.gameObject.GetComponent<PlayerController2D_InputSystem>();
-            if (!keyRequired || playerController.hasKey)
+            PlayerData playerData = collision.gameObject.GetComponent<PlayerData>();
+            if (!keyRequired || playerData.hasKey)
             {
                 // Use key
-                playerController.hasKey = false;
+                playerData.hasKey = false;
 
                 // Switch scene to the next level
                 SceneManager.LoadSceneAsync(levelName);
