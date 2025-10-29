@@ -485,6 +485,7 @@ GameObject:
   - component: {fileID: 197386810}
   - component: {fileID: 197386809}
   - component: {fileID: 197386808}
+  - component: {fileID: 197386811}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -501,13 +502,13 @@ Transform:
   m_GameObject: {fileID: 197386806}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: -13, y: -1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 446369829}
   - {fileID: 1762000152}
-  m_Father: {fileID: 329166479}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &197386808
 MonoBehaviour:
@@ -612,6 +613,20 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &197386811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197386806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff228f8103ddbfd42b0e1c48e9a44c40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 329166479}
+  speed: 5
 --- !u!1 &226731308
 GameObject:
   m_ObjectHideFlags: 0
@@ -969,6 +984,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8996071929840542208, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: 684de57402381d94dbb0dd7a282858f3,
+        type: 2}
+    - target: {fileID: 8996071929840542208, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -979,11 +1000,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 8776994412918227710, guid: 114436765f7463c49826ba3a8920a5a2,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 197386807}
+    m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7126914669921339014, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
@@ -16743,6 +16760,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1217292218}
+  - {fileID: 197386807}
   - {fileID: 329166478}
   - {fileID: 670766062}
   - {fileID: 863150567}
