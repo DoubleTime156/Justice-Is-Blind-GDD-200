@@ -13,10 +13,17 @@ public class PlayerController2D_InputSystem : MonoBehaviour
     public AudioSource coinPickup;
     public AudioSource bottlePickup;
 
+    private int[] defaultInventory = { 0, 0 };
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+
+        // Reset PlayerData
+        data.heldItem = 0;
+        data.inventory = defaultInventory;
+        data.hasKey = false;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -49,6 +56,11 @@ public class PlayerController2D_InputSystem : MonoBehaviour
                     bottlePickup.Play();
                     break;
             }   
+            Destroy(collision.gameObject);
+
+        } else if (collision.gameObject.CompareTag("Key") && !data.hasKey)
+        {
+            data.hasKey = true;
             Destroy(collision.gameObject);
         }
     }
