@@ -2,40 +2,29 @@ using UnityEngine;
 
 public class NoiseReveal : MonoBehaviour
 {
-    public FogManager fogManager;       // Reference to main fog system
-    public Material paintMaterial;      //fogManager paint material
-
+    public FogManager fogManager;
     public float revealRadiusUV = 0.05f;
     public float fullBrightTime = 0.5f;
     public float fadeDuration = 2f;
 
     private float timer = 0f;
     private bool isRevealing = false;
-    private Vector2 uvPos;
-    private RenderTexture fogTex;
+    private Vector2 worldPos;
 
+    // ----------------------------------------------------------------------
 
-    public void RevealAt(Vector2 worldPos, float radiusUV)
+    public void RevealAt(Vector2 worldPosition, float radiusUV)
     {
         if (fogManager == null) return;
 
-        fogTex = fogManager.GetFogMemory();
-        paintMaterial = fogManager.fogPainterMaterial;
+        worldPos = worldPosition;
         revealRadiusUV = radiusUV;
-
-        Vector2 worldMin = fogManager.worldMin;
-        Vector2 worldMax = fogManager.worldMax;
-        Vector2 worldSize = worldMax - worldMin;
-
-        uvPos = (worldPos - worldMin);
-        uvPos.x = worldSize.x != 0 ? uvPos.x / worldSize.x : 0f;
-        uvPos.y = worldSize.y != 0 ? uvPos.y / worldSize.y : 0f;
-        uvPos = new Vector2(Mathf.Clamp01(uvPos.x), Mathf.Clamp01(uvPos.y));
-
-        PaintFog(1f);
-
         timer = 0f;
         isRevealing = true;
+
+        // Immediate full white reveal
+        fogManager.EnqueueReveal(worldPos, revealRadiusUV, 1f, 0.02f);
+        fogManager.FlushNow(); // force paint this frame
     }
 
     void Update()
@@ -46,33 +35,14 @@ public class NoiseReveal : MonoBehaviour
 
         if (timer > fullBrightTime)
         {
-            float t = (timer - fullBrightTime) / fadeDuration;
-            t = Mathf.Clamp01(t);
-
+            float t = Mathf.Clamp01((timer - fullBrightTime) / fadeDuration);
             float intensity = Mathf.Lerp(1f, 0.3f, t);
-            PaintFog(intensity);
+
+            fogManager.EnqueueReveal(worldPos, revealRadiusUV, intensity, 0.02f);
+            fogManager.FlushNow();
 
             if (t >= 1f)
-            {
                 isRevealing = false;
-                Destroy(this); 
-            }
         }
     }
-
-    void PaintFog(float intensity)
-    {
-        if (paintMaterial == null || fogTex == null) return;
-
-        paintMaterial.SetVector("_Position", new Vector4(uvPos.x, uvPos.y, 0, 0));
-        paintMaterial.SetFloat("_Radius", revealRadiusUV);
-        paintMaterial.SetFloat("_Intensity", intensity); 
-        paintMaterial.SetFloat("_Edge", 0.02f);            
-
-        var temp = RenderTexture.GetTemporary(fogTex.width, fogTex.height, 0, fogTex.format);
-        Graphics.Blit(fogTex, temp, paintMaterial); 
-        Graphics.Blit(temp, fogTex);                 
-        RenderTexture.ReleaseTemporary(temp);
-    }
-
 }

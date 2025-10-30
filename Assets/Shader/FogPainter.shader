@@ -37,7 +37,7 @@ Shader "Unlit/FogPainter"
             sampler2D _MainTex;
             float4 _Position;
             float _Radius;
-            float _FogRevealIntensity;   // <— declared here properly
+            float _FogRevealIntensity;  
 
             v2f vert(appdata v)
             {

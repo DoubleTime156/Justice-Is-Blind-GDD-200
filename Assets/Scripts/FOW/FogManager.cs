@@ -1,60 +1,59 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
-[ExecuteAlways]
 public class FogManager : MonoBehaviour
 {
-    //material refrences
+    [Header("Refs")]
     public PlayerPosition playerVision;
-    public Material fogPainterMaterial;  
-    public Material fogDisplayMaterial;   
-    public Transform player;               
+    public Material fogPainterMaterial;   // uses Custom/FogPainterOverwrite
+    public Material fogDisplayMaterial;   // uses Custom/2DCircleVision
+    public Transform player;
 
-    //fog rt and memory
-    public int rtSize = 1024;
+    [Header("RT")]
+    public int rtSize = 2048;
     private RenderTexture fogMemory;
+    private RenderTexture fogScratch;
 
-    //world bounds, if map is bigger then this vector vision will glitch out
+    [Header("World Bounds")]
     public Vector2 worldMin = new Vector2(-100f, -100f);
     public Vector2 worldMax = new Vector2(100f, 100f);
 
-    //revela radius in UV
-    [Range(0.01f, 1f)]
-    public float revealRadiusUV = 0.25f;
+    struct RevealReq { public Vector2 uv; public float radiusUV; public float intensity; public float edge; }
+    private readonly List<RevealReq> _queue = new();
 
-    private static readonly int PositionID = Shader.PropertyToID("_Position");
-    private static readonly int RadiusID = Shader.PropertyToID("_Radius");
+    static readonly int MainTexID = Shader.PropertyToID("_MainTex");
+    static readonly int PositionID = Shader.PropertyToID("_Position");
+    static readonly int RadiusID = Shader.PropertyToID("_Radius");
+    static readonly int IntensityID = Shader.PropertyToID("_Intensity");
+    static readonly int EdgeID = Shader.PropertyToID("_Edge");
 
     void Start()
     {
-        InitializeRenderTexture();
+        InitializeRenderTextures();
         PushWorldParamsToMaterials();
+        ClearFog();
     }
 
-    void OnValidate()
+    void OnDestroy()
     {
-      
-        if (Application.isPlaying) return;
-        InitializeRenderTexture();
-        PushWorldParamsToMaterials();
+        if (fogMemory) { fogMemory.Release(); Destroy(fogMemory); }
+        if (fogScratch) { fogScratch.Release(); Destroy(fogScratch); }
     }
 
-    void InitializeRenderTexture()
+    void InitializeRenderTextures()
     {
-        if (fogMemory != null)
-        {
-            fogMemory.Release();
-            DestroyImmediate(fogMemory);
-        }
+        if (fogMemory) { fogMemory.Release(); Destroy(fogMemory); }
+        if (fogScratch) { fogScratch.Release(); Destroy(fogScratch); }
 
         fogMemory = new RenderTexture(rtSize, rtSize, 0, RenderTextureFormat.ARGB32);
-        fogMemory.filterMode = FilterMode.Bilinear;
-        fogMemory.wrapMode = TextureWrapMode.Clamp;
-        fogMemory.Create();
+        fogScratch = new RenderTexture(rtSize, rtSize, 0, RenderTextureFormat.ARGB32);
 
-        var prev = RenderTexture.active;
-        RenderTexture.active = fogMemory;
-        GL.Clear(true, true, Color.black);
-        RenderTexture.active = prev;
+        fogMemory.filterMode = FilterMode.Bilinear;
+        fogScratch.filterMode = FilterMode.Bilinear;
+        fogMemory.wrapMode = fogScratch.wrapMode = TextureWrapMode.Clamp;
+
+        fogMemory.Create();
+        fogScratch.Create();
 
         if (fogDisplayMaterial) fogDisplayMaterial.SetTexture("_FogTex", fogMemory);
     }
@@ -64,63 +63,95 @@ public class FogManager : MonoBehaviour
         Vector2 worldSize = worldMax - worldMin;
         if (fogPainterMaterial)
         {
-            //sets the paint to where it needs to be in the world
             fogPainterMaterial.SetVector("_WorldMin", new Vector4(worldMin.x, worldMin.y, 0, 0));
             fogPainterMaterial.SetVector("_WorldSize", new Vector4(worldSize.x, worldSize.y, 0, 0));
         }
         if (fogDisplayMaterial)
         {
-            //sets the paint to where it needs to be in the world
             fogDisplayMaterial.SetVector("_WorldMin", new Vector4(worldMin.x, worldMin.y, 0, 0));
             fogDisplayMaterial.SetVector("_WorldSize", new Vector4(worldSize.x, worldSize.y, 0, 0));
-            fogDisplayMaterial.SetTexture("_FogTex", fogMemory);
         }
     }
-    public RenderTexture GetFogMemory()
+
+    public RenderTexture GetFogMemory() => fogMemory;
+
+    public void ClearFog()
     {
-        return fogMemory;
+        var prev = RenderTexture.active;
+        RenderTexture.active = fogMemory;
+        GL.Clear(true, true, Color.black);
+        RenderTexture.active = prev;
     }
-    void Update()
+
+    public void EnqueueReveal(Vector2 worldPos, float radiusUV, float intensity = 1f, float edge = 0.02f)
     {
-        if (player == null || fogPainterMaterial == null) return;
+        Vector2 uv = WorldToUV(worldPos);
+        _queue.Add(new RevealReq { uv = uv, radiusUV = radiusUV, intensity = intensity, edge = edge });
+    }
 
-        // Get world size and position
-        Vector2 worldPos = new Vector2(player.position.x, player.position.y);
+    Vector2 WorldToUV(Vector2 worldPos)
+    {
         Vector2 worldSize = worldMax - worldMin;
-
-        // Convert player world position to UV coordinates (0–1)
         Vector2 uv = (worldPos - worldMin);
         uv.x = worldSize.x != 0 ? uv.x / worldSize.x : 0f;
         uv.y = worldSize.y != 0 ? uv.y / worldSize.y : 0f;
-        uv = new Vector2(Mathf.Clamp01(uv.x), Mathf.Clamp01(uv.y));
+        uv.x = Mathf.Clamp01(uv.x);
+        uv.y = Mathf.Clamp01(uv.y);
+        return uv;
+    }
 
-        // Convert the player's world radius to UV radius
-        float radiusUV = revealRadiusUV; 
+    void LateUpdate()
+    {
+        if (fogPainterMaterial == null || player == null) { _queue.Clear(); return; }
+
+        // --- Always enqueue player's current view for memory ---
         if (playerVision != null)
         {
-            // Convert from world-space radius to UV-space radius
-            float radiusX = playerVision.radius / worldSize.x;
-            float radiusY = playerVision.radius / worldSize.y;
-            radiusUV = Mathf.Sqrt(radiusX * radiusY);
+            Vector2 worldSize = worldMax - worldMin;
+            float radiusUV = playerVision.radius / Mathf.Min(worldSize.x, worldSize.y);
+            Vector2 uv = WorldToUV(player.position);
+
+            // Gray memory circle slightly larger
+            _queue.Add(new RevealReq
+            {
+                uv = uv,
+                radiusUV = radiusUV * 1.05f,
+                intensity = 0.3f,
+                edge = 0.02f
+            });
+
+            // White live circle
+            _queue.Add(new RevealReq
+            {
+                uv = uv,
+                radiusUV = radiusUV,
+                intensity = 1f,
+                edge = 0.02f
+            });
         }
 
-        // Update the fog shader
-        fogPainterMaterial.SetVector("_Position", new Vector4(uv.x, uv.y, 0, 0));
-        fogPainterMaterial.SetFloat("_Radius", radiusUV);
+        if (_queue.Count == 0) return;
 
-        // Paint the vision area into the fog memory texture
-        RenderTexture temp = RenderTexture.GetTemporary(fogMemory.width, fogMemory.height, 0, fogMemory.format);
-        Graphics.Blit(fogMemory, temp);
-        Graphics.Blit(temp, fogMemory, fogPainterMaterial);
+        Graphics.Blit(fogMemory, fogScratch);
 
-        radiusUV = revealRadiusUV;
-        if (playerVision != null)
+        for (int i = 0; i < _queue.Count; i++)
         {
-            radiusUV = playerVision.radius / worldSize.x;   
-
-            float correction = 0.93f;   
-            radiusUV *= correction;
+            var r = _queue[i];
+            fogPainterMaterial.SetVector(PositionID, new Vector4(r.uv.x, r.uv.y, 0, 0));
+            fogPainterMaterial.SetFloat(RadiusID, r.radiusUV);
+            fogPainterMaterial.SetFloat(IntensityID, r.intensity);
+            fogPainterMaterial.SetFloat(EdgeID, r.edge);
+            fogPainterMaterial.SetTexture(MainTexID, fogScratch);
+            Graphics.Blit(fogScratch, fogMemory, fogPainterMaterial);
+            Graphics.Blit(fogMemory, fogScratch);
         }
+
+        _queue.Clear();
+    }
+    public void FlushNow()
+    {
+        // Manually invoke LateUpdate() logic for instant paint
+        LateUpdate();
     }
 
 }
