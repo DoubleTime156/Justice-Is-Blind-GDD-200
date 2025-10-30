@@ -20,9 +20,9 @@ public class CaneTap : MonoBehaviour
     private bool canTap = true;
     void Update()
     {
-        UnityEngine.Debug.Log("Cooldown" + coolDownTimer);
+        //UnityEngine.Debug.Log("Cooldown" + coolDownTimer);
 
-        UnityEngine.Debug.Log("Timer" + timer);
+        //UnityEngine.Debug.Log("Timer" + timer);
 
         if (Input.GetKeyDown(KeyCode.Space) && !isTapping && canTap)
         {

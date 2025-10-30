@@ -183,9 +183,10 @@ GameObject:
   - component: {fileID: 3812348469501226874}
   - component: {fileID: 2650066838671895175}
   - component: {fileID: 7894084507588658219}
-  - component: {fileID: 3710078822244877346}
   - component: {fileID: 2532074790492072682}
+  - component: {fileID: -5163689093390768214}
   - component: {fileID: 1540599939337548769}
+  - component: {fileID: 3710078822244877346}
   - component: {fileID: -8701913800614786865}
   m_Layer: 0
   m_Name: Goober
@@ -282,23 +283,9 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 6aeb3d898ea22b94d9b3e1cbdc5460af, type: 2}
   transformer: {fileID: -8701913800614786865}
   vision: {fileID: 2532074790492072682}
+  listen: {fileID: -5163689093390768214}
   pathfind: {fileID: 3710078822244877346}
   roam: {fileID: 1540599939337548769}
---- !u!114 &3710078822244877346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7415120481951345619}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f052f11b79767fe41b3283b1feec725e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 6aeb3d898ea22b94d9b3e1cbdc5460af, type: 2}
-  pathfinder: {fileID: 0}
-  nextNodeDistance: 0.1
 --- !u!114 &2532074790492072682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,6 +300,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewRadius: 6
   viewAngle: 40
+--- !u!114 &-5163689093390768214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7415120481951345619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8468af42a10b99419a4f74ca562d9d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hearDistance: 0
 --- !u!114 &1540599939337548769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,6 +328,21 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 6aeb3d898ea22b94d9b3e1cbdc5460af, type: 2}
   roamType: 
   nodes: []
+--- !u!114 &3710078822244877346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7415120481951345619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f052f11b79767fe41b3283b1feec725e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 6aeb3d898ea22b94d9b3e1cbdc5460af, type: 2}
+  pathfinder: {fileID: 0}
+  nextNodeDistance: 0.1
 --- !u!114 &-8701913800614786865
 MonoBehaviour:
   m_ObjectHideFlags: 0
