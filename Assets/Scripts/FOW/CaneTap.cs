@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Diagnostics;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 public class CaneTap : MonoBehaviour
@@ -24,7 +25,7 @@ public class CaneTap : MonoBehaviour
 
         UnityEngine.Debug.Log("Timer" + timer);
 
-        if (Input.GetKeyDown(KeyCode.Space) && !isTapping && canTap)
+        if (/*Input.GetKeyDown(KeyCode.Space) && */!isTapping && canTap)
         {
             tapSound.Play();
             originalRadius = playerVision.radius;
@@ -68,6 +69,51 @@ public class CaneTap : MonoBehaviour
             
            
 
+        }
+    }
+
+    public void onTap(InputAction.CallbackContext context)
+    {
+        if (/*Input.GetKeyDown(KeyCode.Space) && */!isTapping && canTap)
+        {
+            tapSound.Play();
+            originalRadius = playerVision.radius;
+            playerVision.radius *= noiseMultiplier;
+
+            if (fogManager != null)
+            {
+                fogManager.revealRadiusUV *= noiseMultiplier;
+            }
+
+            isTapping = true;
+            canTap = false;
+            timer = noiseDuration;
+            coolDownTimer = cooldown;
+        }
+        if (!canTap)
+        {
+            coolDownTimer -= Time.deltaTime;
+            if (coolDownTimer <= 0f)
+            {
+                canTap = true;
+            }
+        }
+        if (isTapping)
+        {
+            timer -= Time.deltaTime;
+            if (timer <= 0f)
+            {
+                playerVision.radius = originalRadius;
+
+                if (fogManager != null)
+                {
+                    fogManager.revealRadiusUV /= noiseMultiplier;
+
+
+                    isTapping = false;
+
+                }
+            }
         }
     }
 }

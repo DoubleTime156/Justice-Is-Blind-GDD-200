@@ -26,7 +26,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * data.moveSpeed);
+        rb.MovePosition(rb.position + movement * data.moveSpeed * data.moveMulti);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -52,4 +52,29 @@ public class PlayerController2D_InputSystem : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
+
+    public void onSprint(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            data.moveMulti = 2;
+        }
+        else if (context.canceled)
+        {
+            data.moveMulti = 1;
+        }
+    }
+
+    public void onSneak(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            data.moveMulti = 0.5f;
+        }
+        else if (context.canceled)
+        {
+            data.moveMulti = 1;
+        }
+    }
+    
 }
