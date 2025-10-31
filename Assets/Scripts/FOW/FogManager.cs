@@ -4,9 +4,9 @@ using System.Collections.Generic;
 public class FogManager : MonoBehaviour
 {
     [Header("Refs")]
-    public PlayerPosition playerVision;
-    public Material fogPainterMaterial;   // uses Custom/FogPainterOverwrite
-    public Material fogDisplayMaterial;   // uses Custom/2DCircleVision
+    public PlayerPosition playerVision;           // provides player radius & (optionally) falloff
+    public Material fogPainterMaterial;           // Shader: Custom/FogPainterOverwrite (or Smooth)
+    public Material fogDisplayMaterial;           // Shader: Custom/FogDisplayVision (or 2DCircleVision)
     public Transform player;
 
     [Header("RT")]
@@ -14,9 +14,12 @@ public class FogManager : MonoBehaviour
     private RenderTexture fogMemory;
     private RenderTexture fogScratch;
 
-    [Header("World Bounds")]
+    [Header("World Bounds (match your map)")]
     public Vector2 worldMin = new Vector2(-100f, -100f);
     public Vector2 worldMax = new Vector2(100f, 100f);
+
+    [Header("Live Vision Look")]
+    public float liveFalloff = 0.5f; // how soft the live circle edge looks
 
     struct RevealReq { public Vector2 uv; public float radiusUV; public float intensity; public float edge; }
     private readonly List<RevealReq> _queue = new();
@@ -50,7 +53,8 @@ public class FogManager : MonoBehaviour
 
         fogMemory.filterMode = FilterMode.Bilinear;
         fogScratch.filterMode = FilterMode.Bilinear;
-        fogMemory.wrapMode = fogScratch.wrapMode = TextureWrapMode.Clamp;
+        fogMemory.wrapMode = TextureWrapMode.Clamp;
+        fogScratch.wrapMode = TextureWrapMode.Clamp;
 
         fogMemory.Create();
         fogScratch.Create();
@@ -61,6 +65,7 @@ public class FogManager : MonoBehaviour
     void PushWorldParamsToMaterials()
     {
         Vector2 worldSize = worldMax - worldMin;
+
         if (fogPainterMaterial)
         {
             fogPainterMaterial.SetVector("_WorldMin", new Vector4(worldMin.x, worldMin.y, 0, 0));
@@ -95,43 +100,45 @@ public class FogManager : MonoBehaviour
         Vector2 uv = (worldPos - worldMin);
         uv.x = worldSize.x != 0 ? uv.x / worldSize.x : 0f;
         uv.y = worldSize.y != 0 ? uv.y / worldSize.y : 0f;
-        uv.x = Mathf.Clamp01(uv.x);
-        uv.y = Mathf.Clamp01(uv.y);
-        return uv;
+        return new Vector2(Mathf.Clamp01(uv.x), Mathf.Clamp01(uv.y));
     }
 
     void LateUpdate()
     {
-        if (fogPainterMaterial == null || player == null) { _queue.Clear(); return; }
+        if (player == null) { _queue.Clear(); return; }
 
-        // --- Always enqueue player's current view for memory ---
-        if (playerVision != null)
+        // 1) DRIVE THE LIVE WHITE CIRCLE (display only — clears all fog visually)
+        if (fogDisplayMaterial && playerVision)
+        {
+            fogDisplayMaterial.SetVector("_PlayerPos", new Vector4(player.position.x, player.position.y, 0, 0));
+            fogDisplayMaterial.SetFloat("_Radius", playerVision.radius);
+            fogDisplayMaterial.SetFloat("_Falloff", liveFalloff);
+        }
+
+        // 2) MEMORY: walking paints ONLY GRAY into the fog texture at EXACT player radius
+        if (fogPainterMaterial && playerVision)
         {
             Vector2 worldSize = worldMax - worldMin;
             float radiusUV = playerVision.radius / Mathf.Min(worldSize.x, worldSize.y);
             Vector2 uv = WorldToUV(player.position);
 
-            // Gray memory circle slightly larger
-            _queue.Add(new RevealReq
-            {
-                uv = uv,
-                radiusUV = radiusUV * 1.05f,
-                intensity = 0.3f,
-                edge = 0.02f
-            });
-
-            // White live circle
+            // Paint gray memory at your current circle (no white for walking)
             _queue.Add(new RevealReq
             {
                 uv = uv,
                 radiusUV = radiusUV,
-                intensity = 1f,
+                intensity = 0.3f,     // gray memory
                 edge = 0.02f
             });
         }
 
-        if (_queue.Count == 0) return;
+        if (_queue.Count == 0 || fogPainterMaterial == null)
+        {
+            _queue.Clear();
+            return;
+        }
 
+        // Apply queued reveals (ping-pong once per frame)
         Graphics.Blit(fogMemory, fogScratch);
 
         for (int i = 0; i < _queue.Count; i++)
@@ -142,16 +149,14 @@ public class FogManager : MonoBehaviour
             fogPainterMaterial.SetFloat(IntensityID, r.intensity);
             fogPainterMaterial.SetFloat(EdgeID, r.edge);
             fogPainterMaterial.SetTexture(MainTexID, fogScratch);
+
             Graphics.Blit(fogScratch, fogMemory, fogPainterMaterial);
-            Graphics.Blit(fogMemory, fogScratch);
+            Graphics.Blit(fogMemory, fogScratch); // keep scratch up-to-date
         }
 
         _queue.Clear();
     }
-    public void FlushNow()
-    {
-        // Manually invoke LateUpdate() logic for instant paint
-        LateUpdate();
-    }
 
+    // For NoiseReveal to force immediate paint when triggered
+    public void FlushNow() => LateUpdate();
 }

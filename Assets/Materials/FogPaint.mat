@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FogPaint
-  m_Shader: {fileID: 4800000, guid: b2468f97cb4354e41a74a18d3b23e6f7, type: 3}
+  m_Shader: {fileID: 4800000, guid: 18cf570fc986c7640b8ed817bb4c0d99, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -84,6 +84,6 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Position: {r: 0.54436576, g: 0.69339335, b: 0, a: 0}
+    - _Position: {r: 0.40126395, g: 0.42955062, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -1019,9 +1019,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fogManager: {fileID: 1952149074}
-  paintMaterial: {fileID: 2100000, guid: 62c38e4fd275e5b40aa8ec157c960444, type: 2}
   revealRadiusUV: 0.05
-  fullBrightTime: 0.5
+  fullBrightTime: 1
   fadeDuration: 2
 --- !u!4 &1512744264
 Transform:
@@ -1468,7 +1467,6 @@ MonoBehaviour:
   rtSize: 512
   worldMin: {x: -100, y: -100}
   worldMax: {x: 100, y: 100}
-  revealRadiusUV: 0.02
 --- !u!4 &1952149075
 Transform:
   m_ObjectHideFlags: 0
