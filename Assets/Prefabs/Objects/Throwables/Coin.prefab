@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2116555235714269520}
   - component: {fileID: 49488760603439227}
   - component: {fileID: -5801125953512000106}
+  - component: {fileID: -5088817564414413523}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -105,6 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c596633959c9f848bb723b9dfda77f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectSound: {fileID: -5088817564414413523}
   throwSound: {fileID: 49488760603439227}
   impactSound: {fileID: -5801125953512000106}
 --- !u!58 &2481678513796734709
@@ -364,3 +366,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-5088817564414413523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3308582481418504106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24581dd133dbd8d43ad47f3fe59dc242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundRadius: 3

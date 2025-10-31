@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ObjectSound : MonoBehaviour
 {
-    public bool IsMakingSound { get; private set; }
+    public bool IsMakingSound { get; set; }
     public float soundRadius;
 
     void Awake()

@@ -13,6 +13,7 @@ public class Throwable : MonoBehaviour
     private bool isTriggered = false;
     private float previousDistance;
     private float timeToReach;
+    public ObjectSound objectSound;
 
     public AudioSource throwSound;
     public AudioSource impactSound;
@@ -27,14 +28,16 @@ public class Throwable : MonoBehaviour
         throwSound.Play();
     }
 
-    void Update()
+    void FixedUpdate()
     {
+        if (objectSound.IsMakingSound == true) { objectSound.IsMakingSound = false; }
+
         // Move towards target (Mouse position)
         Vector2 direction = (target - transform.position).normalized; 
         distance = Vector2.Distance(transform.position, target);
         speed = distance / timeToReach;
 
-        rb.linearVelocity = direction * speed;
+        rb.linearVelocity = direction * speed * 0.2f;
 
         // When destination reached, perform item specific behaviors
         if (Vector2.Distance(transform.position, target) <= targetRadius && !isTriggered) //rb.linearVelocity.magnitude < 0.5
@@ -50,6 +53,7 @@ public class Throwable : MonoBehaviour
         {
             case 0:
                 Debug.Log("Coin landed");
+                objectSound.IsMakingSound = true;
                 impactSound.Play();
                 RevealFog(0.05f);
                 rb.linearVelocity = new Vector2(0, 0); 
@@ -57,6 +61,7 @@ public class Throwable : MonoBehaviour
                 break;
             case 1:
                 Debug.Log("Bottle Landed");
+                objectSound.IsMakingSound = true;
                 impactSound.Play();
                 RevealFog(0.07f);
                 isTriggered = true;
