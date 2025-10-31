@@ -19,14 +19,9 @@ public class Grid : MonoBehaviour
     private int bottomLeftY;
     private Vector3 worldPoint;
     private Vector3 bottomLeft;
-    private float halfWidth, halfHeight;
-
-    private float tiny = 0.001f;
 
     void Awake()
     {
-        halfWidth = gridSizeX / 2f;
-        halfHeight = gridSizeY / 2f;
         CreateGrid();
         UpdateGrid();
     }
@@ -42,15 +37,6 @@ public class Grid : MonoBehaviour
         // Set grid size and bottomleft position
         grid = new Node[gridSizeX, gridSizeY];
         bottomLeft = collisionMap.CellToWorld(bounds.min);
-
-        //Debug.Log(gridSizeX);
-
-
-
-        /* OLD CODE BELOW */
-        //bottomLeft = new Vector3(0f, 0f, 0f);
-        //bottomLeft = player.position - new Vector3(halfWidth * nodeSize, halfHeight * nodeSize, 0);
-        //bottomLeft = DivVector3(bottomLeft);
     }
 
 
@@ -62,33 +48,20 @@ public class Grid : MonoBehaviour
             {
                 worldPoint = bottomLeft + new Vector3(x * nodeSize + nodeSize / 2f, y * nodeSize + nodeSize / 2f, 0);
                 bool walkable = !collisionMap.HasTile(new Vector3Int(collisionMap.cellBounds.xMin + x, collisionMap.cellBounds.yMin + y, 0));
-                //bool walkable = !Physics2D.OverlapCircle(new Vector3(worldPoint.x, worldPoint.y, 0), nodeSize / 2f - tiny, unwalkableMask);
+                // For collision in the future:
+                /* bool walkable = !Physics2D.OverlapCircle(new Vector3(worldPoint.x, worldPoint.y, 0), nodeSize / 2f - tiny, unwalkableMask); */
                 grid[x, y] = new Node(walkable, worldPoint, x, y);
             }
         }
     }
 
-    Vector3 DivVector3(Vector3 vec)
-    {
-        vec.x = 2.8f * MathF.Round(vec.x/2.8f);
-        vec.y = 2.8f * MathF.Round(vec.y / 2.8f);
-        vec.z = 2.8f * MathF.Round(vec.z / 2.8f);
-        return vec;
-    }
-
     public Node NodeFromWorldPoint(Vector3 worldPos)
     {
-        /*
-        float percentX = Mathf.Clamp01((worldPos.x - (bottomLeft.x - halfWidth * nodeSize)) / (gridSizeX * nodeSize));
-        float percentY = Mathf.Clamp01((worldPos.y - (bottomLeft.y - halfHeight * nodeSize)) / (gridSizeY * nodeSize));
-
-        int x = Mathf.FloorToInt((gridSizeX - 1) * percentX);
-        int y = Mathf.FloorToInt((gridSizeY - 1) * percentY);
-        */
-
+        // Set world position to world point
         int x = Mathf.FloorToInt((worldPos.x - bottomLeft.x) / nodeSize) % gridSizeX;
         int y = Mathf.FloorToInt((worldPos.y - bottomLeft.y) / nodeSize) % gridSizeY;
 
+        // If outside of grid, set x/y to 0 or max gridSizeX/gridSizeY
         x = Mathf.Clamp(x, 0, gridSizeX - 1);
         y = Mathf.Clamp(y, 0, gridSizeY - 1);
 
