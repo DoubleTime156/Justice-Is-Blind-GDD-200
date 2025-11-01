@@ -66,7 +66,7 @@ public class Throwable : MonoBehaviour
 
     void RevealFog(float radius)
     {
-        FogManager fog = FindObjectOfType<FogManager>();
+        FogManager fog = FindFirstObjectByType<FogManager>();
         if (fog == null) return;
 
         FogRevealer revealer = gameObject.AddComponent<FogRevealer>();
