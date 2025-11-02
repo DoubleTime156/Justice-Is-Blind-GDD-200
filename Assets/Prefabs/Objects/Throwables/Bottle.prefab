@@ -378,4 +378,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24581dd133dbd8d43ad47f3fe59dc242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundRadius: 5
+  soundRadius: 6

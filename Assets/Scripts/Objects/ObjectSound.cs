@@ -8,7 +8,7 @@ public class ObjectSound : MonoBehaviour
 
     void Awake()
     {
-        IsMakingSound = true;
+        IsMakingSound = false;
     }
 
     // Debug - Sound Circle

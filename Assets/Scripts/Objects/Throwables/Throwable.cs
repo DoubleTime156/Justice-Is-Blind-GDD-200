@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -30,14 +31,13 @@ public class Throwable : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (objectSound.IsMakingSound == true) { objectSound.IsMakingSound = false; }
 
         // Move towards target (Mouse position)
         Vector2 direction = (target - transform.position).normalized; 
         distance = Vector2.Distance(transform.position, target);
         speed = distance / timeToReach;
 
-        rb.linearVelocity = direction * speed * 0.2f;
+        rb.linearVelocity = direction * speed;
 
         // When destination reached, perform item specific behaviors
         if (Vector2.Distance(transform.position, target) <= targetRadius && !isTriggered) //rb.linearVelocity.magnitude < 0.5
@@ -49,12 +49,12 @@ public class Throwable : MonoBehaviour
 
     private void itemBehavior()
     {
+        StartCoroutine(stopMakingSound(0.1f));
         switch (item)
         {
             case 0:
                 Debug.Log("Coin landed");
                 objectSound.IsMakingSound = true;
-                impactSound.Play();
                 RevealFog(0.05f);
                 rb.linearVelocity = new Vector2(0, 0); 
                 isTriggered = true;
@@ -62,7 +62,6 @@ public class Throwable : MonoBehaviour
             case 1:
                 Debug.Log("Bottle Landed");
                 objectSound.IsMakingSound = true;
-                impactSound.Play();
                 RevealFog(0.07f);
                 isTriggered = true;
                 break;
@@ -96,5 +95,15 @@ public class Throwable : MonoBehaviour
                 itemBehavior();
                 break;
         }
+    }
+
+    IEnumerator stopMakingSound(float waitTime)
+    {
+        objectSound.IsMakingSound = true;
+        // Wait for the specified number of seconds
+        yield return new WaitForSeconds(waitTime);
+
+        // Stop making sound after time has past
+        objectSound.IsMakingSound = false;
     }
 }
