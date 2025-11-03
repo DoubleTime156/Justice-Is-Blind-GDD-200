@@ -4,27 +4,40 @@ public class NoiseReveal : MonoBehaviour
 {
     public FogManager fogManager;
 
-    [Header("Reveal Settings")]
-    public float revealRadiusUV = 0.05f;    // in UV space (relative to map)
-    public float fullBrightTime = 0.5f;     // how long it stays white
-    public float fadeDuration = 2f;         // how long to fade to gray
+    public float revealRadiusUV = 0.05f;
+
+    public float fullBrightTime = 0.5f;
+
+    public float fadeDuration = 2f;
+
+    [Range(0f, 1f)] public float whiteLevel = 1f;  
+    [Range(0f, 1f)] public float grayLevel = 0.3f; 
 
     private float timer;
     private bool isRevealing;
     private Vector2 worldPos;
+    private float currentRadiusUV;
 
-    public void RevealAt(Vector2 worldPosition, float radiusUV)
+    public void RevealAtWorld(Vector2 worldPosition, float radiusWorld)
+    {
+        if (fogManager == null) return;
+        Vector2 size = fogManager.worldMax - fogManager.worldMin;
+        float denom = Mathf.Max(0.0001f, Mathf.Min(size.x, size.y));
+        float rUV = Mathf.Clamp01(radiusWorld / denom);
+        RevealAtUV(worldPosition, rUV);
+    }
+
+    public void RevealAtUV(Vector2 worldPosition, float radiusUV)
     {
         if (fogManager == null) return;
 
         worldPos = worldPosition;
-        revealRadiusUV = radiusUV;
+        currentRadiusUV = Mathf.Clamp01(radiusUV);
         timer = 0f;
         isRevealing = true;
 
-        // 🔹 first frame = full bright white
-        fogManager.EnqueueReveal(worldPos, revealRadiusUV, 1f, 0.02f);
-        fogManager.FlushNow();  // immediately apply it
+        fogManager.EnqueueReveal(worldPos, currentRadiusUV, whiteLevel, 0f, brightenOnly: true);
+        fogManager.FlushNow();
     }
 
     void Update()
@@ -33,18 +46,19 @@ public class NoiseReveal : MonoBehaviour
 
         timer += Time.deltaTime;
 
-        // stay fully bright for a bit
         if (timer < fullBrightTime)
+        {
+            fogManager.EnqueueReveal(worldPos, currentRadiusUV, whiteLevel, 0f, brightenOnly: true);
+            fogManager.FlushNow();
             return;
+        }
 
-        // then start fading from white → gray
         float t = Mathf.Clamp01((timer - fullBrightTime) / fadeDuration);
-        float intensity = Mathf.Lerp(1f, 0.3f, t);
+        float intensity = Mathf.Lerp(whiteLevel, grayLevel, t);
 
-        fogManager.EnqueueReveal(worldPos, revealRadiusUV, intensity, 0.02f);
+        fogManager.EnqueueReveal(worldPos, currentRadiusUV, intensity, 0f, brightenOnly: false);
         fogManager.FlushNow();
 
-        if (t >= 1f)
-            isRevealing = false;
+        if (t >= 1f) isRevealing = false;
     }
 }

@@ -13,6 +13,8 @@
         _MemoryStrength ("Memory Brightness", Range(0,1)) = 0.3
 
         _QuantizeCircle ("Quantize Live Circles To Fog Texels", Float) = 1
+
+        _WhiteVisionCutoff ("White->Clear Threshold", Range(0.5,1)) = 0.95
     }
 
     SubShader
@@ -25,11 +27,11 @@
         Pass
         {
             CGPROGRAM
+            #pragma target 3.0
             #pragma vertex vert
             #pragma fragment frag
             #include "UnityCG.cginc"
 
-            // Adjust this if you want more bursts (also update FogManager.maxBursts)
             #define MAX_BURSTS 8
 
             struct appdata { float4 vertex : POSITION; float2 uv : TEXCOORD0; };
@@ -48,10 +50,11 @@
             float _MemoryStrength;
             float _QuantizeCircle;
 
-            // Arrays of circles: slot 0 = player, 1..N-1 = bursts
             int _BurstCount;
-            float4 _BurstPos[MAX_BURSTS]; // world positions
-            float4 _BurstRad[MAX_BURSTS]; // x=radiusWorld, y=falloffWorld
+            float4 _BurstPos[MAX_BURSTS];
+            float4 _BurstRad[MAX_BURSTS]; 
+
+            float _WhiteVisionCutoff;
 
             v2f vert(appdata v)
             {
@@ -63,7 +66,6 @@
 
             float circleSeen(float2 fogUV, float2 centerWorld, float radiusW, float falloffW)
             {
-                // Convert center from world to UV; quantize if requested
                 float2 centerUV = (centerWorld - _WorldMin.xy) / _WorldSize.xy;
                 centerUV = saturate(centerUV);
 
@@ -74,25 +76,20 @@
                     centerUV = floor(centerUV / stepUV + 0.5) * stepUV;
                 }
 
-                // Convert sizes from WORLD to UV
                 float worldToUV = 1.0 / min(_WorldSize.x, _WorldSize.y);
                 float rUV = radiusW  * worldToUV;
                 float fUV = max(0.0001, falloffW) * worldToUV;
 
                 float d = distance(fogUV, centerUV);
-                // smoothstep(edgeStart, edgeEnd, x) with reversed slope for inside=1, outside=0
                 float m = smoothstep(rUV - fUV, rUV, d);
-                return 1.0 - m; // 1 inside, 0 outside
+                return 1.0 - m; 
             }
 
             fixed4 frag(v2f i) : SV_Target
             {
-                // Fog UV for sampling memory and for circle tests
                 float2 fogUV = (i.worldPos - _WorldMin.xy) / _WorldSize.xy;
                 fogUV = saturate(fogUV);
 
-                // Are we inside ANY live clear circle?
-                // Always include slot 0 (player circle)
                 int count = clamp(_BurstCount, 1, MAX_BURSTS);
                 float seenNow = 0.0;
                 [unroll]
@@ -103,15 +100,12 @@
                     float  fW = _BurstRad[k].y;
                     seenNow = max(seenNow, circleSeen(fogUV, cW, rW, fW));
                 }
-
                 if (seenNow > 0.001)
-                {
-                    // Clear overlay (true vision) only where circle covers
-                    return fixed4(0,0,0,0);
-                }
+                    return fixed4(0,0,0,0); 
 
-                // Otherwise, read memory (unchanged)
                 float memory = tex2D(_FogTex, fogUV).r;
+                if (memory >= _WhiteVisionCutoff)
+                    return fixed4(0,0,0,0);
 
                 if (memory > 0.001)
                 {
@@ -119,7 +113,7 @@
                     return fixed4(gray, gray, gray, 0.5);
                 }
 
-                // Unseen darkness
+                // Unseen
                 return fixed4(_Darkness.rgb, 1.0);
             }
             ENDCG

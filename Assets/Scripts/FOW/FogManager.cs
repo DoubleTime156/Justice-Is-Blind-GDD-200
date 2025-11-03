@@ -3,56 +3,54 @@ using UnityEngine;
 
 public class FogManager : MonoBehaviour
 {
-    [Header("Refs")]
-    public PlayerPosition playerVision;           // provides player radius (and optionally falloff)
-    public Material fogPainterMaterial;           // Shader that writes to fogMemory (gray/white)
-    public Material fogDisplayMaterial;           // Shader that renders overlay using fog + live circles
+    public PlayerPosition playerVision;           
+    public Material fogPainterMaterial;          
+    public Material fogDisplayMaterial;           
     public Transform player;
 
-    [Header("RenderTextures")]
     public int rtSize = 2048;
     private RenderTexture fogMemory;
     private RenderTexture fogScratch;
 
-    [Header("World Bounds (match your map)")]
     public Vector2 worldMin = new Vector2(-100f, -100f);
     public Vector2 worldMax = new Vector2(100f, 100f);
 
-    [Header("Live Vision Look (Player Base Circle)")]
-    public float liveFalloff = 0.5f;              // world units, soft edge used for the player’s base vision
+    public float liveFalloff = 0.5f;            
+    private enum WriteMode { LERP = 0, MAX = 1 }
 
-    // ====== REVEAL QUEUE (for memory painting) ======
-    private struct RevealReq { public Vector2 uv; public float radiusUV; public float intensity; public float edge; }
+    private struct RevealReq
+    {
+        public Vector2 uv;
+        public float radiusUV;
+        public float intensity;
+        public float edge;
+        public WriteMode writeMode;
+    }
+
     private readonly List<RevealReq> _queue = new();
 
-    // Shader property IDs for painter
     private static readonly int MainTexID = Shader.PropertyToID("_MainTex");
     private static readonly int PositionID = Shader.PropertyToID("_Position");
     private static readonly int RadiusID = Shader.PropertyToID("_Radius");
     private static readonly int IntensityID = Shader.PropertyToID("_Intensity");
     private static readonly int EdgeID = Shader.PropertyToID("_Edge");
+    private static readonly int WriteModeID = Shader.PropertyToID("_WriteMode");
 
-    // ====== TRUE-VISION BURSTS (not tied to player) ======
-    [Header("Vision Burst (true vision circles not tied to player)")]
-    public float defaultBurstFalloff = 0.5f;      // world units (edge softness for bursts)
-    [Range(1, 32)]
-    public int maxBursts = 8;                     // must match/fit shader’s MAX_BURSTS
-
+    public float defaultBurstFalloff = 0.5f;      
+    public int maxBursts = 8;                   
     private struct Burst
     {
         public Vector2 worldPos;
         public float radiusWorld;
         public float falloffWorld;
-        public float timer;                       // seconds remaining
+        public float timer;                       
     }
     private readonly List<Burst> _bursts = new();
 
-    // Shader property IDs for display (arrays + count)
     private static readonly int BurstCountID = Shader.PropertyToID("_BurstCount");
     private static readonly int BurstPosID = Shader.PropertyToID("_BurstPos");
     private static readonly int BurstRadID = Shader.PropertyToID("_BurstRad");
 
-    // ====== LIFECYCLE ======
     void Start()
     {
         InitializeRenderTextures();
@@ -66,7 +64,6 @@ public class FogManager : MonoBehaviour
         if (fogScratch) { fogScratch.Release(); Destroy(fogScratch); }
     }
 
-    // ====== INIT ======
     void InitializeRenderTextures()
     {
         if (fogMemory) { fogMemory.Release(); Destroy(fogMemory); }
@@ -86,11 +83,7 @@ public class FogManager : MonoBehaviour
         fogScratch.Create();
 
         if (fogDisplayMaterial)
-        {
             fogDisplayMaterial.SetTexture("_FogTex", fogMemory);
-            // If your display shader supports quantization toggle, you can set it here:
-            // fogDisplayMaterial.SetFloat("_QuantizeCircle", 1f);
-        }
     }
 
     void PushWorldParamsToMaterials()
@@ -109,7 +102,6 @@ public class FogManager : MonoBehaviour
         }
     }
 
-    // ====== PUBLIC API ======
     public RenderTexture GetFogMemory() => fogMemory;
 
     public void ClearFog()
@@ -120,23 +112,24 @@ public class FogManager : MonoBehaviour
         RenderTexture.active = prev;
     }
 
-    /// <summary>
-    /// Queue a reveal to paint into fogMemory (gray/white memory). worldPos is in WORLD space; radiusUV is in UV space.
-    /// </summary>
-    public void EnqueueReveal(Vector2 worldPos, float radiusUV, float intensity = 1f, float edge = 0.02f)
+    public void EnqueueReveal(Vector2 worldPos, float radiusUV, float intensity = 1f, float edge = 0.02f, bool brightenOnly = false)
     {
         Vector2 uv = WorldToUV(worldPos);
-        _queue.Add(new RevealReq { uv = uv, radiusUV = radiusUV, intensity = intensity, edge = edge });
+        _queue.Add(new RevealReq
+        {
+            uv = uv,
+            radiusUV = radiusUV,
+            intensity = intensity,
+            edge = edge,
+            writeMode = brightenOnly ? WriteMode.MAX : WriteMode.LERP
+        });
     }
 
-    /// <summary>
-    /// Trigger a TRUE-VISION burst (clears overlay, shows enemies) at an arbitrary world position, without painting gray.
-    /// </summary>
+ 
     public void TriggerVisionBurstAt(Vector2 worldPos, float radiusWorld, float durationSeconds, float falloffWorld = -1f)
     {
         if (falloffWorld < 0f) falloffWorld = defaultBurstFalloff;
-        if (_bursts.Count >= maxBursts) _bursts.RemoveAt(0); // drop oldest if full
-
+        if (_bursts.Count >= maxBursts) _bursts.RemoveAt(0);
         _bursts.Add(new Burst
         {
             worldPos = worldPos,
@@ -146,12 +139,8 @@ public class FogManager : MonoBehaviour
         });
     }
 
-    /// <summary>
-    /// Forcing immediate application of queued reveals (rarely needed—usually LateUpdate handles it).
-    /// </summary>
     public void FlushNow() => LateUpdate();
 
-    // ====== HELPERS ======
     Vector2 WorldToUV(Vector2 worldPos)
     {
         Vector2 worldSize = worldMax - worldMin;
@@ -161,7 +150,6 @@ public class FogManager : MonoBehaviour
         return new Vector2(Mathf.Clamp01(uv.x), Mathf.Clamp01(uv.y));
     }
 
-    // ====== MAIN TICK ======
     void LateUpdate()
     {
         if (player == null)
@@ -170,10 +158,8 @@ public class FogManager : MonoBehaviour
             return;
         }
 
-        // --- DISPLAY: set live clear circles (player base + active bursts) ---
         if (fogDisplayMaterial && playerVision)
         {
-            // Update burst timers & prune expired
             for (int i = _bursts.Count - 1; i >= 0; --i)
             {
                 Burst b = _bursts[i];
@@ -182,18 +168,13 @@ public class FogManager : MonoBehaviour
                 else _bursts[i] = b;
             }
 
-            // Prepare arrays: slot 0 = player base circle, then bursts
             int burstCount = Mathf.Min(maxBursts, 1 + _bursts.Count);
-
-            // Unity requires arrays sized to at least 'burstCount', but they can be larger.
             Vector4[] posArray = new Vector4[Mathf.Max(burstCount, 1)];
-            Vector4[] radArray = new Vector4[Mathf.Max(burstCount, 1)]; // x=radius, y=falloff
+            Vector4[] radArray = new Vector4[Mathf.Max(burstCount, 1)]; 
 
-            // Slot 0: player base circle
             posArray[0] = new Vector4(player.position.x, player.position.y, 0, 0);
             radArray[0] = new Vector4(playerVision.radius, liveFalloff, 0, 0);
 
-            // Fill subsequent slots with bursts
             for (int i = 0; i < burstCount - 1; i++)
             {
                 var b = _bursts[i];
@@ -205,35 +186,29 @@ public class FogManager : MonoBehaviour
             fogDisplayMaterial.SetVectorArray(BurstPosID, posArray);
             fogDisplayMaterial.SetVectorArray(BurstRadID, radArray);
 
-            // Optional legacy compatibility (some older shaders read these):
             fogDisplayMaterial.SetVector("_PlayerPos", new Vector4(player.position.x, player.position.y, 0, 0));
             fogDisplayMaterial.SetFloat("_Radius", playerVision.radius);
             fogDisplayMaterial.SetFloat("_Falloff", liveFalloff);
-
-            // World params are set in PushWorldParamsToMaterials() already
         }
 
-        // --- MEMORY PAINT: gray under the player's BASE radius only (no bursts!) ---
         if (fogPainterMaterial && playerVision)
         {
             Vector2 worldSize = worldMax - worldMin;
             float radiusUV = playerVision.radius / Mathf.Min(worldSize.x, worldSize.y);
             Vector2 uv = WorldToUV(player.position);
 
-            // Paint steady gray trail at current player radius (does not grow with bursts)
             _queue.Add(new RevealReq
             {
                 uv = uv,
                 radiusUV = radiusUV,
-                intensity = 0.3f,      // gray memory level
-                edge = 0.02f
+                intensity = 0.3f,   
+                edge = 0.02f,
+                writeMode = WriteMode.MAX 
             });
         }
 
-        // --- APPLY QUEUED REVEALS (once per frame) ---
         if (_queue.Count > 0 && fogPainterMaterial != null)
         {
-            // Ping-pong: start from fogMemory into scratch
             Graphics.Blit(fogMemory, fogScratch);
 
             for (int i = 0; i < _queue.Count; i++)
@@ -243,9 +218,9 @@ public class FogManager : MonoBehaviour
                 fogPainterMaterial.SetFloat(RadiusID, r.radiusUV);
                 fogPainterMaterial.SetFloat(IntensityID, r.intensity);
                 fogPainterMaterial.SetFloat(EdgeID, r.edge);
+                fogPainterMaterial.SetFloat(WriteModeID, (r.writeMode == WriteMode.MAX) ? 1f : 0f);
                 fogPainterMaterial.SetTexture(MainTexID, fogScratch);
 
-                // Write to memory, then keep scratch in sync
                 Graphics.Blit(fogScratch, fogMemory, fogPainterMaterial);
                 Graphics.Blit(fogMemory, fogScratch);
             }

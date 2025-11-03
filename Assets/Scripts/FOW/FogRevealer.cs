@@ -25,7 +25,6 @@ public class FogRevealer : MonoBehaviour
         paintMat = fogManager.fogPainterMaterial;
         fogTex = fogManager.GetFogMemory();
 
-        // Convert world position to UV coordinates
         Vector2 worldPos = new Vector2(transform.position.x, transform.position.y);
         Vector2 worldMin = fogManager.worldMin;
         Vector2 worldMax = fogManager.worldMax;
@@ -36,7 +35,6 @@ public class FogRevealer : MonoBehaviour
         uvPos.y = worldSize.y != 0 ? uvPos.y / worldSize.y : 0f;
         uvPos = new Vector2(Mathf.Clamp01(uvPos.x), Mathf.Clamp01(uvPos.y));
 
-        // Instantly clear fog fully (white)
         PaintFog(1f);
 
         timer = 0f;
@@ -49,7 +47,6 @@ public class FogRevealer : MonoBehaviour
 
         timer += Time.deltaTime;
 
-        // Wait full reveal time, then fade
         if (timer > fullRevealDuration)
         {
             float t = (timer - fullRevealDuration) / fadeDuration;
@@ -71,7 +68,6 @@ public class FogRevealer : MonoBehaviour
         paintMat.SetVector("_Position", new Vector4(uvPos.x, uvPos.y, 0, 0));
         paintMat.SetFloat("_Radius", revealRadiusUV);
 
-        // Modify shader intensity by multiplying reveal
         Shader.SetGlobalFloat("_FogRevealIntensity", strength);
 
         RenderTexture temp = RenderTexture.GetTemporary(fogTex.width, fogTex.height, 0, fogTex.format);

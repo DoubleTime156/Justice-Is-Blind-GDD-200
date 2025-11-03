@@ -2,11 +2,12 @@ Shader "Custom/FogPainterSmooth"
 {
     Properties
     {
-        _MainTex ("Base (Fog Memory)", 2D) = "black" {}
-        _Position ("Position (UV)", Vector) = (0,0,0,0)
-        _Radius ("Radius (UV)", Float) = 0.05
+        _MainTex   ("Base (Fog Memory)", 2D) = "black" {}
+        _Position  ("Position (UV)", Vector) = (0,0,0,0)
+        _Radius    ("Radius (UV)", Float) = 0.05
         _Intensity ("Write Intensity", Range(0,1)) = 1.0   // 1=white, 0.3=gray memory
-        _Edge ("Edge Softness", Range(0,0.1)) = 0.02
+        _Edge      ("Edge Softness (UV)", Range(0,0.1)) = 0.02
+        _WriteMode ("0=LERP, 1=MAX", Float) = 0
     }
 
     SubShader
@@ -20,18 +21,20 @@ Shader "Custom/FogPainterSmooth"
         Pass
         {
             CGPROGRAM
+            #pragma target 3.0
             #pragma vertex vert
             #pragma fragment frag
             #include "UnityCG.cginc"
 
             struct appdata { float4 vertex : POSITION; float2 uv : TEXCOORD0; };
-            struct v2f { float2 uv : TEXCOORD0; float4 vertex : SV_POSITION; };
+            struct v2f      { float2 uv : TEXCOORD0; float4 vertex : SV_POSITION; };
 
             sampler2D _MainTex;
             float4 _Position;
-            float _Radius;
-            float _Intensity;
-            float _Edge;
+            float  _Radius;
+            float  _Intensity;
+            float  _Edge;
+            float  _WriteMode; 
 
             v2f vert(appdata v)
             {
@@ -43,15 +46,25 @@ Shader "Custom/FogPainterSmooth"
 
             fixed4 frag(v2f i) : SV_Target
             {
-                // current fog value in [0..1]
                 float current = tex2D(_MainTex, i.uv).r;
 
-                // soft circular mask: 1 at center, 0 outside
-                float dist = distance(i.uv, _Position.xy);
-                float mask = smoothstep(_Radius, _Radius - _Edge, dist);
+                float dist   = distance(i.uv, _Position.xy);
+                float edge   = max(0.0, _Edge);
+                float inside = 1.0 - smoothstep(_Radius - edge, _Radius, dist);
 
-                // write TOWARD target so we can brighten (to 1) or fade down (to 0.3)
-                float written = lerp(current, _Intensity, mask);
+                float written = current;
+
+                if (_WriteMode < 0.5)
+                {
+                    float target = _Intensity;
+                    written = lerp(current, target, inside);
+                }
+                else
+                {
+                    float target = _Intensity;
+                    float insideValue = max(current, target);
+                    written = lerp(current, insideValue, step(0.0001, inside)); 
+                }
 
                 return fixed4(written, written, written, 1);
             }
