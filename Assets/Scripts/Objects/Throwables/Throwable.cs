@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ public class Throwable : MonoBehaviour
     private bool isTriggered = false;
     private float previousDistance;
     private float timeToReach;
+    public ObjectSound objectSound;
 
     public AudioSource throwSound;
     public AudioSource impactSound;
@@ -27,8 +29,9 @@ public class Throwable : MonoBehaviour
         throwSound.Play();
     }
 
-    void Update()
+    void FixedUpdate()
     {
+
         // Move towards target (Mouse position)
         Vector2 direction = (target - transform.position).normalized; 
         distance = Vector2.Distance(transform.position, target);
@@ -46,18 +49,19 @@ public class Throwable : MonoBehaviour
 
     private void itemBehavior()
     {
+        StartCoroutine(stopMakingSound(0.1f));
         switch (item)
         {
             case 0:
                 Debug.Log("Coin landed");
-                impactSound.Play();
+                objectSound.IsMakingSound = true;
                 RevealFog(0.05f);
                 rb.linearVelocity = new Vector2(0, 0); 
                 isTriggered = true;
                 break;
             case 1:
                 Debug.Log("Bottle Landed");
-                impactSound.Play();
+                objectSound.IsMakingSound = true;
                 RevealFog(0.07f);
                 isTriggered = true;
                 break;
@@ -91,5 +95,15 @@ public class Throwable : MonoBehaviour
                 itemBehavior();
                 break;
         }
+    }
+
+    IEnumerator stopMakingSound(float waitTime)
+    {
+        objectSound.IsMakingSound = true;
+        // Wait for the specified number of seconds
+        yield return new WaitForSeconds(waitTime);
+
+        // Stop making sound after time has past
+        objectSound.IsMakingSound = false;
     }
 }
