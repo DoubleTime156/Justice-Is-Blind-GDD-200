@@ -5,6 +5,7 @@ public class EnemyAI : MonoBehaviour
 {
     public bool IsChasing { get; private set; }
     public bool IsRoaming { get; private set; }
+    public bool IsGoingBack { get; private set; }
 
     [SerializeField] private EnemyData data;
     [SerializeField] private EnemyVision vision;
@@ -34,8 +35,14 @@ public class EnemyAI : MonoBehaviour
         vision.UpdateVision(player.transform);
         listen.UpdateListen();
 
+<<<<<<< Updated upstream
         // Chase if vision or listen are activated
         if (vision.CanSeeTarget || listen.HearSound)
+=======
+        IsGoingBack = false;
+
+        if (vision.CanSeeTarget /* || "hears sound" */)
+>>>>>>> Stashed changes
         {
             IsChasing = true;
             IsRoaming = false;
@@ -72,13 +79,17 @@ public class EnemyAI : MonoBehaviour
         {
             if (waitTimer >= 3.0f) // Return back to roaming location
             {
+                IsGoingBack = true;
                 transformer.SetSpeed(data.roamingSpeed);
 
                 pathfind.UpdatePath(roam.nodes[roam.AtNode].position);
                 pathfind.SetTargetNodeTransforms();
                 dir = pathfind.TargetDir;
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
             }
             else // Wait and add to timer
             {

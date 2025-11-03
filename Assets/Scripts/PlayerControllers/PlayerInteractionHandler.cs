@@ -2,10 +2,6 @@ using UnityEditor.Experimental.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public interface BehaviorCallable
-{
-    void Behavior();
-}
 
 public class PlayerInteractionHandler : MonoBehaviour
 {

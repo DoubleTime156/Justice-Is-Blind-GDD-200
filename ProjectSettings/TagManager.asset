@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Enemy
   - Pickup
+<<<<<<< Updated upstream
+=======
+  - Interactable
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
