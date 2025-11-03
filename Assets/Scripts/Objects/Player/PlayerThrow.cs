@@ -19,6 +19,12 @@ public class PlayerThrow : MonoBehaviour
         gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
     }
 
+    /*
+    public void OnSwing(InputAction.CallbackContext context)
+    {
+        Debug.Log("Player swung weapon!");
+    }
+    */
 
     // Player presses F to throw object
     public void OnThrow(InputAction.CallbackContext context)

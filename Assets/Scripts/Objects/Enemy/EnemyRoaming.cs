@@ -8,9 +8,10 @@ public class EnemyRoaming : MonoBehaviour
 {
     public EnemyData data;
 
-    private int _atNode = 0;
     private float _roamingSpeed;
     private float _rotateSpeed;
+
+    public int AtNode { get; private set; }
 
     public string roamType; // [empty for no path], "path", "circular"
     public Transform[] nodes;
@@ -20,6 +21,7 @@ public class EnemyRoaming : MonoBehaviour
     {
         _roamingSpeed = data.roamingSpeed;
         _rotateSpeed = data.rotateSpeed;
+        AtNode = 0;
 
         if (nodes.Length == 0)
         {
@@ -72,7 +74,7 @@ public class EnemyRoaming : MonoBehaviour
 
     private void FollowNodes()
     {
-        Transform target = nodes[_atNode];
+        Transform target = nodes[AtNode];
         Vector3 dir = (target.position - transform.position).normalized;
 
         // When pathfinding script is ready, use A* for each node instead if raycast to next code is hit
@@ -83,10 +85,10 @@ public class EnemyRoaming : MonoBehaviour
         if (Vector3.Distance(transform.position, target.position) < _roamingSpeed
             && roamType == "path")
         {
-            _atNode++;
-            if (_atNode >= nodes.Length)
+            AtNode++;
+            if (AtNode >= nodes.Length)
             {
-                _atNode = 0;
+                AtNode = 0;
             }
         }
     }
