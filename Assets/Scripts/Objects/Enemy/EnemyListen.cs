@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class EnemyListen : MonoBehaviour
 {
+    public GameObject ObjectEmitter {  get; private set; }
 
     public float hearDistance;
 
@@ -24,6 +25,17 @@ public class EnemyListen : MonoBehaviour
             {
                 activeTargets.Add(e.gameObject);
                 HearSound = true;
+            }
+        }
+        float shortestDistance = 1000f;
+        for (int i = 0; i < activeTargets.Count; i++) /* loop through activeTargets and compare distance*/
+        {
+            float distance = Vector3.Distance(activeTargets[i].transform.position, transform.position);
+            // set shortest activeTarget to ObjectEmitter
+            if (distance<shortestDistance)
+            {
+                shortestDistance = distance;
+                ObjectEmitter = activeTargets[i];
             }
         }
     }
