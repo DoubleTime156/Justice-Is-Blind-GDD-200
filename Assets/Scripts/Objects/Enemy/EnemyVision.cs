@@ -4,40 +4,34 @@ using UnityEngine;
 
 public class EnemyVision : MonoBehaviour
 {
-    public Transform player;
-    public EnemyPathfinding chase;
-    public EnemyRoaming roam;
-    public float viewRadius = 5f;
-    public float viewAngle = 60f;
+    public float viewRadius;
+    public float viewAngle;
 
-    private bool _chasing = false;
+    public bool CanSeeTarget { get; private set; }
+    public Vector2 TargetDir { get; private set; }
 
-    void FixedUpdate()
+    public void UpdateVision(Transform target)
     {
-        Vector2 dir = player.position - transform.position;
-        float distance = dir.magnitude;
-        dir = dir.normalized;
-        _chasing = false;
+        TargetDir = target.position - transform.position;
+        float distance = TargetDir.magnitude;
+        TargetDir = TargetDir.normalized;
+        CanSeeTarget = false;
 
         if (distance <= viewRadius)
         {
-            float angle = Vector2.Angle(transform.up, dir);
+            float angle = Vector2.Angle(transform.up, TargetDir);
 
             if (angle <= viewAngle)
             {
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, distance, 
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, TargetDir, distance, 
                     LayerMask.GetMask("Obstacle")); // Check for obstacles
 
                 if (!hit)
                 {
-                    _chasing = true;
-                    chase.UpdateDirection(dir);
-                    chase.UpdateMovement();
+                    CanSeeTarget = true;
                 }
             }
         }
-
-        if (!_chasing) roam.UpdateMovement();
     }
 
     // Debug - Vision cone visual
