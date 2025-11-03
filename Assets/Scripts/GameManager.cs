@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     {
         data.inventory[0] = 0;
         data.inventory[1] = 0;
+        data.heldItem = 0;
     }
     public void gameOver()
     {

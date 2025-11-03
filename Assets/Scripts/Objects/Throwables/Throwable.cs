@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -13,9 +14,10 @@ public class Throwable : MonoBehaviour
     private bool isTriggered = false;
     private float previousDistance;
     private float timeToReach;
-
+    public ObjectSound objectSound;
     public AudioSource throwSound;
     public AudioSource impactSound;
+    public bool inAir = true; // Bottles can kill enemies if active
     public void Init(Vector3 targetPos, float initMoveSpeed, int heldItem)
     {
         target = targetPos;
@@ -27,8 +29,9 @@ public class Throwable : MonoBehaviour
         throwSound.Play();
     }
 
-    void Update()
+    void FixedUpdate()
     {
+
         // Move towards target (Mouse position)
         Vector2 direction = (target - transform.position).normalized; 
         distance = Vector2.Distance(transform.position, target);
@@ -46,18 +49,20 @@ public class Throwable : MonoBehaviour
 
     private void itemBehavior()
     {
+        StartCoroutine(stopMakingSound(0.1f));
+        inAir = false;
         switch (item)
         {
             case 0:
                 Debug.Log("Coin landed");
-                impactSound.Play();
+                objectSound.IsMakingSound = true;
                 RevealFog(0.05f);
                 rb.linearVelocity = new Vector2(0, 0); 
                 isTriggered = true;
                 break;
             case 1:
                 Debug.Log("Bottle Landed");
-                impactSound.Play();
+                objectSound.IsMakingSound = true;
                 RevealFog(0.07f);
                 isTriggered = true;
                 break;
@@ -81,7 +86,7 @@ public class Throwable : MonoBehaviour
     public void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("throwable hit wall!");
-
+        inAir = false;
         switch (item)
         {
             case 0:
@@ -91,5 +96,24 @@ public class Throwable : MonoBehaviour
                 itemBehavior();
                 break;
         }
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy") && item == 1 && inAir) // If a bottle is still in air, destroy enemies they touch
+        {
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+    }
+
+    IEnumerator stopMakingSound(float waitTime) // Makes sound to lure enemy and stops to prevent enemy jittering
+    {
+        objectSound.IsMakingSound = true;
+        // Wait for the specified number of seconds
+        yield return new WaitForSeconds(waitTime);
+
+        // Stop making sound after time has past
+        objectSound.IsMakingSound = false;
     }
 }
