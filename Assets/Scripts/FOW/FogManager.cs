@@ -72,7 +72,6 @@ public class FogManager : MonoBehaviour
         fogMemory = new RenderTexture(rtSize, rtSize, 0, RenderTextureFormat.ARGB32);
         fogScratch = new RenderTexture(rtSize, rtSize, 0, RenderTextureFormat.ARGB32);
 
-        // Choose look: Point => hard pixel blocks, Bilinear => softer blocks
         fogMemory.filterMode = FilterMode.Point;
         fogScratch.filterMode = FilterMode.Point;
 
