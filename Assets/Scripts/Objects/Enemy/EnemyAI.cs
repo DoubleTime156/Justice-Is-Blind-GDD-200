@@ -41,6 +41,8 @@ public class EnemyAI : MonoBehaviour
 =======
         IsGoingBack = false;
 
+        IsGoingBack = false;
+
         if (vision.CanSeeTarget /* || "hears sound" */)
 >>>>>>> Stashed changes
         {
@@ -87,7 +89,10 @@ public class EnemyAI : MonoBehaviour
                 dir = pathfind.TargetDir;
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
             }
