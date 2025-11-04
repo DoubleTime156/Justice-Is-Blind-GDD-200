@@ -21,6 +21,17 @@ public class GameManager : MonoBehaviour
         data.inventory[1] = 0;
         data.heldItem = 0;
     }
+
+    public void startGame() // Start game from beginning when Start is pressed on main menu
+    {
+        SceneManager.LoadScene("Level_Tutorial");
+    }
+
+    public void quitGame()
+    {
+        Application.Quit();
+        Debug.Log("Exiting Game");
+    }
     public void gameOver()
     {
         gameOverText.gameObject.SetActive(true);
