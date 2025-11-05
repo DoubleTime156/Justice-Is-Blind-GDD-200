@@ -470,10 +470,10 @@
                 {
                     "name": "",
                     "id": "f6ba8e46-c49f-46fa-a8c0-b6698bb0d563",
-                    "path": "<Keyboard>/f",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "Throw",
                     "isComposite": false,
                     "isPartOfComposite": false
