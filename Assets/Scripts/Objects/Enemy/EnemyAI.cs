@@ -53,6 +53,7 @@ public class EnemyAI : MonoBehaviour
             IsRoaming = false;
             waitTimer = 3f;
 
+            // Look at sound
             dir = vision.TargetDir;
             transformer.UpdateDirection(dir);
 
@@ -132,17 +133,19 @@ public class EnemyAI : MonoBehaviour
     {
         bool sawTarget = vision.CanSeeTarget;
 
-        // Check if enemy saw target
-        Vector3 listenPos = new Vector3(0, 0, 0);
-        if (!sawTarget) 
-            listenPos = listen.ObjectEmitter.transform.position;
+        // Set lastKnownPos instantly is heard target
+        if (!sawTarget)
+        {
+            Vector3 listenPos = listen.ObjectEmitter.transform.position;
+            lastKnownPos = listenPos;
+        }
         
         yield return new WaitForSeconds(delay);
 
+        // Set lastKnownPos after delay if saw target
         if (sawTarget)
             lastKnownPos = player.transform.position;
-        else
-            lastKnownPos = listenPos;
+
         IsChasing = true;
     }
 

@@ -926,7 +926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24581dd133dbd8d43ad47f3fe59dc242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundRadius: 2.8
+  soundRadius: 5
 --- !u!82 &329166484 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: -2230688974381632413, guid: 114436765f7463c49826ba3a8920a5a2,
