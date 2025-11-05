@@ -1,5 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Numerics;
+using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -12,6 +18,9 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private EnemyRoaming roam;
     [SerializeField] private EnemyPathfinding pathfind;
     [SerializeField] private EnemyTransformer transformer;
+
+    private bool isAlert;
+    private bool isWaiting;
 
     private GameObject player;
     private Vector3 lastKnownPos;
@@ -26,35 +35,43 @@ public class EnemyAI : MonoBehaviour
 
         IsChasing = false;
         IsRoaming = true;
+
+        isAlert = false;
+        isWaiting = false;
     }
 
     void FixedUpdate()
     {
         // Vision and Listen sense
-        vision.UpdateVision(player.transform);
+        vision.UpdateVision(player.transform.position);
         listen.UpdateListen();
 
         // Chase if vision or listen are activated
         if (vision.CanSeeTarget || listen.HearSound)
         {
-            IsChasing = true;
+            isAlert = true;
             IsRoaming = false;
-            waitTimer = 0f;
+            waitTimer = 3f;
 
-            if (vision.CanSeeTarget)
-                lastKnownPos = player.transform.position;
-            else
-                lastKnownPos = listen.ObjectEmitter.transform.position;
+            dir = vision.TargetDir;
+            transformer.UpdateDirection(dir);
+
+            // Wait for 0.75 seconds then chase
+            StartCoroutine(StartChase(0.75f));
+
         }
         else if (Vector3.Distance(transform.position, lastKnownPos) <= data.chaseSpeed)
         {
             IsChasing = false;
+            isAlert = false;
         }
+
 
         if (IsChasing) // Enemy is chasing
         {
             transformer.SetSpeed(data.chaseSpeed);
 
+            //vision.UpdateVision(lastKnownPos);
             if (vision.CanSeeTarget)
             {
                 dir = vision.TargetDir;
@@ -71,24 +88,28 @@ public class EnemyAI : MonoBehaviour
             transformer.SetSpeed(data.roamingSpeed);
             roam.UpdateMovement();
         }
-        else // Enemy is waiting or returning to roaming location
+        else if (!isAlert) // Enemy is waiting or returning to roaming location
         {
-            if (waitTimer >= 3.0f) // Return back to roaming location
+            if (waitTimer <= 0)
             {
+                waitTimer = 0;
+
                 transformer.SetSpeed(data.roamingSpeed);
 
                 pathfind.UpdatePath(roam.nodes[roam.AtNode].position);
                 pathfind.SetTargetNodeTransforms();
                 dir = pathfind.TargetDir;
-
-
             }
-            else // Wait and add to timer
+            else
             {
-                waitTimer += Time.fixedDeltaTime;
+                waitTimer -= Time.fixedDeltaTime;
                 dir = new Vector3(0, 0, 0);
             }
-            
+        }
+        else
+        {
+            transformer.UpdateDirection(dir);
+            return;
         }
 
         // Roaming handles transforms already
@@ -105,4 +126,41 @@ public class EnemyAI : MonoBehaviour
         if (!IsChasing && Vector3.Distance(transform.position, roam.nodes[roam.AtNode].position) < 1) 
             IsRoaming = true;
     }
+
+    
+    IEnumerator StartChase(float delay)
+    {
+        bool sawTarget = vision.CanSeeTarget;
+
+        // Check if enemy saw target
+        Vector3 listenPos = new Vector3(0, 0, 0);
+        if (!sawTarget) 
+            listenPos = listen.ObjectEmitter.transform.position;
+        
+        yield return new WaitForSeconds(delay);
+
+        if (sawTarget)
+            lastKnownPos = player.transform.position;
+        else
+            lastKnownPos = listenPos;
+        IsChasing = true;
+    }
+
+
+    /*
+    IEnumerator StartWalkBack(float delay)
+    {
+        isWaiting = true;
+        yield return new WaitForSeconds(delay);
+        if (IsChasing || IsRoaming) yield break;
+
+        transformer.SetSpeed(data.roamingSpeed);
+
+        pathfind.UpdatePath(roam.nodes[roam.AtNode].position);
+        pathfind.SetTargetNodeTransforms();
+        dir = pathfind.TargetDir;
+
+        isWaiting = false;
+    }
+    */
 }

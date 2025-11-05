@@ -6,20 +6,26 @@ public class EnemyVision : MonoBehaviour
 {
     public float viewRadius;
     public float viewAngle;
+    private GameObject _lightVision;
 
     public bool CanSeeTarget { get; private set; }
     public Vector2 TargetDir { get; private set; }
 
-    public void UpdateVision(Transform target)
+    void Awake()
     {
-        TargetDir = target.position - transform.position;
+        _lightVision = transform.Find("LightVision").gameObject;
+    }
+
+    public void UpdateVision(Vector3 targetPos)
+    {
+        TargetDir = targetPos - transform.position;
         float distance = TargetDir.magnitude;
         TargetDir = TargetDir.normalized;
         CanSeeTarget = false;
 
         if (distance <= viewRadius)
         {
-            float angle = Vector2.Angle(transform.up, TargetDir);
+            float angle = Vector2.Angle(_lightVision.transform.up, TargetDir);
 
             if (angle <= viewAngle)
             {
