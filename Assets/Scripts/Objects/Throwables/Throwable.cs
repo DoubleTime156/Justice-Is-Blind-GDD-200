@@ -62,6 +62,7 @@ public class Throwable : MonoBehaviour
                 break;
             case 1:
                 Debug.Log("Bottle Landed");
+                GetComponent<Renderer>().enabled = false;
                 objectSound.IsMakingSound = true;
                 RevealFog(0.07f);
                 isTriggered = true;
@@ -98,9 +99,9 @@ public class Throwable : MonoBehaviour
         }
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D collision) // If a bottle is still in air, destroy enemies they touch
     {
-        if (collision.CompareTag("Enemy") && item == 1 && inAir) // If a bottle is still in air, destroy enemies they touch
+        if (collision.CompareTag("Enemy") && item == 1 && inAir) 
         {
             Destroy(collision.gameObject);
             Destroy(gameObject);
