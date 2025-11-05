@@ -507,7 +507,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 446369829}
-  - {fileID: 1762000152}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &197386808
@@ -1006,7 +1005,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8776994412918227710, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1762000152}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7126914669921339014, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
@@ -1061,8 +1064,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3258e2aab4649f4e9c8df42b7e03530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noiseReveal: {fileID: 0}
-  player: {fileID: 0}
+  noiseReveal: {fileID: 702587814}
+  player: {fileID: 329166479}
   tapKey: 32
   tapRadiusWorld: 6
   tapFullBrightTime: 0.8
@@ -1097,7 +1100,8 @@ PrefabInstance:
     - target: {fileID: 4582014711028778363, guid: 0646ceee9a2ea98498789370efda0059,
         type: 3}
       propertyPath: displayText
-      value: E - Pick up items
+      value: Bottles can be used to make sound, attact enemies or even to knock out
+        enemies with a direct hit.
       objectReference: {fileID: 0}
     - target: {fileID: 7392973072633453729, guid: 0646ceee9a2ea98498789370efda0059,
         type: 3}
@@ -1683,6 +1687,56 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2137341008}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &702587812
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 702587813}
+  - component: {fileID: 702587814}
+  m_Layer: 0
+  m_Name: NoiseSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &702587813
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702587812}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5.51982, y: 3.17205, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1498851585}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &702587814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702587812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f763a68ddf3336f4ca39da482ce63850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fogManager: {fileID: 1463499304}
+  revealRadiusUV: 1
+  fullBrightTime: 1
+  fadeDuration: 2
+  whiteLevel: 1
+  grayLevel: 0.3
 --- !u!1001 &722713232
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1791,8 +1845,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Sample text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c1ef773ec48426a40bcde3db7228e9df, type: 2}
+  m_sharedMaterial: {fileID: 1830332523205378746, guid: c1ef773ec48426a40bcde3db7228e9df,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1816,8 +1871,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2076,6 +2131,54 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 9057699455605768637}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &997606101
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 997606103}
+  - component: {fileID: 997606102}
+  m_Layer: 0
+  m_Name: VisionController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &997606102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997606101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5fc0aef982e35547ad6950f5774d575, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visionMaterial: {fileID: 2100000, guid: 24efac89a47560449b45e6350ed67b64, type: 2}
+  player: {fileID: 329166479}
+  radius: 3
+  falloff: 12
+--- !u!4 &997606103
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997606101}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 17.64877, y: 6.7305098, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1498851585}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1007062144 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9209680792800399182, guid: c94be2dff40578a4ca9662f7e185c590,
@@ -11967,7 +12070,8 @@ PrefabInstance:
     - target: {fileID: 4582014711028778363, guid: 0646ceee9a2ea98498789370efda0059,
         type: 3}
       propertyPath: displayText
-      value: SPACE - Cane Smash
+      value: Press space to smash the cane on the floor. Be careful enemies can hear
+        you.
       objectReference: {fileID: 0}
     - target: {fileID: 7392973072633453729, guid: 0646ceee9a2ea98498789370efda0059,
         type: 3}
@@ -11982,12 +12086,12 @@ PrefabInstance:
     - target: {fileID: 7392973072633453729, guid: 0646ceee9a2ea98498789370efda0059,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.25
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 7392973072633453729, guid: 0646ceee9a2ea98498789370efda0059,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.5
+      value: 1.45
       objectReference: {fileID: 0}
     - target: {fileID: 7392973072633453729, guid: 0646ceee9a2ea98498789370efda0059,
         type: 3}
@@ -12255,6 +12359,94 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1463499303
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1463499305}
+  - component: {fileID: 1463499304}
+  m_Layer: 0
+  m_Name: FogManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1463499304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1463499303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90478f3abaf4425418730d1ffbf8566b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerVision: {fileID: 997606102}
+  fogPainterMaterial: {fileID: 2100000, guid: 62c38e4fd275e5b40aa8ec157c960444, type: 2}
+  fogDisplayMaterial: {fileID: 2100000, guid: 24efac89a47560449b45e6350ed67b64, type: 2}
+  player: {fileID: 329166479}
+  rtSize: 512
+  worldMin: {x: -100, y: -100}
+  worldMax: {x: 100, y: 100}
+  liveFalloff: 0.5
+  defaultBurstFalloff: 0.5
+  maxBursts: 15
+--- !u!4 &1463499305
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1463499303}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.86661, y: 5.65905, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1498851585}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1498851584
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1498851585}
+  m_Layer: 0
+  m_Name: FOW
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1498851585
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498851584}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.51982, y: -3.17205, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1463499305}
+  - {fileID: 997606103}
+  - {fileID: 702587813}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1555683297
 GameObject:
   m_ObjectHideFlags: 0
@@ -12776,7 +12968,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1762000152
 Transform:
   m_ObjectHideFlags: 0
@@ -12786,11 +12978,11 @@ Transform:
   m_GameObject: {fileID: 1762000151}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalPosition: {x: -0.14999962, y: -0.5, z: 0}
   m_LocalScale: {x: 56, y: 30, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 197386807}
+  m_Father: {fileID: 329166479}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1762000153
 Animator:
@@ -16824,7 +17016,7 @@ PrefabInstance:
     - target: {fileID: 8531191986436548933, guid: 827e13442c3ea2f45a812e6bd201c8b6,
         type: 3}
       propertyPath: m_Intensity
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16950,3 +17142,4 @@ SceneRoots:
   - {fileID: 226731309}
   - {fileID: 1229424809}
   - {fileID: 835957780}
+  - {fileID: 1498851585}

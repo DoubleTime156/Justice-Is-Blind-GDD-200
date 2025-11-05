@@ -14,12 +14,17 @@ public class CaneTap : MonoBehaviour
 
     public bool logTaps = true;
 
+    private float tapCooldown;
+    private bool canTap = true;
+
     void Update()
     {
         if (noiseReveal == null || player == null) return;
 
-        if (Input.GetKeyDown(tapKey))
+        if (Input.GetKeyDown(tapKey) && canTap == true)
         {
+            tapCooldown = tapFadeDuration;
+
             Vector2 tapWorld = new Vector2(player.position.x, player.position.y);
 
             noiseReveal.fullBrightTime = tapFullBrightTime;
@@ -29,6 +34,15 @@ public class CaneTap : MonoBehaviour
 
             if (logTaps)
                 Debug.Log($"[CaneTap] NoiseReveal at {tapWorld}, rWorld={tapRadiusWorld}, white {tapFullBrightTime}s then fade {tapFadeDuration}s");
+            canTap = false;
+        }
+        if (canTap == false)
+        {
+            tapCooldown -= Time.deltaTime;
+            if (tapCooldown <= 0)
+            {
+                canTap = true;
+            }
         }
     }
 }
