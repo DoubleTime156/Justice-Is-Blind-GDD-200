@@ -48,28 +48,7 @@ public class CaneTap : MonoBehaviour
                 canTap = true;
             }
         }
-        if (isTapping)
-        {
-            timer -= Time.deltaTime;
-            if (timer <= 0f)
-            {
-                playerVision.radius = originalRadius;
 
-                if (fogManager != null)
-                {
-                    fogManager.revealRadiusUV /= noiseMultiplier;
-
-                 
-                        isTapping = false;
-                 
-                }
-
-            }
-            
-           
-
-        }
-
-        objectSound.IsMakingSound = isTapping;
+        objectSound.IsMakingSound = !canTap;
     }
 }

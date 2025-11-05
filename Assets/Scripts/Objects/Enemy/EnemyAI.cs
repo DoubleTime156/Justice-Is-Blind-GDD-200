@@ -53,10 +53,6 @@ public class EnemyAI : MonoBehaviour
             IsRoaming = false;
             waitTimer = 3f;
 
-            // Look at sound
-            dir = vision.TargetDir;
-            transformer.UpdateDirection(dir);
-
             // Wait for 0.75 seconds then chase
             StartCoroutine(StartChase(0.75f));
 
@@ -133,17 +129,26 @@ public class EnemyAI : MonoBehaviour
     {
         bool sawTarget = vision.CanSeeTarget;
 
-        // Set lastKnownPos instantly is heard target
-        if (!sawTarget)
+        // Set lastKnownPos
+        if (sawTarget)
+        {
+            lastKnownPos = player.transform.position;
+        }
+        else
         {
             Vector3 listenPos = listen.ObjectEmitter.transform.position;
             lastKnownPos = listenPos;
         }
-        
+
+            // Look at sound
+            vision.UpdateVision(lastKnownPos);
+        dir = vision.TargetDir;
+        transformer.UpdateDirection(dir);
+
         yield return new WaitForSeconds(delay);
 
-        // Set lastKnownPos after delay if saw target
-        if (sawTarget)
+        // Update lastKnownPos after delay if saw target
+        if (sawTarget && !IsChasing)
             lastKnownPos = player.transform.position;
 
         IsChasing = true;
