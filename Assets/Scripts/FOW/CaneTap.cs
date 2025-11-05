@@ -1,73 +1,34 @@
 using UnityEngine;
-using System.Diagnostics;
-
 
 public class CaneTap : MonoBehaviour
 {
+    public NoiseReveal noiseReveal; 
+    public Transform player;        
 
-    public PlayerPosition playerVision;
-    public FogManager fogManager;
-    public float noiseMultiplier = 2f;
+    public KeyCode tapKey = KeyCode.Space;
+    public float tapRadiusWorld = 6f;
 
-    public float cooldown = 1f;
-    public float noiseDuration = 1f;
-    public AudioSource tapSound;
+    public float tapFullBrightTime = 0.8f;
 
-    private float originalRadius;
-    private float timer = 0f;
-    private float coolDownTimer = 0f;
-    private bool isTapping = false;
-    private bool canTap = true;
+    public float tapFadeDuration = 2.0f;
+
+    public bool logTaps = true;
+
     void Update()
     {
-        //UnityEngine.Debug.Log("Cooldown" + coolDownTimer);
+        if (noiseReveal == null || player == null) return;
 
-        //UnityEngine.Debug.Log("Timer" + timer);
-
-        if (Input.GetKeyDown(KeyCode.Space) && !isTapping && canTap)
+        if (Input.GetKeyDown(tapKey))
         {
-            tapSound.Play();
-            originalRadius = playerVision.radius;
-            playerVision.radius *= noiseMultiplier;
+            Vector2 tapWorld = new Vector2(player.position.x, player.position.y);
 
-            if (fogManager != null)
-            {
-                fogManager.revealRadiusUV *= noiseMultiplier;
-            }
+            noiseReveal.fullBrightTime = tapFullBrightTime;
+            noiseReveal.fadeDuration = tapFadeDuration;
 
-            isTapping = true;
-            canTap = false;
-            timer = noiseDuration;
-            coolDownTimer = cooldown;
-        }
-        if (!canTap)
-        {
-            coolDownTimer -= Time.deltaTime;
-            if (coolDownTimer <= 0f)
-            {
-                canTap = true;
-            }
-        }
-        if (isTapping)
-        {
-            timer -= Time.deltaTime;
-            if (timer <= 0f)
-            {
-                playerVision.radius = originalRadius;
+            noiseReveal.RevealAtWorld(tapWorld, tapRadiusWorld);
 
-                if (fogManager != null)
-                {
-                    fogManager.revealRadiusUV /= noiseMultiplier;
-
-                 
-                        isTapping = false;
-                 
-                }
-
-            }
-            
-           
-
+            if (logTaps)
+                Debug.Log($"[CaneTap] NoiseReveal at {tapWorld}, rWorld={tapRadiusWorld}, white {tapFullBrightTime}s then fade {tapFadeDuration}s");
         }
     }
 }

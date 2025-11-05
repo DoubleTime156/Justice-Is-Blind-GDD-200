@@ -41,7 +41,10 @@ public class EnemyAI : MonoBehaviour
             IsRoaming = false;
             waitTimer = 0f;
 
-            lastKnownPos = player.transform.position;
+            if (vision.CanSeeTarget)
+                lastKnownPos = player.transform.position;
+            else
+                lastKnownPos = listen.ObjectEmitter.transform.position;
         }
         else if (Vector3.Distance(transform.position, lastKnownPos) <= data.chaseSpeed)
         {
