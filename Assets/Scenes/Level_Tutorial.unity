@@ -14193,6 +14193,18 @@ Transform:
   - {fileID: 1430935954}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1247609655 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5221738074587676042, guid: 527006e18483fe14b868dfae333beeda,
+    type: 3}
+  m_PrefabInstance: {fileID: 8933724048598657022}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5fc0aef982e35547ad6950f5774d575, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1290082905 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2361082758901517208, guid: 48670f6e95e84b54d9e96dd5c81d67fd,
@@ -14850,7 +14862,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1762000152
 Transform:
   m_ObjectHideFlags: 0
@@ -19261,6 +19273,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 329166479}
+    - target: {fileID: 3125600939272020676, guid: c94be2dff40578a4ca9662f7e185c590,
+        type: 3}
+      propertyPath: playerVision
+      value: 
+      objectReference: {fileID: 1247609655}
     - target: {fileID: 9209680792800399182, guid: c94be2dff40578a4ca9662f7e185c590,
         type: 3}
       propertyPath: m_LocalPosition.x
