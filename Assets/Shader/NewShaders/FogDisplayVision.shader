@@ -10,11 +10,12 @@
         _FogTex ("Fog Memory", 2D) = "white" {}
         _WorldMin ("World Min", Vector) = (0,0,0,0)
         _WorldSize ("World Size", Vector) = (1,1,0,0)
-        _MemoryStrength ("Memory Brightness", Range(0,1)) = 0.3
 
         _QuantizeCircle ("Quantize Live Circles To Fog Texels", Float) = 1
-
         _WhiteVisionCutoff ("White->Clear Threshold", Range(0.5,1)) = 0.95
+
+        _MemoryColor ("Memory Color (RGB)", Color) = (0.2,0.8,0.3,0.5)
+        _MemoryAlpha ("Memory Alpha", Range(0,1)) = 0.3
     }
 
     SubShader
@@ -47,14 +48,16 @@
 
             float4 _WorldMin;
             float4 _WorldSize;
-            float _MemoryStrength;
+
             float _QuantizeCircle;
+            float _WhiteVisionCutoff;
 
             int _BurstCount;
             float4 _BurstPos[MAX_BURSTS];
-            float4 _BurstRad[MAX_BURSTS]; 
+            float4 _BurstRad[MAX_BURSTS];
 
-            float _WhiteVisionCutoff;
+            float4 _MemoryColor;
+            float _MemoryAlpha;
 
             v2f vert(appdata v)
             {
@@ -82,7 +85,7 @@
 
                 float d = distance(fogUV, centerUV);
                 float m = smoothstep(rUV - fUV, rUV, d);
-                return 1.0 - m; 
+                return 1.0 - m; // 1 inside, 0 outside
             }
 
             fixed4 frag(v2f i) : SV_Target
@@ -100,20 +103,14 @@
                     float  fW = _BurstRad[k].y;
                     seenNow = max(seenNow, circleSeen(fogUV, cW, rW, fW));
                 }
-                if (seenNow > 0.001)
-                    return fixed4(0,0,0,0); 
+                if (seenNow > 0.001) return fixed4(0,0,0,0);
 
                 float memory = tex2D(_FogTex, fogUV).r;
-                if (memory >= _WhiteVisionCutoff)
-                    return fixed4(0,0,0,0);
+                if (memory >= _WhiteVisionCutoff) return fixed4(0,0,0,0);
 
                 if (memory > 0.001)
-                {
-                    float gray = lerp(0.15, 0.8, _MemoryStrength);
-                    return fixed4(gray, gray, gray, 0.5);
-                }
+                    return fixed4(_MemoryColor.rgb, _MemoryAlpha);
 
-                // Unseen
                 return fixed4(_Darkness.rgb, 1.0);
             }
             ENDCG

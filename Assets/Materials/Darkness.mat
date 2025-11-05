@@ -55,7 +55,11 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Darkness: {r: 0, g: 0, b: 0, a: 1}
+<<<<<<< Updated upstream
     - _PlayerPos: {r: -6.3169107, g: -0.8227924, b: 0, a: 0}
+=======
+    - _PlayerPos: {r: -3.5575848, g: 0.504972, b: 0, a: 0}
+>>>>>>> Stashed changes
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _WorldMax: {r: 10, g: 10, b: 0, a: 0}
     - _WorldMin: {r: -100, g: -100, b: 0, a: 0}
