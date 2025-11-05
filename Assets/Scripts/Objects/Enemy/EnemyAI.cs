@@ -20,7 +20,6 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private EnemyTransformer transformer;
 
     private bool isAlert;
-    private bool isWaiting;
 
     private GameObject player;
     private Vector3 lastKnownPos;
@@ -37,7 +36,6 @@ public class EnemyAI : MonoBehaviour
         IsRoaming = true;
 
         isAlert = false;
-        isWaiting = false;
     }
 
     void FixedUpdate()
