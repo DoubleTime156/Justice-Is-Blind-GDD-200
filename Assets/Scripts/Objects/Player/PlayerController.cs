@@ -57,11 +57,11 @@ public class PlayerController2D_InputSystem : MonoBehaviour
     {
         if (context.performed)
         {
-            data.moveMulti = 2;
+            data.moveMulti = 2.0f;
         }
         else if (context.canceled)
         {
-            data.moveMulti = 1;
+            data.moveMulti = 1.0f;
         }
     }
 
@@ -73,7 +73,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
         }
         else if (context.canceled)
         {
-            data.moveMulti = 1;
+            data.moveMulti = 1.0f;
         }
     }
     
