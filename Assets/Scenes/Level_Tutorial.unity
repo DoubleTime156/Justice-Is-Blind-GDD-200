@@ -910,6 +910,7 @@ MonoBehaviour:
   playerVision: {fileID: 1027906823}
   fogManager: {fileID: 1007062143}
   noiseMultiplier: 2
+  objectSound: {fileID: 329166483}
   cooldown: 1
   noiseDuration: 1
   tapSound: {fileID: 329166484}
@@ -16237,11 +16238,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1196598050558888106, guid: 96acafd411a34f746af99bcb05042d08,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2856748731493282492, guid: 96acafd411a34f746af99bcb05042d08,
         type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 329166479}
+    - target: {fileID: 5285417508632967485, guid: 96acafd411a34f746af99bcb05042d08,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6118905084578778089, guid: 96acafd411a34f746af99bcb05042d08,
         type: 3}
       propertyPath: m_LocalPosition.x

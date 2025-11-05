@@ -8,6 +8,7 @@ public class CaneTap : MonoBehaviour
     public PlayerPosition playerVision;
     public FogManager fogManager;
     public float noiseMultiplier = 2f;
+    public ObjectSound objectSound;
 
     public float cooldown = 1f;
     public float noiseDuration = 1f;
@@ -69,5 +70,7 @@ public class CaneTap : MonoBehaviour
            
 
         }
+
+        objectSound.IsMakingSound = isTapping;
     }
 }
