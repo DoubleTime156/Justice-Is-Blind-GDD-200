@@ -34,7 +34,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             gameManager.gameOver();
-            //Destroy(gameObject);
+            this.enabled = false;
         }else if (collision.gameObject.CompareTag("Pickup"))
         {
             data.inventory[collision.GetComponent<Pickup>().pickupType]++;
