@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Enemy
+  - Pickup
+  - Interactable
   layers:
   - Default
   - TransparentFX

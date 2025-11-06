@@ -35,16 +35,16 @@ public class EnemyAI : MonoBehaviour
         vision.UpdateVision(player.transform);
         listen.UpdateListen();
 
-<<<<<<< Updated upstream
+
         // Chase if vision or listen are activated
         if (vision.CanSeeTarget || listen.HearSound)
-=======
+
         IsGoingBack = false;
 
         IsGoingBack = false;
 
         if (vision.CanSeeTarget /* || "hears sound" */)
->>>>>>> Stashed changes
+
         {
             IsChasing = true;
             IsRoaming = false;
@@ -88,13 +88,6 @@ public class EnemyAI : MonoBehaviour
                 pathfind.SetTargetNodeTransforms();
                 dir = pathfind.TargetDir;
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
             }
             else // Wait and add to timer
             {

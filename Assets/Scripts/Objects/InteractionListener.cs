@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 public interface BehaviorCallable
 {
     void Behavior();
@@ -24,17 +25,7 @@ public class InteractionListener : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if interaction is pressed down
-        //  get all objects inside interactable in trigger and then do their stuff
-        /*if (Interact.performed)
-        {
-            foreach (GameObject obj in interactableInTrigger)
-            {
-                //tk: needs to call the behavior of the script
-                //tk: behavior of the script needs to toggle (not for all but for most)
-                obj.GetComponent<Collider>().enabled = false;
-            }
-        }*/
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -51,6 +42,21 @@ public class InteractionListener : MonoBehaviour
         if (other.CompareTag("Interactable"))
         {
             interactableInTrigger.Remove(other.gameObject);
+        }
+    }
+
+    public void onInteract(InputAction.CallbackContext context)
+    {
+        //if interaction is pressed down
+        //  get all objects inside interactable in trigger and then do their stuff
+        if (context.canceled)
+        {
+            foreach (GameObject obj in interactableInTrigger)
+            {
+                //tk: needs to call the behavior of the script
+                //tk: behavior of the script needs to toggle (not for all but for most)
+                obj.GetComponent<BehaviorCallable>().Behavior();
+            }
         }
     }
 
