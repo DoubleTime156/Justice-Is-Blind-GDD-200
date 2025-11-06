@@ -28,7 +28,7 @@ public class EnemyListen : MonoBehaviour
             }
         }
         float shortestDistance = 1000f;
-        for (int i = 0; i < activeTargets.Count; i++) /* loop through activeTargets and compare distance*/
+        for (int i = 0; i < activeTargets.Count; i++) // loop through activeTargets and compare distance
         {
             float distance = Vector3.Distance(activeTargets[i].transform.position, transform.position);
             // set shortest activeTarget to ObjectEmitter

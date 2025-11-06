@@ -1,73 +1,54 @@
 using UnityEngine;
-using System.Diagnostics;
-
 
 public class CaneTap : MonoBehaviour
 {
+    public NoiseReveal noiseReveal; 
+    public Transform player;        
 
     public PlayerPosition playerVision;
     public FogManager fogManager;
     public float noiseMultiplier = 2f;
+    public ObjectSound objectSound;
+    public KeyCode tapKey = KeyCode.Space;
+    public float tapRadiusWorld = 6f;
 
-    public float cooldown = 1f;
-    public float noiseDuration = 1f;
-    public AudioSource tapSound;
+    public float tapFullBrightTime = 0.8f;
 
-    private float originalRadius;
-    private float timer = 0f;
-    private float coolDownTimer = 0f;
-    private bool isTapping = false;
+    public float tapFadeDuration = 2.0f;
+
+    public bool logTaps = true;
+
+    private float tapCooldown;
     private bool canTap = true;
+
     void Update()
     {
-        //UnityEngine.Debug.Log("Cooldown" + coolDownTimer);
+        if (noiseReveal == null || player == null) return;
 
-        //UnityEngine.Debug.Log("Timer" + timer);
-
-        if (Input.GetKeyDown(KeyCode.Space) && !isTapping && canTap)
+        if (Input.GetKeyDown(tapKey) && canTap == true)
         {
-            tapSound.Play();
-            originalRadius = playerVision.radius;
-            playerVision.radius *= noiseMultiplier;
+            tapCooldown = tapFadeDuration;
 
-            if (fogManager != null)
-            {
-                fogManager.revealRadiusUV *= noiseMultiplier;
-            }
+            Vector2 tapWorld = new Vector2(player.position.x, player.position.y);
 
-            isTapping = true;
+            noiseReveal.fullBrightTime = tapFullBrightTime;
+            noiseReveal.fadeDuration = tapFadeDuration;
+
+            noiseReveal.RevealAtWorld(tapWorld, tapRadiusWorld);
+
+            if (logTaps)
+                Debug.Log($"[CaneTap] NoiseReveal at {tapWorld}, rWorld={tapRadiusWorld}, white {tapFullBrightTime}s then fade {tapFadeDuration}s");
             canTap = false;
-            timer = noiseDuration;
-            coolDownTimer = cooldown;
         }
-        if (!canTap)
+        if (canTap == false)
         {
-            coolDownTimer -= Time.deltaTime;
-            if (coolDownTimer <= 0f)
+            tapCooldown -= Time.deltaTime;
+            if (tapCooldown <= 1)
             {
                 canTap = true;
             }
         }
-        if (isTapping)
-        {
-            timer -= Time.deltaTime;
-            if (timer <= 0f)
-            {
-                playerVision.radius = originalRadius;
 
-                if (fogManager != null)
-                {
-                    fogManager.revealRadiusUV /= noiseMultiplier;
-
-                 
-                        isTapping = false;
-                 
-                }
-
-            }
-            
-           
-
-        }
+        objectSound.IsMakingSound = !canTap;
     }
 }
