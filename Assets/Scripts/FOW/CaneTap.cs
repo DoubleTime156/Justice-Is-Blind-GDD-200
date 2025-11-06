@@ -2,29 +2,53 @@ using UnityEngine;
 
 public class CaneTap : MonoBehaviour
 {
-    public GameObject soundPulsePrefab;  // Prefab with MeshRenderer + SoundPulse
-    public Transform player;
-    public float cooldown = 1f;
+    public NoiseReveal noiseReveal; 
+    public Transform player;        
 
+    public PlayerPosition playerVision;
+    public FogManager fogManager;
+    public float noiseMultiplier = 2f;
+    public ObjectSound objectSound;
+    public KeyCode tapKey = KeyCode.Space;
+    public float tapRadiusWorld = 6f;
+
+    public float tapFullBrightTime = 0.8f;
+
+    public float tapFadeDuration = 2.0f;
+
+    public bool logTaps = true;
+
+    private float tapCooldown;
     private bool canTap = true;
-    private float cooldownTimer = 0f;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && canTap)
-        {
-            // Spawn a pulse at player's current position
-            Instantiate(soundPulsePrefab, player.position, Quaternion.identity);
+        if (noiseReveal == null || player == null) return;
 
+        if (Input.GetKeyDown(tapKey) && canTap == true)
+        {
+            tapCooldown = tapFadeDuration;
+
+            Vector2 tapWorld = new Vector2(player.position.x, player.position.y);
+
+            noiseReveal.fullBrightTime = tapFullBrightTime;
+            noiseReveal.fadeDuration = tapFadeDuration;
+
+            noiseReveal.RevealAtWorld(tapWorld, tapRadiusWorld);
+
+            if (logTaps)
+                Debug.Log($"[CaneTap] NoiseReveal at {tapWorld}, rWorld={tapRadiusWorld}, white {tapFullBrightTime}s then fade {tapFadeDuration}s");
             canTap = false;
-            cooldownTimer = cooldown;
+        }
+        if (canTap == false)
+        {
+            tapCooldown -= Time.deltaTime;
+            if (tapCooldown <= 0)
+            {
+                canTap = true;
+            }
         }
 
-        if (!canTap)
-        {
-            cooldownTimer -= Time.deltaTime;
-            if (cooldownTimer <= 0f)
-                canTap = true;
-        }
+        objectSound.IsMakingSound = !canTap;
     }
 }

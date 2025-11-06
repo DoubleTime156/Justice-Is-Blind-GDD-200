@@ -4,63 +4,68 @@ using System.Collections.Generic;
 public class EnemyPathfinding : MonoBehaviour
 {
     public EnemyData data;
-    public Transform player;
     public Pathfinding pathfinder;
-    public float nextNodeDistance = 0.5f;
-    public float pathUpdateInterval = 0.2f; // seconds
+    public float nextNodeDistance;
 
-    private float _speed;
-    private float _rotateSpeed;
     private List<Node> _path;
-    private int _atNode;
-    private float _lastPathUpdateTime;
+    private int _nextNode;
 
-    void Awake()
+    public Vector3 TargetPos { get; private set; }
+    public Vector2 TargetDir { get; private set; }
+
+    public void UpdatePath(Vector3 targetPos)
     {
-        _speed = data.chaseSpeed;
-        _rotateSpeed = data.rotateSpeed;
+        if (pathfinder == null) return;
 
-        _lastPathUpdateTime = -pathUpdateInterval;
-    }
-
-    public void UpdateMovement()
-    {
-        if (Time.time - _lastPathUpdateTime >= pathUpdateInterval)
+        // Don't create path if already next to target
+        if (Vector3.Distance(transform.position, targetPos) <= 1f)
         {
-            UpdatePath();
-            _lastPathUpdateTime = Time.time;
+            _path = null;
+            TargetPos = targetPos;
+            TargetDir = (TargetPos - transform.position).normalized;
+            return;
         }
 
-        // Move along _path if it exists and within distance of player
-        if (_path != null && _path.Count > 0 && (player.position - transform.position).magnitude <= 13.0f)
-        {
-            Vector3 targetPos = _path[_atNode].worldPosition;
-            Vector3 dir = (targetPos - transform.position).normalized;
-            transform.position += _speed * dir;
+        // Calculate path
+        List<Node> newPath = pathfinder.FindPath(transform.position, targetPos);
+        if (newPath == null || newPath.Count == 0) return;
 
-            if (Vector3.Distance(transform.position, targetPos) < nextNodeDistance)
+        // Keep the current node if it's still close in the new path
+        if (_path != null && _nextNode < _path.Count)
+        {
+            Node curNode = _path[_nextNode];
+            int closestIndex = newPath.FindIndex(n => Vector3.Distance(n.worldPosition, curNode.worldPosition) < data.chaseSpeed);
+            _nextNode = Mathf.Clamp(closestIndex, 0, newPath.Count - 1);
+        }
+        else
+        {
+            _nextNode = 0;
+        }
+
+        _path = newPath;
+    }
+
+    public void SetTargetNodeTransforms()
+    {
+        if (_path == null || _path.Count <= 0) return;
+
+        // Set target transforms
+        TargetPos = _path[_nextNode].worldPosition;
+        TargetDir = (TargetPos - transform.position).normalized;
+    }
+
+    public void SetNextTargetNode()
+    {
+        if (_path == null || _path.Count <= 0) return;
+
+        // Check if arrived at next node, if so, set the next node
+        if (Vector3.Distance(transform.position, TargetPos) < nextNodeDistance)
+        {
+            _nextNode++;
+            if (_nextNode >= _path.Count)
             {
-                _atNode++;
-                if (_atNode >= _path.Count)
-                {
-                    _atNode = _path.Count - 1;
-                }
+                _nextNode = _path.Count - 1;
             }
-        }
-    }
-
-    public void UpdateDirection(Vector2 dir)
-    {
-        Vector2 newDir = Vector2.Lerp(transform.up, dir.normalized, _rotateSpeed);
-        transform.up = newDir;
-    }
-
-    void UpdatePath()
-    {
-        if (player != null && pathfinder != null)
-        {
-            _path = pathfinder.FindPath(transform.position, player.position);
-            _atNode = 0;
         }
     }
 

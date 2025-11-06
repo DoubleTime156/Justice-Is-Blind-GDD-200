@@ -14,15 +14,14 @@ public class CameraMovement : MonoBehaviour
         _position = transform.position;
     }
 
-    // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         // Get mouse position
         Vector3 mouseScreenPos = Mouse.current.position.ReadValue();
         mouseScreenPos.z = Camera.main.WorldToScreenPoint(transform.position).z;
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
 
-        _position = (player.position + mouseWorldPos)/2.0f;
+        _position = (3 * player.position + mouseWorldPos)/4.0f;
         _position.z = -10;
 
         transform.position = Vector3.Lerp(transform.position, _position, speed * Time.deltaTime);

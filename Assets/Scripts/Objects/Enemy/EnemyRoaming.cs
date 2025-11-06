@@ -7,24 +7,30 @@ using UnityEngine;
 public class EnemyRoaming : MonoBehaviour
 {
     public EnemyData data;
-    public string roamingType; // [empty for no path], "path", "circular"
-    public Transform[] nodes;
 
-    private int _atNode = 0;
     private float _roamingSpeed;
     private float _rotateSpeed;
+    private GameObject _lightVision;
+
+    public int AtNode { get; private set; }
+
+    public string roamType; // [empty for no path], "path", "circular"
+    public Transform[] nodes;
 
 
     private void Awake()
     {
         _roamingSpeed = data.roamingSpeed;
         _rotateSpeed = data.rotateSpeed;
+        _lightVision = transform.Find("LightVision").gameObject;
+
+        AtNode = 0;
 
         if (nodes.Length == 0)
         {
             GameObject node = new GameObject("Node");
             node.transform.position = transform.position;
-            node.transform.rotation = transform.rotation;
+            node.transform.rotation = _lightVision.transform.rotation;
             
             // Later store initial nodes in a parent manager
             //node.transform.parent = null;
@@ -36,7 +42,7 @@ public class EnemyRoaming : MonoBehaviour
 
     public void UpdateMovement()
     {
-        switch (roamingType)
+        switch (roamType)
         {
             case "path":
                 if (nodes.Length > 1) 
@@ -63,7 +69,7 @@ public class EnemyRoaming : MonoBehaviour
                 if (Vector3.Distance(transform.position, nodes[0].position) >= _roamingSpeed)
                     FollowNodes();
                 else
-                    transform.rotation = Quaternion.Lerp(transform.rotation, nodes[0].rotation, _rotateSpeed);
+                    _lightVision.transform.rotation = Quaternion.Lerp(_lightVision.transform.rotation, nodes[0].rotation, _rotateSpeed);
                 break;
         }
     }
@@ -71,21 +77,21 @@ public class EnemyRoaming : MonoBehaviour
 
     private void FollowNodes()
     {
-        Transform target = nodes[_atNode];
+        Transform target = nodes[AtNode];
         Vector3 dir = (target.position - transform.position).normalized;
 
-        // When pathfinding script is ready, use A* for each node instead
+        // When pathfinding script is ready, use A* for each node instead if raycast to next code is hit
         transform.position += _roamingSpeed * dir;
-        Vector2 newDir = Vector2.Lerp(transform.up, dir.normalized, _rotateSpeed);
-        transform.up = newDir;
+        Vector2 newDir = Vector2.Lerp(_lightVision.transform.up, dir.normalized, _rotateSpeed);
+        _lightVision.transform.up = newDir;
 
         if (Vector3.Distance(transform.position, target.position) < _roamingSpeed
-            && roamingType == "path")
+            && roamType == "path")
         {
-            _atNode++;
-            if (_atNode >= nodes.Length)
+            AtNode++;
+            if (AtNode >= nodes.Length)
             {
-                _atNode = 0;
+                AtNode = 0;
             }
         }
     }
