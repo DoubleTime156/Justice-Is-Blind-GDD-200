@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(-50)]
 public class FogManager : MonoBehaviour
 {
-    public PlayerPosition playerVision;           
-    public Material fogPainterMaterial;          
-    public Material fogDisplayMaterial;           
+    public PlayerPosition playerVision;
+    public Material fogPainterMaterial;
+    public Material fogDisplayMaterial;
     public Transform player;
 
     public int rtSize = 2048;
@@ -15,7 +16,9 @@ public class FogManager : MonoBehaviour
     public Vector2 worldMin = new Vector2(-100f, -100f);
     public Vector2 worldMax = new Vector2(100f, 100f);
 
-    public float liveFalloff = 0.5f;            
+    public float liveFalloff = 0.5f;
+    public float memoryInsetTexels = 0.35f;
+
     private enum WriteMode { LERP = 0, MAX = 1 }
 
     private struct RevealReq
@@ -36,20 +39,21 @@ public class FogManager : MonoBehaviour
     private static readonly int EdgeID = Shader.PropertyToID("_Edge");
     private static readonly int WriteModeID = Shader.PropertyToID("_WriteMode");
 
-    public float defaultBurstFalloff = 0.5f;      
-    public int maxBursts = 8;                   
+    private static readonly int BurstCountID = Shader.PropertyToID("_BurstCount");
+    private static readonly int BurstPosID = Shader.PropertyToID("_BurstPos");
+    private static readonly int BurstRadID = Shader.PropertyToID("_BurstRad");
+
+    public float defaultBurstFalloff = 0.5f;
+    [Range(1, 32)] public int maxBursts = 8;
+
     private struct Burst
     {
         public Vector2 worldPos;
         public float radiusWorld;
         public float falloffWorld;
-        public float timer;                       
+        public float timer;
     }
     private readonly List<Burst> _bursts = new();
-
-    private static readonly int BurstCountID = Shader.PropertyToID("_BurstCount");
-    private static readonly int BurstPosID = Shader.PropertyToID("_BurstPos");
-    private static readonly int BurstRadID = Shader.PropertyToID("_BurstRad");
 
     void Start()
     {
@@ -74,15 +78,13 @@ public class FogManager : MonoBehaviour
 
         fogMemory.filterMode = FilterMode.Point;
         fogScratch.filterMode = FilterMode.Point;
-
         fogMemory.wrapMode = TextureWrapMode.Clamp;
         fogScratch.wrapMode = TextureWrapMode.Clamp;
 
         fogMemory.Create();
         fogScratch.Create();
 
-        if (fogDisplayMaterial)
-            fogDisplayMaterial.SetTexture("_FogTex", fogMemory);
+        if (fogDisplayMaterial) fogDisplayMaterial.SetTexture("_FogTex", fogMemory);
     }
 
     void PushWorldParamsToMaterials()
@@ -124,11 +126,11 @@ public class FogManager : MonoBehaviour
         });
     }
 
- 
     public void TriggerVisionBurstAt(Vector2 worldPos, float radiusWorld, float durationSeconds, float falloffWorld = -1f)
     {
         if (falloffWorld < 0f) falloffWorld = defaultBurstFalloff;
         if (_bursts.Count >= maxBursts) _bursts.RemoveAt(0);
+
         _bursts.Add(new Burst
         {
             worldPos = worldPos,
@@ -161,18 +163,25 @@ public class FogManager : MonoBehaviour
         {
             for (int i = _bursts.Count - 1; i >= 0; --i)
             {
-                Burst b = _bursts[i];
+                var b = _bursts[i];
                 b.timer -= Time.deltaTime;
                 if (b.timer <= 0f) _bursts.RemoveAt(i);
                 else _bursts[i] = b;
             }
 
+            Vector2 worldSize = worldMax - worldMin;
+            float minWorld = Mathf.Min(worldSize.x, worldSize.y);
+            float texelWorld = minWorld / rtSize;
+
+            float displayRadius = playerVision.radius;
+            float displayFalloff = Mathf.Clamp(liveFalloff, 1e-6f, 0.25f * texelWorld);
+
             int burstCount = Mathf.Min(maxBursts, 1 + _bursts.Count);
             Vector4[] posArray = new Vector4[Mathf.Max(burstCount, 1)];
-            Vector4[] radArray = new Vector4[Mathf.Max(burstCount, 1)]; 
+            Vector4[] radArray = new Vector4[Mathf.Max(burstCount, 1)];
 
             posArray[0] = new Vector4(player.position.x, player.position.y, 0, 0);
-            radArray[0] = new Vector4(playerVision.radius, liveFalloff, 0, 0);
+            radArray[0] = new Vector4(displayRadius, displayFalloff, 0, 0);
 
             for (int i = 0; i < burstCount - 1; i++)
             {
@@ -186,23 +195,32 @@ public class FogManager : MonoBehaviour
             fogDisplayMaterial.SetVectorArray(BurstRadID, radArray);
 
             fogDisplayMaterial.SetVector("_PlayerPos", new Vector4(player.position.x, player.position.y, 0, 0));
-            fogDisplayMaterial.SetFloat("_Radius", playerVision.radius);
-            fogDisplayMaterial.SetFloat("_Falloff", liveFalloff);
+            fogDisplayMaterial.SetFloat("_Radius", displayRadius);
+            fogDisplayMaterial.SetFloat("_Falloff", displayFalloff);
         }
 
         if (fogPainterMaterial && playerVision)
         {
             Vector2 worldSize = worldMax - worldMin;
-            float radiusUV = playerVision.radius / Mathf.Min(worldSize.x, worldSize.y);
+            float minWorld = Mathf.Min(worldSize.x, worldSize.y);
+
+            float radiusUV = playerVision.radius / minWorld;
+            float stepUV = 1f / rtSize;
+
             Vector2 uv = WorldToUV(player.position);
+            uv.x = (Mathf.Floor(uv.x / stepUV) + 0.5f) * stepUV;
+            uv.y = (Mathf.Floor(uv.y / stepUV) + 0.5f) * stepUV;
+
+            float inset = Mathf.Clamp(memoryInsetTexels, 0f, 2f) * stepUV;
+            float radiusUVPaint = Mathf.Max(0f, radiusUV - inset);
 
             _queue.Add(new RevealReq
             {
                 uv = uv,
-                radiusUV = radiusUV,
-                intensity = 0.3f,   
-                edge = 0.02f,
-                writeMode = WriteMode.MAX 
+                radiusUV = radiusUVPaint,
+                intensity = 0.3f,
+                edge = 0f,
+                writeMode = WriteMode.MAX
             });
         }
 
