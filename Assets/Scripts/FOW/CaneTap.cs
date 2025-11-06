@@ -43,7 +43,7 @@ public class CaneTap : MonoBehaviour
         if (canTap == false)
         {
             tapCooldown -= Time.deltaTime;
-            if (tapCooldown <= 0)
+            if (tapCooldown <= 1)
             {
                 canTap = true;
             }

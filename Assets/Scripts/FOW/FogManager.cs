@@ -18,6 +18,7 @@ public class FogManager : MonoBehaviour
 
     public float liveFalloff = 0.5f;
     public float memoryInsetTexels = 0.35f;
+    public float memoryAlpha = 0.3f;
 
     private enum WriteMode { LERP = 0, MAX = 1 }
 
@@ -197,6 +198,7 @@ public class FogManager : MonoBehaviour
             fogDisplayMaterial.SetVector("_PlayerPos", new Vector4(player.position.x, player.position.y, 0, 0));
             fogDisplayMaterial.SetFloat("_Radius", displayRadius);
             fogDisplayMaterial.SetFloat("_Falloff", displayFalloff);
+            fogDisplayMaterial.SetFloat("_MemoryAlpha", memoryAlpha);
         }
 
         if (fogPainterMaterial && playerVision)
