@@ -49,6 +49,6 @@ public class CaneTap : MonoBehaviour
             }
         }
 
-        objectSound.IsMakingSound = !canTap;
+        //objectSound.IsMakingSound = !canTap;
     }
 }
