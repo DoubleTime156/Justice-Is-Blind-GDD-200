@@ -82,9 +82,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6,
-    type: 3}
-  m_Color: {r: 0.41509432, g: 0.16102076, b: 0, a: 1}
+  m_Sprite: {fileID: 709657289480405090, guid: 790103c68812ac14980ed8c45fed78a6, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -109,6 +108,7 @@ MonoBehaviour:
   objectSound: {fileID: 2483730834216912078}
   throwSound: {fileID: -1651317461757201175}
   impactSound: {fileID: 4101873241110360144}
+  inAir: 1
 --- !u!50 &1089203037418962202
 Rigidbody2D:
   serializedVersion: 5

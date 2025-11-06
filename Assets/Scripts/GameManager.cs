@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     }
     public void gameOver()
     {
+        Debug.Log("Game Over");
         gameOverText.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(true);
     }

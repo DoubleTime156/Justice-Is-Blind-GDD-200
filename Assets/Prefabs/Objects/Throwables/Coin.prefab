@@ -82,9 +82,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b,
+  m_Sprite: {fileID: -3338749442709606003, guid: 46de7ede55c5f474b9e6f3b914167589,
     type: 3}
-  m_Color: {r: 0.97012585, g: 1, b: 0.059748232, a: 1}
+  m_Color: {r: 0.16352195, g: 0.03033897, b: 0.03033897, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -106,8 +106,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c596633959c9f848bb723b9dfda77f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectSound: {fileID: 0}
   throwSound: {fileID: 49488760603439227}
   impactSound: {fileID: -5801125953512000106}
+  inAir: 1
 --- !u!58 &2481678513796734709
 CircleCollider2D:
   m_ObjectHideFlags: 0

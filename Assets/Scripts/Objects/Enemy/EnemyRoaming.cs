@@ -10,6 +10,7 @@ public class EnemyRoaming : MonoBehaviour
 
     private float _roamingSpeed;
     private float _rotateSpeed;
+    private GameObject _lightVision;
 
     public int AtNode { get; private set; }
 
@@ -21,13 +22,15 @@ public class EnemyRoaming : MonoBehaviour
     {
         _roamingSpeed = data.roamingSpeed;
         _rotateSpeed = data.rotateSpeed;
+        _lightVision = transform.Find("LightVision").gameObject;
+
         AtNode = 0;
 
         if (nodes.Length == 0)
         {
             GameObject node = new GameObject("Node");
             node.transform.position = transform.position;
-            node.transform.rotation = transform.rotation;
+            node.transform.rotation = _lightVision.transform.rotation;
             
             // Later store initial nodes in a parent manager
             //node.transform.parent = null;
@@ -66,7 +69,7 @@ public class EnemyRoaming : MonoBehaviour
                 if (Vector3.Distance(transform.position, nodes[0].position) >= _roamingSpeed)
                     FollowNodes();
                 else
-                    transform.rotation = Quaternion.Lerp(transform.rotation, nodes[0].rotation, _rotateSpeed);
+                    _lightVision.transform.rotation = Quaternion.Lerp(_lightVision.transform.rotation, nodes[0].rotation, _rotateSpeed);
                 break;
         }
     }
@@ -79,8 +82,8 @@ public class EnemyRoaming : MonoBehaviour
 
         // When pathfinding script is ready, use A* for each node instead if raycast to next code is hit
         transform.position += _roamingSpeed * dir;
-        Vector2 newDir = Vector2.Lerp(transform.up, dir.normalized, _rotateSpeed);
-        transform.up = newDir;
+        Vector2 newDir = Vector2.Lerp(_lightVision.transform.up, dir.normalized, _rotateSpeed);
+        _lightVision.transform.up = newDir;
 
         if (Vector3.Distance(transform.position, target.position) < _roamingSpeed
             && roamType == "path")
