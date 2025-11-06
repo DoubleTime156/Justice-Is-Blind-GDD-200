@@ -49,7 +49,7 @@ public class MusicManager : MonoBehaviour
         //resets the danger sensor
         allEnemiesCalm = true;
         */
-
+        
         
             if (enemyInTrigger.Length == 0)
                 return;
@@ -61,12 +61,19 @@ public class MusicManager : MonoBehaviour
                 EnemyAI ai = enemy.GetComponent<EnemyAI>();
                 if (ai == null) continue;
 
-                if (!ai.IsRoaming)
+                if (ai.IsChasing)
                 {
                     toggleToChase();
                     allEnemiesCalm = false;
                 }
             }
+
+            if (allEnemiesCalm)
+        {
+            toggleToCalm();
+        }
+        allEnemiesCalm = true;
+
         
 
 

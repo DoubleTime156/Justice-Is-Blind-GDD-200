@@ -49,7 +49,7 @@ public class InteractionListener : MonoBehaviour
     {
         //if interaction is pressed down
         //  get all objects inside interactable in trigger and then do their stuff
-        if (context.canceled)
+        if (context.performed)
         {
             foreach (GameObject obj in interactableInTrigger)
             {
