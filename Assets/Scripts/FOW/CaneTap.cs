@@ -30,6 +30,7 @@ public class CaneTap : MonoBehaviour
             tapCooldown = tapFadeDuration;
 
             Vector2 tapWorld = new Vector2(player.position.x, player.position.y);
+            canTap = false;
 
             noiseReveal.fullBrightTime = tapFullBrightTime;
             noiseReveal.fadeDuration = tapFadeDuration;
@@ -37,18 +38,24 @@ public class CaneTap : MonoBehaviour
             noiseReveal.RevealAtWorld(tapWorld, tapRadiusWorld);
 
             if (logTaps)
+            {
                 Debug.Log($"[CaneTap] NoiseReveal at {tapWorld}, rWorld={tapRadiusWorld}, white {tapFullBrightTime}s then fade {tapFadeDuration}s");
-            canTap = false;
+            }
         }
         if (canTap == false)
         {
             tapCooldown -= Time.deltaTime;
             if (tapCooldown <= 1)
             {
-                canTap = true;
+                canTap = true; 
             }
         }
 
-        //objectSound.IsMakingSound = !canTap;
+    }
+
+    private void FixedUpdate()
+    {
+        objectSound.IsMakingSound = !canTap;
+        Debug.Log(objectSound.IsMakingSound);
     }
 }
