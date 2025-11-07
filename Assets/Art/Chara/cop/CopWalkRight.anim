@@ -8,7 +8,7 @@ AnimationClip:
   m_PrefabAsset: {fileID: 0}
   m_Name: CopWalkRight
   serializedVersion: 7
-  m_Legacy: 0
+  m_Legacy: 1
   m_Compressed: 0
   m_UseHighQualityCurve: 1
   m_RotationCurves: []
@@ -17,7 +17,32 @@ AnimationClip:
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves: []
-  m_PPtrCurves: []
+  m_PPtrCurves:
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 2401749123138906121, guid: 9e3c92fff00a747f4a9ad2f93bf71642,
+        type: 3}
+    - time: 0.16666667
+      value: {fileID: 263743429423467818, guid: 9e3c92fff00a747f4a9ad2f93bf71642,
+        type: 3}
+    - time: 0.33333334
+      value: {fileID: 548605829977659171, guid: 9e3c92fff00a747f4a9ad2f93bf71642,
+        type: 3}
+    - time: 0.5
+      value: {fileID: -5432876302726669721, guid: 9e3c92fff00a747f4a9ad2f93bf71642,
+        type: 3}
+    - time: 0.6666667
+      value: {fileID: -6157627472603765189, guid: 9e3c92fff00a747f4a9ad2f93bf71642,
+        type: 3}
+    - time: 0.85
+      value: {fileID: 4884148963636084438, guid: 9e3c92fff00a747f4a9ad2f93bf71642,
+        type: 3}
+    attribute: m_Sprite
+    path: 
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -31,7 +56,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1
+    m_StopTime: 0.8666667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
