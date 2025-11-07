@@ -56,7 +56,7 @@ public class Throwable : MonoBehaviour
             case 0:
                 Debug.Log("Coin landed");
                 objectSound.IsMakingSound = true;
-                RevealFog(0.05f);
+             //   RevealFog(0.05f);
                 rb.linearVelocity = new Vector2(0, 0); 
                 isTriggered = true;
                 break;
@@ -64,24 +64,24 @@ public class Throwable : MonoBehaviour
                 Debug.Log("Bottle Landed");
                 GetComponent<Renderer>().enabled = false;
                 objectSound.IsMakingSound = true;
-                RevealFog(0.07f);
+              //  RevealFog(0.07f);
                 isTriggered = true;
                 break;
         }
     }
 
-    void RevealFog(float radius)
-    {
-        FogManager fog = FindFirstObjectByType<FogManager>();
-        if (fog == null) return;
-
-        FogRevealer revealer = gameObject.AddComponent<FogRevealer>();
-        revealer.fogManager = fog;
-        revealer.revealRadiusUV = radius;
-        revealer.fullRevealDuration = 2f; // how long it stays fully visible
-        revealer.fadeDuration = 3f;       // how long it takes to fade back
-        revealer.TriggerReveal();
-    }
+    //void RevealFog(float radius)
+   // {
+   //     FogManager fog = FindFirstObjectByType<FogManager>();
+   //     if (fog == null) return;
+//
+     //   FogRevealer revealer = gameObject.AddComponent<FogRevealer>();
+   //     revealer.fogManager = fog;
+   //     revealer.revealRadiusUV = radius;
+    //    revealer.fullRevealDuration = 2f;
+   //     revealer.fadeDuration = 3f;      
+   //     revealer.TriggerReveal();
+  //  }
 
 
     public void OnCollisionEnter2D(Collision2D collision)
