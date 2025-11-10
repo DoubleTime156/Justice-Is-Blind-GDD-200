@@ -11,6 +11,7 @@ public class CaneTap : MonoBehaviour
     public ObjectSound objectSound;
     public KeyCode tapKey = KeyCode.Space;
     public float tapRadiusWorld = 6f;
+    public AudioSource tapSound;
 
     public float tapFullBrightTime = 0.8f;
 
@@ -27,6 +28,7 @@ public class CaneTap : MonoBehaviour
 
         if (Input.GetKeyDown(tapKey) && canTap == true)
         {
+            tapSound.Play();
             tapCooldown = tapFadeDuration;
 
             Vector2 tapWorld = new Vector2(player.position.x, player.position.y);
@@ -56,6 +58,5 @@ public class CaneTap : MonoBehaviour
     private void FixedUpdate()
     {
         objectSound.IsMakingSound = !canTap;
-        Debug.Log(objectSound.IsMakingSound);
     }
 }

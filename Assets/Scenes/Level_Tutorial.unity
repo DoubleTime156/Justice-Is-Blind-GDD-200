@@ -979,6 +979,21 @@ PrefabInstance:
     - target: {fileID: -8865577757524450621, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8865577757524450621, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6507755775882685442, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2230688974381632413, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
+      propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2302370536385749767, guid: 114436765f7463c49826ba3a8920a5a2,
@@ -1208,6 +1223,7 @@ MonoBehaviour:
   objectSound: {fileID: 329166483}
   tapKey: 32
   tapRadiusWorld: 6
+  tapSound: {fileID: 329166498}
   tapFullBrightTime: 0.8
   tapFadeDuration: 2
   logTaps: 1
@@ -1385,6 +1401,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerRadius: {fileID: 329166496}
+--- !u!82 &329166498 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: -2230688974381632413, guid: 114436765f7463c49826ba3a8920a5a2,
+    type: 3}
+  m_PrefabInstance: {fileID: 329166478}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &357502221
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19768,7 +19790,7 @@ PrefabInstance:
     - target: {fileID: 6300588793357639303, guid: 8fab854520bd116418e6b7e60f278cd1,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

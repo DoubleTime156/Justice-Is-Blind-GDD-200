@@ -10,16 +10,17 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI gameOverText;
     public Button restartButton;
-    public Image throwableImage;
-    public TextMeshProUGUI throwableText;
-    public Sprite coinSprite;
-    public Sprite bottleSprite;
+    public GameObject keyImage;
+    public TextMeshProUGUI bottleText;
+    public TextMeshProUGUI coinText;
+
 
     public void Start() // Set player inventory to zero on scene load
     {
         data.inventory[0] = 0;
         data.inventory[1] = 0;
         data.heldItem = 0;
+        data.hasKey = false;
     }
 
     public void startGame() // Start game from beginning when Start is pressed on main menu
@@ -45,14 +46,8 @@ public class GameManager : MonoBehaviour
     }
     public void updateAmount()
     {
-        throwableText.text = data.inventory[data.heldItem].ToString();
-        switch (data.heldItem) { 
-            case 0:
-                throwableImage.sprite = coinSprite;
-                break;
-            case 1:
-                throwableImage.sprite = bottleSprite;
-                break;
-        }
+        bottleText.text = data.inventory[1].ToString();
+        coinText.text = data.inventory[0].ToString();
+        if (data.hasKey) { keyImage.SetActive(true); }
     }
 }

@@ -51,6 +51,7 @@ public class Throwable : MonoBehaviour
     {
         StartCoroutine(stopMakingSound(0.1f));
         inAir = false;
+        impactSound.Play();
         switch (item)
         {
             case 0:

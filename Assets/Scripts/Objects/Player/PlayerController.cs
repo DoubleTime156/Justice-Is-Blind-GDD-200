@@ -61,6 +61,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
         } else if (collision.gameObject.CompareTag("Key") && !data.hasKey)
         {
             data.hasKey = true;
+            gameManager.updateAmount();
             Destroy(collision.gameObject);
         }
     }
