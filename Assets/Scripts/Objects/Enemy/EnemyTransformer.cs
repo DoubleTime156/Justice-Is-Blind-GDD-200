@@ -3,6 +3,8 @@ using UnityEngine;
 public class EnemyTransformer : MonoBehaviour
 {
     [SerializeField] private EnemyData data;
+    
+    private GameObject _lightVision;
 
     private float _speed;
     private float _rotateSpeed;
@@ -11,6 +13,7 @@ public class EnemyTransformer : MonoBehaviour
     {
         _speed = data.chaseSpeed;
         _rotateSpeed = data.rotateSpeed;
+        _lightVision = transform.Find("LightVision").gameObject;
     }
 
     public void SetSpeed(float speed)
@@ -25,7 +28,8 @@ public class EnemyTransformer : MonoBehaviour
 
     public void UpdateDirection(Vector3 dir)
     {
-        Vector2 newDir = Vector2.Lerp(transform.up, dir.normalized, _rotateSpeed);
-        transform.up = newDir;
+        Vector2 newDir = Vector2.Lerp(_lightVision.transform.up, dir.normalized, _rotateSpeed);
+        _lightVision.transform.up = newDir;
+
     }
 }

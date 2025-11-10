@@ -15,7 +15,8 @@ public class Goal : MonoBehaviour
         // Check for player and key, if applicable
         if (collision.gameObject.CompareTag("Player"))
         {
-            PlayerData playerData = collision.gameObject.GetComponent<PlayerData>();
+            PlayerController2D_InputSystem playerController = collision.gameObject.GetComponent<PlayerController2D_InputSystem>();
+            PlayerData playerData = playerController.data;
             if (!keyRequired || playerData.hasKey)
             {
                 // Use key

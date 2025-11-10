@@ -1,5 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Numerics;
+using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -7,10 +13,13 @@ public class EnemyAI : MonoBehaviour
     public bool IsRoaming { get; private set; }
 
     [SerializeField] private EnemyData data;
-    [SerializeField] private EnemyTransformer transformer;
     [SerializeField] private EnemyVision vision;
-    [SerializeField] private EnemyPathfinding pathfind;
+    [SerializeField] private EnemyListen listen;
     [SerializeField] private EnemyRoaming roam;
+    [SerializeField] private EnemyPathfinding pathfind;
+    [SerializeField] private EnemyTransformer transformer;
+
+    private bool isAlert;
 
     private GameObject player;
     private Vector3 lastKnownPos;
@@ -26,32 +35,38 @@ public class EnemyAI : MonoBehaviour
         IsChasing = false;
         IsRoaming = true;
 
-        //lastKnownPos = new Vector3(5.6f, 0f, 0f);
+        isAlert = false;
     }
 
     void FixedUpdate()
     {
-        vision.UpdateVision(player.transform);
+        // Vision and Listen sense
+        vision.UpdateVision(player.transform.position);
+        listen.UpdateListen();
 
-        if (vision.CanSeeTarget /* || "hears sound" */)
+        // Chase if vision or listen are activated
+        if (vision.CanSeeTarget || listen.HearSound)
         {
-            IsChasing = true;
+            isAlert = true;
             IsRoaming = false;
-            waitTimer = 0f;
+            waitTimer = 3f;
 
-            lastKnownPos = player.transform.position;
+            // Wait for 0.75 seconds then chase
+            StartCoroutine(StartChase(0.75f));
+
         }
         else if (Vector3.Distance(transform.position, lastKnownPos) <= data.chaseSpeed)
         {
             IsChasing = false;
+            isAlert = false;
         }
 
-        Debug.Log("position: " + transform.position + "; lastKnownPos: "+ lastKnownPos);
 
-        if (IsChasing)
+        if (IsChasing) // Enemy is chasing
         {
             transformer.SetSpeed(data.chaseSpeed);
 
+            //vision.UpdateVision(lastKnownPos);
             if (vision.CanSeeTarget)
             {
                 dir = vision.TargetDir;
@@ -63,40 +78,95 @@ public class EnemyAI : MonoBehaviour
                 dir = pathfind.TargetDir;
             }
         }
-        else if (IsRoaming)
+        else if (IsRoaming) // Enemy is roaming
         {
             transformer.SetSpeed(data.roamingSpeed);
             roam.UpdateMovement();
         }
-        else // wait then return to roaming location
+        else if (!isAlert) // Enemy is waiting or returning to roaming location
         {
-            if (waitTimer >= 3.0f)
+            if (waitTimer <= 0)
             {
+                waitTimer = 0;
+
                 transformer.SetSpeed(data.roamingSpeed);
 
-                pathfind.UpdatePath(roam.nodes[0].position);
+                pathfind.UpdatePath(roam.nodes[roam.AtNode].position);
                 pathfind.SetTargetNodeTransforms();
                 dir = pathfind.TargetDir;
-
-
             }
             else
             {
-                waitTimer += Time.fixedDeltaTime;
+                waitTimer -= Time.fixedDeltaTime;
                 dir = new Vector3(0, 0, 0);
             }
-            
+        }
+        else
+        {
+            transformer.UpdateDirection(dir);
+            return;
         }
 
-        if (IsRoaming) return; // TEMPORARY SOLUTION: Roaming handles transforms already
+        // Roaming handles transforms already
+        if (IsRoaming) return;
 
         // Transform Enemy
         transformer.UpdateMovement(dir);
         transformer.UpdateDirection(dir);
 
-        // Check any changes after transform
+        // Check any changes for pathfinding after transform
         pathfind.SetNextTargetNode();
 
-        if (!IsChasing && Vector3.Distance(transform.position, roam.nodes[0].position) < 1) IsRoaming = true;
+        // If at roaming location, start roaming
+        if (!IsChasing && Vector3.Distance(transform.position, roam.nodes[roam.AtNode].position) < 1) 
+            IsRoaming = true;
     }
+
+    
+    IEnumerator StartChase(float delay)
+    {
+        bool sawTarget = vision.CanSeeTarget;
+
+        // Set lastKnownPos
+        if (sawTarget)
+        {
+            lastKnownPos = player.transform.position;
+        }
+        else
+        {
+            Vector3 listenPos = listen.ObjectEmitter.transform.position;
+            lastKnownPos = listenPos;
+        }
+
+            // Look at sound
+            vision.UpdateVision(lastKnownPos);
+        dir = vision.TargetDir;
+        transformer.UpdateDirection(dir);
+
+        yield return new WaitForSeconds(delay);
+
+        // Update lastKnownPos after delay if saw target
+        if (sawTarget && !IsChasing)
+            lastKnownPos = player.transform.position;
+
+        IsChasing = true;
+    }
+
+
+    /*
+    IEnumerator StartWalkBack(float delay)
+    {
+        isWaiting = true;
+        yield return new WaitForSeconds(delay);
+        if (IsChasing || IsRoaming) yield break;
+
+        transformer.SetSpeed(data.roamingSpeed);
+
+        pathfind.UpdatePath(roam.nodes[roam.AtNode].position);
+        pathfind.SetTargetNodeTransforms();
+        dir = pathfind.TargetDir;
+
+        isWaiting = false;
+    }
+    */
 }
