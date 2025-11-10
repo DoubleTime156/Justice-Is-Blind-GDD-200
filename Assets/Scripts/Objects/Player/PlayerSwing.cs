@@ -7,6 +7,7 @@ public class PlayerSwing : MonoBehaviour {
     public float playerViewRadius;
     public float playerViewAngle;
 
+
     public void OnSwing(InputAction.CallbackContext context)
     {
         // Only handle swing when the action is performed
@@ -15,14 +16,14 @@ public class PlayerSwing : MonoBehaviour {
         // Find all enemies inside the view radius
         Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(transform.position, playerViewRadius, LayerMask.GetMask("Enemy"));
 
-        // Get mouse world position and rotate player to face it
+        // Get mouse world position and rotate player to face its
         Vector3 mouseScreenPos = Mouse.current.position.ReadValue();
         mouseScreenPos.z = Camera.main.WorldToScreenPoint(transform.position).z;
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
         transform.rotation = Quaternion.LookRotation(Vector3.forward, mouseWorldPos - transform.position);
 
         // Collect only the valid targets (in angle and not blocked)
-        var targets = new System.Collections.Generic.List<Collider2D>();
+        var enemies = new System.Collections.Generic.List<Collider2D>();
 
         foreach (Collider2D enemyCollider in enemiesInRange)
         {
@@ -33,7 +34,12 @@ public class PlayerSwing : MonoBehaviour {
             if (distance <= 0f) continue;
             dir.Normalize();
 
+            // Get current enemy health
+            EnemyData enemyHealthData = ScriptableObject.CreateInstance<EnemyData>();
+            enemyHealthData = enemyCollider.GetComponent<EnemyData>();
+
             float angle = Vector2.Angle(transform.up, dir);
+
 
             if (angle <= playerViewAngle)
             {
@@ -43,22 +49,23 @@ public class PlayerSwing : MonoBehaviour {
                 // If no obstacle hit, mark this enemy as a valid target, and get enemy data
                 if (hitObstacle.collider == null)
                 {
-                    targets.Add(enemyCollider);
-                    //EnemyData enemyData = enemyCollider.GetComponent<EnemyData>();
+                    enemies.Add(enemyCollider);
+                    // Get current enemy health
+                    Debug.Log(enemyCollider.name + " Current Health: " + enemyHealthData);
                 }
             }
         }
 
-        // Destroy only the valid targets collected above
-        if (targets.Count > 0)
+        // Destroy only the valid targets collected above and if enemy healtlh equals zero
+        if (enemies.Count > 0)
         {
-            foreach (var target in targets)
+            foreach (var target in enemies)
             {
                 if (target != null)
                     Destroy(target.gameObject);
                 
             }
-        }
+        } 
     }
 
     // Debug - Vision cone visual
@@ -76,58 +83,3 @@ public class PlayerSwing : MonoBehaviour {
 }
 
 
-/*
-public class PlayerSwing : MonoBehaviour
-{
-    public GameObject Enemy;
-    public GameObject SwingRange;
-    //public PlayerActions playerSwing;
-
-    bool enemyIsInRange;
-
-    private InputAction swing;
-    private PlayerController2D_InputSystem playerController;
-
-    private void Start()
-    {
-        playerController = GetComponent<PlayerController2D_InputSystem>();
-        enemyIsInRange = false;
-    }
-
-   
-
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject == Enemy)
-        {
-            Debug.Log("Enemy hit by swing!");
-            // Add logic for damaging the enemy here
-            enemyIsInRange = true;
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject == Enemy)
-        {
-            Debug.Log("Enemy exited swing area.");
-            // Add logic for when the enemy exits the swing area here
-        }
-    }
-
-    public void OnSwing(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            Debug.Log("Player swung weapon!");
-            // Add swing logic here
-            if (enemyIsInRange) {
-                Destroy(Enemy);
-                Debug.Log("Enemy destroyed by swing!");
-
-            }
-        }   
-    }
-}
-*/
