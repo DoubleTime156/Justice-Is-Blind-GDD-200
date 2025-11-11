@@ -4,7 +4,6 @@
     {
         _PlayerPos ("Player Position (world)", Vector) = (0,0,0,0)
         _Radius ("Vision Radius (world)", Float) = 3
-        _Falloff ("Edge Falloff (unused)", Float) = 0
         _Darkness ("Darkness Color", Color) = (0,0,0,1)
         _FogTex ("Fog Memory", 2D) = "white" {}
         _WorldMin ("World Min", Vector) = (0,0,0,0)
