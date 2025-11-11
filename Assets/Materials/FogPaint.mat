@@ -65,26 +65,31 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _Edge: 0
+    - _Edge: 0.02
+    - _EdgeWorld: 0.000001
     - _FogRevealIntensity: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Intensity: 0.3
+    - _Intensity: 0.83449066
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Radius: 0.019316405
+    - _Radius: 0.02
+    - _RadiusWorld: 6
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
-    - _WriteMode: 1
+    - _WriteMode: 0
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Position: {r: 0.4345703, g: 0.4970703, b: 0, a: 0}
+    - _Position: {r: 0.43365, g: 0.49795, b: 0, a: 0}
+    - _PositionWorld: {r: -15.494964, g: 3.127252, b: 0, a: 0}
+    - _WorldMin: {r: -100, g: -100, b: 0, a: 0}
+    - _WorldSize: {r: 200, g: 200, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

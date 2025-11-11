@@ -1,11 +1,10 @@
 using UnityEngine;
 
-public class CoinNoiseOnLand : MonoBehaviour
+public class CoinNoise : MonoBehaviour
 {
     public NoiseReveal noise;
     public float radiusWorld = 6f;
     public float whiteHold = 0.8f;
-    public float fadeSeconds = 2f;
     public bool useVelocityStop = true;
     public float stopSpeed = 0.1f;
     public float stopHoldTime = 0.05f;
@@ -22,6 +21,7 @@ public class CoinNoiseOnLand : MonoBehaviour
     void Update()
     {
         if (fired || !useVelocityStop || rb == null) return;
+
         if (rb.linearVelocity.sqrMagnitude <= stopSpeed * stopSpeed)
         {
             stillTimer += Time.deltaTime;
@@ -43,8 +43,7 @@ public class CoinNoiseOnLand : MonoBehaviour
         if (noise == null) noise = FindObjectOfType<NoiseReveal>();
         if (noise != null)
         {
-            noise.fullBrightTime = whiteHold;
-            noise.fadeDuration = fadeSeconds;
+            noise.holdSeconds = whiteHold;
             noise.RevealAtWorld(transform.position, radiusWorld);
         }
         fired = true;

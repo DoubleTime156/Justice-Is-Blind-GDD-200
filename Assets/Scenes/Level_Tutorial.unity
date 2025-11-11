@@ -983,6 +983,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2302370536385749767, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
+      propertyPath: m_Actions
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: fb6425a2030782948891b4c510b7ff3b,
+        type: 3}
+    - target: {fileID: 2302370536385749767, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -20182,6 +20188,16 @@ PrefabInstance:
       propertyPath: playerVision
       value: 
       objectReference: {fileID: 1247609655}
+    - target: {fileID: 3125600939272020676, guid: c94be2dff40578a4ca9662f7e185c590,
+        type: 3}
+      propertyPath: memoryFalloff
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125600939272020676, guid: c94be2dff40578a4ca9662f7e185c590,
+        type: 3}
+      propertyPath: maxMemoryCircles
+      value: 2048
+      objectReference: {fileID: 0}
     - target: {fileID: 9209680792800399182, guid: c94be2dff40578a4ca9662f7e185c590,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -2,19 +2,17 @@ using UnityEngine;
 
 public class CaneTap : MonoBehaviour
 {
-    public NoiseReveal noiseReveal; 
-    public Transform player;        
+    public NoiseReveal noiseReveal;
+    public Transform player;
 
     public PlayerPosition playerVision;
     public FogManager fogManager;
     public float noiseMultiplier = 2f;
     public ObjectSound objectSound;
     public KeyCode tapKey = KeyCode.Space;
+
     public float tapRadiusWorld = 6f;
-
-    public float tapFullBrightTime = 0.8f;
-
-    public float tapFadeDuration = 2.0f;
+    public float tapHoldSeconds = 0.8f;
 
     public bool logTaps = true;
 
@@ -25,37 +23,29 @@ public class CaneTap : MonoBehaviour
     {
         if (noiseReveal == null || player == null) return;
 
-        if (Input.GetKeyDown(tapKey) && canTap == true)
+        if (Input.GetKeyDown(tapKey) && canTap)
         {
-            tapCooldown = tapFadeDuration;
+            float r = tapRadiusWorld > 0f ? tapRadiusWorld :
+                      (playerVision != null ? playerVision.radius * Mathf.Max(0.01f, noiseMultiplier) : 6f);
 
-            Vector2 tapWorld = new Vector2(player.position.x, player.position.y);
+            noiseReveal.holdSeconds = tapHoldSeconds;
+            noiseReveal.RevealAtWorld(player.position, r);
+
             canTap = false;
+            tapCooldown = tapHoldSeconds;
 
-            noiseReveal.fullBrightTime = tapFullBrightTime;
-            noiseReveal.fadeDuration = tapFadeDuration;
-
-            noiseReveal.RevealAtWorld(tapWorld, tapRadiusWorld);
-
-            if (logTaps)
-            {
-                Debug.Log($"[CaneTap] NoiseReveal at {tapWorld}, rWorld={tapRadiusWorld}, white {tapFullBrightTime}s then fade {tapFadeDuration}s");
-            }
+            if (logTaps) Debug.Log($"[CaneTap] Burst at {player.position}, r={r}, hold={tapHoldSeconds}s");
         }
-        if (canTap == false)
+
+        if (!canTap)
         {
             tapCooldown -= Time.deltaTime;
-            if (tapCooldown <= 1)
-            {
-                canTap = true; 
-            }
+            if (tapCooldown <= 0f) canTap = true;
         }
-
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
-        objectSound.IsMakingSound = !canTap;
-        Debug.Log(objectSound.IsMakingSound);
+        if (objectSound != null) objectSound.IsMakingSound = !canTap;
     }
 }

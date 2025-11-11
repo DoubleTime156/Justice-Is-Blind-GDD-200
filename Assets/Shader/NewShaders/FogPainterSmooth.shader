@@ -2,14 +2,18 @@ Shader "Custom/FogPainterSmooth"
 {
     Properties
     {
-        _MainTex   ("Base (Fog Memory)", 2D) = "black" {}
-        _Position  ("Position (UV)", Vector) = (0,0,0,0)
-        _Radius    ("Radius (UV)", Float) = 0.05
-        _Intensity ("Write Intensity", Range(0,1)) = 1.0   // 1=white, 0.3=gray memory
-        _Edge      ("Edge Softness (UV)", Range(0,0.1)) = 0.02
-        _WriteMode ("0=LERP, 1=MAX", Float) = 0
+        _MainTex        ("Base (Fog Memory)", 2D) = "black" {}
+        _WorldMin       ("World Min", Vector) = (0,0,0,0)
+        _WorldSize      ("World Size", Vector) = (1,1,0,0)
+        _PositionWorld  ("Position (World)", Vector) = (0,0,0,0)
+        _RadiusWorld    ("Radius (World)", Float) = 3
+        _EdgeWorld      ("Edge (World)", Float) = 0.75
+        _Intensity      ("Write Intensity", Range(0,1)) = 0.3
+        _WriteMode      ("0=LERP, 1=MAX", Float) = 1
+        _Position       ("Position (UV)", Vector) = (0,0,0,0)
+        _Radius         ("Radius (UV)", Float) = 0
+        _Edge           ("Edge (UV)", Float) = 0
     }
-
     SubShader
     {
         Tags { "RenderType"="Opaque" }
@@ -17,7 +21,6 @@ Shader "Custom/FogPainterSmooth"
         Blend Off
         ZWrite Off
         ZTest Always
-
         Pass
         {
             CGPROGRAM
@@ -27,44 +30,39 @@ Shader "Custom/FogPainterSmooth"
             #include "UnityCG.cginc"
 
             struct appdata { float4 vertex : POSITION; float2 uv : TEXCOORD0; };
-            struct v2f      { float2 uv : TEXCOORD0; float4 vertex : SV_POSITION; };
+            struct v2f { float2 uv : TEXCOORD0; float4 vertex : SV_POSITION; };
 
             sampler2D _MainTex;
-            float4 _Position;
-            float  _Radius;
-            float  _Intensity;
-            float  _Edge;
-            float  _WriteMode; 
+            float4 _WorldMin, _WorldSize;
+            float4 _PositionWorld, _Position;
+            float _RadiusWorld, _EdgeWorld, _Radius, _Edge, _Intensity, _WriteMode;
 
-            v2f vert(appdata v)
-            {
-                v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = v.uv;
-                return o;
-            }
+            v2f vert(appdata v){ v2f o; o.vertex = UnityObjectToClipPos(v.vertex); o.uv = v.uv; return o; }
 
             fixed4 frag(v2f i) : SV_Target
             {
                 float current = tex2D(_MainTex, i.uv).r;
 
-                float dist   = distance(i.uv, _Position.xy);
-                float edge   = max(0.0, _Edge);
-                float inside = 1.0 - smoothstep(_Radius - edge, _Radius, dist);
+                float2 worldXY = _WorldMin.xy + i.uv * _WorldSize.xy;
 
-                float written = current;
+                float useR = _RadiusWorld;
+                float useE = _EdgeWorld;
+                float2 cW  = _PositionWorld.xy;
 
-                if (_WriteMode < 0.5)
+                if (useR <= 0.0)
                 {
-                    float target = _Intensity;
-                    written = lerp(current, target, inside);
+                    cW = _WorldMin.xy + _Position.xy * _WorldSize.xy;
+                    float s = min(_WorldSize.x, _WorldSize.y);
+                    useR = _Radius * s;
+                    useE = _Edge * s;
                 }
-                else
-                {
-                    float target = _Intensity;
-                    float insideValue = max(current, target);
-                    written = lerp(current, insideValue, step(0.0001, inside)); 
-                }
+
+                float d = distance(worldXY, cW);
+                float e = max(1e-6f, useE);
+                float inside = saturate(1.0 - smoothstep(useR - e, useR + e, d));
+
+                float target = (_WriteMode < 0.5) ? _Intensity : max(current, _Intensity);
+                float written = lerp(current, target, inside);
 
                 return fixed4(written, written, written, 1);
             }
