@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -1651317461757201175}
   - component: {fileID: 4101873241110360144}
   - component: {fileID: 2483730834216912078}
+  - component: {fileID: -4940368058419682588}
   m_Layer: 0
   m_Name: Bottle
   m_TagString: Untagged
@@ -379,3 +380,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundRadius: 6
+--- !u!114 &-4940368058419682588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7185943577722089288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2855f5d276aa65d45a21d3a8ce7d3e7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noise: {fileID: 0}
+  radiusWorld: 6
+  whiteHold: 0.8
+  fadeSeconds: 2
+  useVelocityStop: 1
+  stopSpeed: 0.1
+  stopHoldTime: 0.05
