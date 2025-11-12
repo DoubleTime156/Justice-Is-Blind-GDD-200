@@ -23,7 +23,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
         inventoryUI = GameObject.Find("Inventory").GetComponent<Inventory>();
 
         // Reset PlayerData
-        data.heldItem = 0;
+        data.heldItem = 1;
         data.inventory = defaultInventory;
         data.hasKey = false;
     }
