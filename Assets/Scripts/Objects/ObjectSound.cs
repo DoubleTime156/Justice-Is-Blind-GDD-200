@@ -95,46 +95,41 @@ public class ObjectSound : MonoBehaviour
     {
         for (int i = 0; i < _rayCount; i++)
         {
-            // move
+            // if life = 0, skip
             if (rays[i].life <= 0) continue;
 
-            rays[i].pos += rays[i].dir * _speed * dt;
-            rays[i].life -= dt;
-
-            // reflect on colliders
-            
-            RaycastHit2D hit = Physics2D.Raycast(rays[i].pos, rays[i].dir, _speed * dt,
-                LayerMask.GetMask("Obstacle"));
+            RaycastHit2D hit = Physics2D.Raycast(rays[i].pos, rays[i].dir, _speed * dt, LayerMask.GetMask("Obstacle"));
             if (hit)
             {
+                // Stop moving if hit
                 rays[i].life = 0;
-                rays[i].pos = hit.point;
-                rays[i].dir = Vector2.Reflect(rays[i].dir, hit.normal).normalized;
-                /*
-                _pointPos.Insert(i + _hitPoints, rays[i].pos);
-                _pointCount++;
-                _hitPoints++;
-                */
-                
+                rays[i].pos += rays[i].dir * (hit.distance - 0.01f);
             }
-            
+            else
+            {
+                // Movement
+                rays[i].pos += rays[i].dir * _speed * dt;
+                rays[i].life -= dt;
+            }
+
+
             _pointPos[i] = rays[i].pos;
         }
     }
 
     void BuildMeshAndCollider()
     {
+        // Local mesh vertices
+        Vector3[] vertices = new Vector3[_pointCount + 1];
+        vertices[0] = Vector3.zero;
         
-        Vector3[] verts = new Vector3[_pointCount + 1];
-        verts[0] = Vector3.zero; // center at the object's origin in local space
-
         for (int i = 0; i < _pointCount; i++)
         {
-            // convert world point to local space of this transform
-            verts[i + 1] = transform.InverseTransformPoint(_pointPos[i]);
+            // Convert world point to local point
+            vertices[i + 1] = transform.InverseTransformPoint(_pointPos[i]);
         }
-
-        // triangles
+        
+        // Create triangles for mesh
         int[] tris = new int[_pointCount * 3];
         for (int i = 0; i < _pointCount; i++)
         {
@@ -143,19 +138,18 @@ public class ObjectSound : MonoBehaviour
             int c = (i + 1) % _pointCount + 1;
             int ti = i * 3;
             tris[ti] = a;
-            tris[ti + 1] = b;
-            tris[ti + 2] = c;
+            tris[ti + 1] = c;
+            tris[ti + 2] = b;
         }
 
         mesh.Clear();
-        mesh.vertices = verts;
+        mesh.vertices = vertices;
         mesh.triangles = tris;
-        
 
-        // collider path (exclude center vertex)
+        // Create collider
         Vector2[] pts = new Vector2[_pointCount];
         for (int i = 0; i < _pointCount; i++)
-            pts[i] = verts[i + 1];
+            pts[i] = vertices[i + 1];
 
         poly.SetPath(0, pts);
     }
