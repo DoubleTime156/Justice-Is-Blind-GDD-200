@@ -124,6 +124,7 @@ public class ObjectSound : MonoBehaviour
 
     void BuildMeshAndCollider()
     {
+        
         Vector3[] verts = new Vector3[_pointCount + 1];
         verts[0] = Vector3.zero; // center at the object's origin in local space
 
@@ -149,7 +150,7 @@ public class ObjectSound : MonoBehaviour
         mesh.Clear();
         mesh.vertices = verts;
         mesh.triangles = tris;
-
+        
 
         // collider path (exclude center vertex)
         Vector2[] pts = new Vector2[_pointCount];
