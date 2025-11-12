@@ -21,6 +21,8 @@ public class FogManager : MonoBehaviour
     public float memoryEdgeWorld = 0.6f;
     public float memoryIntensity = 0.3f;
 
+    public float memoryShrinkTexels = 1.25f;
+
     private enum WriteMode { LERP = 0, MAX = 1 }
 
     private struct RevealReq
@@ -46,18 +48,6 @@ public class FogManager : MonoBehaviour
     private static readonly int BurstCountID = Shader.PropertyToID("_BurstCount");
     private static readonly int BurstPosID = Shader.PropertyToID("_BurstPos");
     private static readonly int BurstRadID = Shader.PropertyToID("_BurstRad");
-
-    public float defaultBurstFalloff = 0.75f;
-    [Range(1, 32)] public int maxBursts = 8;
-
-    private struct Burst
-    {
-        public Vector2 worldPos;
-        public float radiusWorld;
-        public float falloffWorld;
-        public float timer;
-    }
-    private readonly List<Burst> _bursts = new();
 
     void Start()
     {
@@ -132,20 +122,6 @@ public class FogManager : MonoBehaviour
         });
     }
 
-    public void TriggerVisionBurstAt(Vector2 worldPos, float radiusWorld, float durationSeconds, float falloffWorld = -1f)
-    {
-        if (falloffWorld < 0f) falloffWorld = defaultBurstFalloff;
-        if (_bursts.Count >= maxBursts) _bursts.RemoveAt(0);
-
-        _bursts.Add(new Burst
-        {
-            worldPos = worldPos,
-            radiusWorld = Mathf.Max(0f, radiusWorld),
-            falloffWorld = Mathf.Max(1e-6f, falloffWorld),
-            timer = Mathf.Max(0f, durationSeconds)
-        });
-    }
-
     public void FlushNow() => LateUpdate();
 
     void LateUpdate()
@@ -158,16 +134,15 @@ public class FogManager : MonoBehaviour
 
         Vector2 worldSize = worldMax - worldMin;
         float minWorld = Mathf.Min(worldSize.x, worldSize.y);
-        float texelWorld = minWorld / rtSize;
-        float safeEdge = Mathf.Max(memoryEdgeWorld, 1.5f * texelWorld);
+        float texelWorld = minWorld / Mathf.Max(1, rtSize);
 
-        EnqueueRevealWorld(
-            player.position,
-            playerVision ? playerVision.radius : 3f,
-            memoryIntensity,
-            safeEdge,
-            true
-        );
+        float safeEdge = Mathf.Max(memoryEdgeWorld, 1.5f * texelWorld);
+        float shrinkW = Mathf.Max(0f, memoryShrinkTexels) * texelWorld;
+
+        float liveR = playerVision ? playerVision.radius : 3f;
+        float paintR = Mathf.Max(0f, liveR - shrinkW);
+
+        EnqueueRevealWorld((Vector2)player.position, paintR, memoryIntensity, safeEdge, true);
 
         if (_queue.Count > 0 && fogPainterMaterial != null)
         {
@@ -190,41 +165,17 @@ public class FogManager : MonoBehaviour
                 Graphics.Blit(fogMemory, fogScratch);
             }
         }
-
         _queue.Clear();
-
-        for (int i = _bursts.Count - 1; i >= 0; --i)
-        {
-            var b = _bursts[i];
-            b.timer -= Time.deltaTime;
-            if (b.timer <= 0f) _bursts.RemoveAt(i);
-            else _bursts[i] = b;
-        }
 
         if (fogDisplayMaterial && playerVision)
         {
-            int burstCount = Mathf.Min(maxBursts, _bursts.Count);
-            Vector4[] posArray = burstCount > 0 ? new Vector4[burstCount] : null;
-            Vector4[] radArray = burstCount > 0 ? new Vector4[burstCount] : null;
-
-            for (int i = 0; i < burstCount; i++)
-            {
-                var b = _bursts[i];
-                posArray[i] = new Vector4(b.worldPos.x, b.worldPos.y, 0, 0);
-                radArray[i] = new Vector4(b.radiusWorld, Mathf.Max(1e-6f, b.falloffWorld), 0, 0);
-            }
-
-            fogDisplayMaterial.SetInt(BurstCountID, burstCount);
-            if (burstCount > 0)
-            {
-                fogDisplayMaterial.SetVectorArray(BurstPosID, posArray);
-                fogDisplayMaterial.SetVectorArray(BurstRadID, radArray);
-            }
-
             fogDisplayMaterial.SetVector("_PlayerPos", new Vector4(player.position.x, player.position.y, 0, 0));
-            fogDisplayMaterial.SetFloat("_Radius", playerVision.radius);
+            fogDisplayMaterial.SetFloat("_Radius", liveR);
             fogDisplayMaterial.SetFloat("_Falloff", Mathf.Max(1e-6f, liveFalloff));
             fogDisplayMaterial.SetFloat("_MemoryAlpha", memoryAlpha);
+
+            // NEW: tell the display shader how much to hide just outside the live circle
+            fogDisplayMaterial.SetFloat("_MemInsetWorld", shrinkW);
         }
     }
 }
