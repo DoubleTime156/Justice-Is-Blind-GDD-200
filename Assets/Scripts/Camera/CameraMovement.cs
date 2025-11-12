@@ -14,7 +14,7 @@ public class CameraMovement : MonoBehaviour
         _position = transform.position;
     }
 
-    void Update()
+    void LateUpdate()
     {
         // Get mouse position
         Vector3 mouseScreenPos = Mouse.current.position.ReadValue();

@@ -10,13 +10,13 @@ public class PlayerThrow : MonoBehaviour
     private float nextFireTime = 0;
     public bool isCoolingDown => Time.time > nextFireTime; // Checks if the current time has passed cooldown time (if StartCooldown is executed)
     private PlayerController2D_InputSystem playerController;
-    private GameManager gameManager;
+    private Inventory inventoryUI;
     public PlayerData data;
 
     void Start()
     {
         playerController = GetComponent<PlayerController2D_InputSystem>();
-        gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+        inventoryUI = GameObject.Find("Inventory").GetComponent<Inventory>();
     }
 
     /*
@@ -55,7 +55,7 @@ public class PlayerThrow : MonoBehaviour
         // Initialize the object’s movement
         thrownObj.GetComponent<Throwable>().Init(mouseWorldPos, speed[data.heldItem], data.heldItem);
         data.inventory[data.heldItem]--;
-        gameManager.updateAmount();
+        inventoryUI.updateAmount();
         StartCooldown();
     }
 
@@ -65,18 +65,17 @@ public class PlayerThrow : MonoBehaviour
     {
         if (context.canceled) 
         {
-            switch (data.heldItem)
+            if(data.heldItem == 0)
             {
-                case 0:
-                    data.heldItem = 1;
-                    Debug.Log("Holding: Bottle");
-                    break;
-                case 1:
-                    data.heldItem = 0;
-                    Debug.Log("Holding: Coin");
-                    break;
+                data.heldItem = 1;
+                Debug.Log("Holding: Bottle");
             }
-            gameManager.updateAmount();
+            else
+            {
+                data.heldItem = 0;
+                Debug.Log("Holding: Coin");
+            }
+            inventoryUI.updateAmount();
         }
     }
 

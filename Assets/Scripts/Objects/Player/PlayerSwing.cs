@@ -19,7 +19,7 @@ public class PlayerSwing : MonoBehaviour {
         Vector3 mouseScreenPos = Mouse.current.position.ReadValue();
         mouseScreenPos.z = Camera.main.WorldToScreenPoint(transform.position).z;
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
-        transform.rotation = Quaternion.LookRotation(Vector3.forward, mouseWorldPos - transform.position);
+        //transform.rotation = Quaternion.LookRotation(Vector3.forward, mouseWorldPos - transform.position);
 
         // Collect only the valid targets (in angle and not blocked)
         var targets = new System.Collections.Generic.List<Collider2D>();

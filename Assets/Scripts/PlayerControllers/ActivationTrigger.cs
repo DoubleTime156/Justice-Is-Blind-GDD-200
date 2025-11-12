@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ActivationTrigger : MonoBehaviour
+public class ActivationTrigger : MonoBehaviour, BehaviorCallable
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

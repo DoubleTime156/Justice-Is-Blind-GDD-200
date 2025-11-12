@@ -33,7 +33,8 @@ public class Throwable : MonoBehaviour
     {
 
         // Move towards target (Mouse position)
-        Vector2 direction = (target - transform.position).normalized; 
+        Vector2 direction = (target - transform.position).normalized;
+        if (item == 1) { rb.rotation += -15f; } //Apply spin to bottle
         distance = Vector2.Distance(transform.position, target);
         speed = distance / timeToReach;
 
@@ -51,36 +52,38 @@ public class Throwable : MonoBehaviour
     {
         StartCoroutine(stopMakingSound(0.1f));
         inAir = false;
+        impactSound.Play();
         switch (item)
         {
             case 0:
                 Debug.Log("Coin landed");
                 objectSound.IsMakingSound = true;
-                RevealFog(0.05f);
+             //   RevealFog(0.05f);
                 rb.linearVelocity = new Vector2(0, 0); 
                 isTriggered = true;
                 break;
             case 1:
                 Debug.Log("Bottle Landed");
+                GetComponent<Renderer>().enabled = false;
                 objectSound.IsMakingSound = true;
-                RevealFog(0.07f);
+              //  RevealFog(0.07f);
                 isTriggered = true;
                 break;
         }
     }
 
-    void RevealFog(float radius)
-    {
-        FogManager fog = FindObjectOfType<FogManager>();
-        if (fog == null) return;
-
-        FogRevealer revealer = gameObject.AddComponent<FogRevealer>();
-        revealer.fogManager = fog;
-        revealer.revealRadiusUV = radius;
-        revealer.fullRevealDuration = 2f; // how long it stays fully visible
-        revealer.fadeDuration = 3f;       // how long it takes to fade back
-        revealer.TriggerReveal();
-    }
+    //void RevealFog(float radius)
+   // {
+   //     FogManager fog = FindFirstObjectByType<FogManager>();
+   //     if (fog == null) return;
+//
+     //   FogRevealer revealer = gameObject.AddComponent<FogRevealer>();
+   //     revealer.fogManager = fog;
+   //     revealer.revealRadiusUV = radius;
+    //    revealer.fullRevealDuration = 2f;
+   //     revealer.fadeDuration = 3f;      
+   //     revealer.TriggerReveal();
+  //  }
 
 
     public void OnCollisionEnter2D(Collision2D collision)
@@ -98,9 +101,9 @@ public class Throwable : MonoBehaviour
         }
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D collision) // If a bottle is still in air, destroy enemies they touch
     {
-        if (collision.CompareTag("Enemy") && item == 1 && inAir) // If a bottle is still in air, destroy enemies they touch
+        if (collision.CompareTag("Enemy") && item == 1 && inAir) 
         {
             Destroy(collision.gameObject);
             Destroy(gameObject);

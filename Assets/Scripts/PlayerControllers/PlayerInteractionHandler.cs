@@ -1,5 +1,6 @@
-using UnityEditor.Experimental.Rendering;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 
 public class PlayerInteractionHandler : MonoBehaviour
 {
@@ -9,11 +10,13 @@ public class PlayerInteractionHandler : MonoBehaviour
     private bool keyStillDown = false;
     private float callInterval = 0.1f;
     private float timer;
+    private BehaviorCallable targetScript = null;
   
     void Start()
     {
         //fills the playerObj with the propper data
         playerObj = GameObject.Find("Player");
+        targetObj = ListClosest();
         timer = callInterval;
     }
 
@@ -28,6 +31,7 @@ public class PlayerInteractionHandler : MonoBehaviour
         if (timer <= 0)
         {
             targetObj = ListClosest();
+            targetScript = targetObj.GetComponent<BehaviorCallable>();
 
             // Reset the timer, carrying over any extra time to maintain precision
             timer += callInterval;
@@ -36,16 +40,17 @@ public class PlayerInteractionHandler : MonoBehaviour
         }
 
         //performs the interaction if e is pressed
-        if (Input.GetButtonDown("e") && !keyStillDown)
+        if (/*Input.GetButtonDown("e") &&*/ !keyStillDown /* && distance <= distanceVariable*/)
         {
-            targetObj.GetComponent<ActivationTrigger>().Behavior();
+            targetObj.GetComponent<BehaviorCallable>().Behavior();
             keyStillDown = true;
         }
         //can only interact once per button press
+        /*
         if (!Input.GetButtonDown("e"))
         {
             keyStillDown = false;
-        }
+        }*/
     }
 
     GameObject ListClosest()
