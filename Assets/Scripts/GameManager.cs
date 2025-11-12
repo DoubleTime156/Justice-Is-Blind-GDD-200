@@ -10,16 +10,13 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI gameOverText;
     public Button restartButton;
-    public GameObject keyImage;
-    public TextMeshProUGUI bottleText;
-    public TextMeshProUGUI coinText;
 
 
     public void Start() // Set player inventory to zero on scene load
     {
         data.inventory[0] = 0;
         data.inventory[1] = 0;
-        data.heldItem = 0;
+        data.heldItem = 1;
         data.hasKey = false;
     }
 
@@ -49,5 +46,14 @@ public class GameManager : MonoBehaviour
         bottleText.text = data.inventory[1].ToString();
         coinText.text = data.inventory[0].ToString();
         if (data.hasKey) { keyImage.SetActive(true); }
+        else {  keyImage.SetActive(false); }
+        if(data.heldItem == 0) { 
+            coinImage.gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
+            bottleImage.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        }else if(data.heldItem == 1)
+        {
+            coinImage.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            bottleImage.gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
     }
 }
