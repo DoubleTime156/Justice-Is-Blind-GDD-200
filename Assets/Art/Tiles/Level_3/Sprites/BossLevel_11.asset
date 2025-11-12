@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: elevator_1
+  m_Name: BossLevel_11
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 6050902575335759564, guid: ca76f69a90f32c548a4de310eb59682c,
-    type: 3}
+  m_Sprite: {fileID: -1710710916, guid: c4421383ed94b29499e0bdeef23cb8ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
