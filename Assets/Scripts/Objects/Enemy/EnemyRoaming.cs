@@ -14,8 +14,8 @@ public class EnemyRoaming : MonoBehaviour
 
     public int AtNode { get; private set; }
 
-    public string roamType; // [empty for no path], "path", "circular"
-    public Transform[] nodes;
+    public string RoamType; // [empty for no path], "path", "circular"
+    public Transform[] Nodes;
 
 
     private void Awake()
@@ -26,39 +26,39 @@ public class EnemyRoaming : MonoBehaviour
 
         AtNode = 0;
 
-        if (nodes.Length == 0)
+        if (Nodes.Length == 0)
         {
             GameObject node = new GameObject("Node");
             node.transform.position = transform.position;
             node.transform.rotation = _lightVision.transform.rotation;
             
-            // Later store initial nodes in a parent manager
+            // Later store initial Nodes in a parent manager
             //node.transform.parent = null;
 
-            nodes = new Transform[1];
-            nodes[0] = node.transform;
+            Nodes = new Transform[1];
+            Nodes[0] = node.transform;
         }
     }
 
     public void UpdateMovement()
     {
-        switch (roamType)
+        switch (RoamType)
         {
             case "path":
-                if (nodes.Length > 1) 
+                if (Nodes.Length > 1) 
                     FollowNodes();
                 else 
-                    Debug.LogError("Not enough nodes to form path");
+                    Debug.LogError("Not enough Nodes to form path");
 
                 break;
             case "circular":
-                if (nodes.Length == 1)
+                if (Nodes.Length == 1)
                 {
                     // Move around single node
                 }
-                else if (nodes.Length < 1)
+                else if (Nodes.Length < 1)
                 {
-                    Debug.LogError("Missing nodes!");
+                    Debug.LogError("Missing Nodes!");
                 }
                 else
                 {
@@ -66,10 +66,10 @@ public class EnemyRoaming : MonoBehaviour
                 }
                 break;
             default:
-                if (Vector3.Distance(transform.position, nodes[0].position) >= _roamingSpeed)
+                if (Vector3.Distance(transform.position, Nodes[0].position) >= _roamingSpeed)
                     FollowNodes();
                 else
-                    _lightVision.transform.rotation = Quaternion.Lerp(_lightVision.transform.rotation, nodes[0].rotation, _rotateSpeed);
+                    _lightVision.transform.rotation = Quaternion.Lerp(_lightVision.transform.rotation, Nodes[0].rotation, _rotateSpeed);
                 break;
         }
     }
@@ -77,7 +77,7 @@ public class EnemyRoaming : MonoBehaviour
 
     private void FollowNodes()
     {
-        Transform target = nodes[AtNode];
+        Transform target = Nodes[AtNode];
         Vector3 dir = (target.position - transform.position).normalized;
 
         // When pathfinding script is ready, use A* for each node instead if raycast to next code is hit
@@ -86,10 +86,10 @@ public class EnemyRoaming : MonoBehaviour
         _lightVision.transform.up = newDir;
 
         if (Vector3.Distance(transform.position, target.position) < _roamingSpeed
-            && roamType == "path")
+            && RoamType == "path")
         {
             AtNode++;
-            if (AtNode >= nodes.Length)
+            if (AtNode >= Nodes.Length)
             {
                 AtNode = 0;
             }
