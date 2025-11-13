@@ -1004,6 +1004,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2302370536385749767, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
+      propertyPath: m_Actions
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: fb6425a2030782948891b4c510b7ff3b,
+        type: 3}
+    - target: {fileID: 2302370536385749767, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -1229,9 +1235,7 @@ MonoBehaviour:
   objectSound: {fileID: 329166483}
   tapKey: 32
   tapRadiusWorld: 6
-  tapSound: {fileID: 329166498}
-  tapFullBrightTime: 0.8
-  tapFadeDuration: 2
+  tapHoldSeconds: 0.8
   logTaps: 1
 --- !u!114 &329166483
 MonoBehaviour:
@@ -1407,12 +1411,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerRadius: {fileID: 329166496}
---- !u!82 &329166498 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: -2230688974381632413, guid: 114436765f7463c49826ba3a8920a5a2,
-    type: 3}
-  m_PrefabInstance: {fileID: 329166478}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &357502221
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15535,11 +15533,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fogManager: {fileID: 1007062145}
-  revealRadiusUV: 0.05
-  fullBrightTime: 1
-  fadeDuration: 2
-  whiteLevel: 1
-  grayLevel: 0.3
+  holdSeconds: 0.8
+  falloffWorld: 0.75
 --- !u!4 &1657846661 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3812348469501226874, guid: f1f0a8780a2273f4da51be4faf6c8a14,
@@ -20224,6 +20219,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 329166479}
+    - target: {fileID: 3125600939272020676, guid: c94be2dff40578a4ca9662f7e185c590,
+        type: 3}
+      propertyPath: rtSize
+      value: 4096
+      objectReference: {fileID: 0}
     - target: {fileID: 3125600939272020676, guid: c94be2dff40578a4ca9662f7e185c590,
         type: 3}
       propertyPath: playerVision

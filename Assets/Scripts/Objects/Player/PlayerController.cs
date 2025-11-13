@@ -35,7 +35,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * data.moveSpeed * data.moveMulti);
+        rb.MovePosition(rb.position + movement * data.moveSpeed);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -44,7 +44,8 @@ public class PlayerController2D_InputSystem : MonoBehaviour
         {
             gameManager.gameOver();
             this.enabled = false;
-        }else if (collision.gameObject.CompareTag("Pickup"))
+        }
+        else if (collision.gameObject.CompareTag("Pickup"))
         {
             data.inventory[collision.GetComponent<Pickup>().pickupType]++;
             inventoryUI.updateAmount();
@@ -57,40 +58,15 @@ public class PlayerController2D_InputSystem : MonoBehaviour
                 case 1:
                     bottlePickup.Play();
                     break;
-            }   
+            }
             Destroy(collision.gameObject);
 
-        } else if (collision.gameObject.CompareTag("Key") && !data.hasKey)
+        }
+        else if (collision.gameObject.CompareTag("Key") && !data.hasKey)
         {
             data.hasKey = true;
             inventoryUI.updateAmount();
             Destroy(collision.gameObject);
         }
     }
-
-    public void onSneak(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            data.moveMulti = 0.5f;
-        }
-        else if (context.canceled)
-        {
-            data.moveMulti = 1.0f;
-        }
-
-    }
-
-    public void onSprint(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            data.moveMulti = 2.0f;
-        }
-        else if (context.canceled)
-        {
-            data.moveMulti = 1.0f;
-        }
-    }
-    
 }
