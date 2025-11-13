@@ -11,7 +11,7 @@
         _WorldMin ("World Min", Vector) = (0,0,0,0)
         _WorldSize ("World Size", Vector) = (1,1,0,0)
 
-        _MemoryColor ("Memory Color (RGB)", Color) = (0.7,0.8,1.0,1)
+        _MemoryColor ("Memory Color (RGB)", Color) = (0.5,0.3,0.4,1)
         _MemoryAlpha ("Memory Alpha", Range(0,1)) = 0.35
 
         _BurstCount ("Burst Count", Int) = 0

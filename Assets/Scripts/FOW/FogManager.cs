@@ -5,29 +5,29 @@ using UnityEngine;
 public class FogManager : MonoBehaviour
 {
     public PlayerPosition playerVision;
-    public Material fogPainterMaterial;      // Custom/FogAccumulateSmooth
-    public Material fogDisplayMaterial;      // Custom/FogDisplayVision
+    public Material fogPainterMaterial;     
+    public Material fogDisplayMaterial;      
     public Transform player;
 
-    public int rtSize = 2048;
+    public int rtSize = 4096;
     private RenderTexture fogMemory;
     private RenderTexture fogScratch;
 
     public Vector2 worldMin = new Vector2(-100f, -100f);
     public Vector2 worldMax = new Vector2(100f, 100f);
 
-    public float liveFalloff = 0.75f;
-    public float memoryAlpha = 0.35f;
-    public float memoryIntensity = 0.30f;
+    private float liveFalloff = 0.75f;
+    private float memoryAlpha = 0.35f;
+    private float memoryIntensity = 0.30f;
 
-    public bool writeLiveToMemory = true;
-    public bool writeBurstsToMemory = false;
-    public bool writeQueuedToMemory = false;
+    private bool writeLiveToMemory = true;
+    private bool writeBurstsToMemory = true;
+    private bool writeQueuedToMemory = false;
 
-    public float defaultBurstFalloff = 0.75f;
+    private float defaultBurstFalloff = 0.75f;
     [Range(1, 32)] public int maxBursts = 8;
 
-    public float memCoverageBiasTexels = 0.5f;
+    private float memCoverageBiasTexels = 0.5f;
 
     private struct Burst { public Vector2 worldPos; public float radiusWorld; public float falloffWorld; public float timer; }
     private readonly List<Burst> _bursts = new();
