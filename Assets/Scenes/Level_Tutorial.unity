@@ -1214,8 +1214,7 @@ MonoBehaviour:
   objectSound: {fileID: 329166483}
   tapKey: 32
   tapRadiusWorld: 6
-  tapFullBrightTime: 0.8
-  tapFadeDuration: 2
+  tapHoldSeconds: 0.8
   logTaps: 1
 --- !u!114 &329166483
 MonoBehaviour:
@@ -15495,11 +15494,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fogManager: {fileID: 1007062145}
-  revealRadiusUV: 0.05
-  fullBrightTime: 1
-  fadeDuration: 2
-  whiteLevel: 1
-  grayLevel: 0.3
+  holdSeconds: 0.8
+  falloffWorld: 0.75
 --- !u!4 &1657846661 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3812348469501226874, guid: f1f0a8780a2273f4da51be4faf6c8a14,
@@ -20185,6 +20181,11 @@ PrefabInstance:
       objectReference: {fileID: 329166479}
     - target: {fileID: 3125600939272020676, guid: c94be2dff40578a4ca9662f7e185c590,
         type: 3}
+      propertyPath: rtSize
+      value: 4096
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125600939272020676, guid: c94be2dff40578a4ca9662f7e185c590,
+        type: 3}
       propertyPath: playerVision
       value: 
       objectReference: {fileID: 1247609655}
@@ -20195,8 +20196,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3125600939272020676, guid: c94be2dff40578a4ca9662f7e185c590,
         type: 3}
+      propertyPath: dilationTexels
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125600939272020676, guid: c94be2dff40578a4ca9662f7e185c590,
+        type: 3}
       propertyPath: maxMemoryCircles
       value: 2048
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125600939272020676, guid: c94be2dff40578a4ca9662f7e185c590,
+        type: 3}
+      propertyPath: memoryInsetWorld
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125600939272020676, guid: c94be2dff40578a4ca9662f7e185c590,
+        type: 3}
+      propertyPath: writeLiveToMemory
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125600939272020676, guid: c94be2dff40578a4ca9662f7e185c590,
+        type: 3}
+      propertyPath: memoryWriteThreshold
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 9209680792800399182, guid: c94be2dff40578a4ca9662f7e185c590,
         type: 3}

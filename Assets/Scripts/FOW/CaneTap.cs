@@ -28,7 +28,7 @@ public class CaneTap : MonoBehaviour
             float r = tapRadiusWorld > 0f ? tapRadiusWorld :
                       (playerVision != null ? playerVision.radius * Mathf.Max(0.01f, noiseMultiplier) : 6f);
 
-            noiseReveal.holdSeconds = tapHoldSeconds;
+        //    noiseReveal.holdSeconds = tapHoldSeconds;
             noiseReveal.RevealAtWorld(player.position, r);
 
             canTap = false;

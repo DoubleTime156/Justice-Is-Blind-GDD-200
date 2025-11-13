@@ -43,7 +43,7 @@ public class CoinNoise : MonoBehaviour
         if (noise == null) noise = FindObjectOfType<NoiseReveal>();
         if (noise != null)
         {
-            noise.holdSeconds = whiteHold;
+       //     noise.holdSeconds = whiteHold;
             noise.RevealAtWorld(transform.position, radiusWorld);
         }
         fired = true;
