@@ -17,14 +17,14 @@ public class FogManager : MonoBehaviour
     public Vector2 worldMax = new Vector2(100f, 100f);
 
     private float liveFalloff = 0.75f;
-    private float memoryAlpha = 0.35f;
+    private float memoryAlpha = 0.70f;
     private float memoryIntensity = 0.30f;
 
     private bool writeLiveToMemory = true;
     private bool writeBurstsToMemory = true;
     private bool writeQueuedToMemory = false;
 
-    private float defaultBurstFalloff = 0.75f;
+    public float defaultBurstFalloff = 0.75f;
     [Range(1, 32)] public int maxBursts = 8;
 
     private float memCoverageBiasTexels = 0.5f;

@@ -93,7 +93,7 @@ Material:
     - _SrcBlend: 1
     - _UVSec: 0
     - _UseHardLiveWrite: 1
-    - _WriteBursts: 0
+    - _WriteBursts: 1
     - _WriteLive: 1
     - _WriteMode: 1
     - _WriteQueued: 0
@@ -103,7 +103,7 @@ Material:
     - _BurstRad: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _PlayerPos: {r: 2.717304, g: 17.49498, b: 0, a: 0}
+    - _PlayerPos: {r: 7.4950237, g: 13.708569, b: 0, a: 0}
     - _Position: {r: 0.43365, g: 0.49795, b: 0, a: 0}
     - _PositionWorld: {r: -15.494993, g: -0.664668, b: 0, a: 0}
     - _QueuedPos: {r: 0, g: 0, b: 0, a: 0}
