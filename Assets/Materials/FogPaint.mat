@@ -61,30 +61,54 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AccumulateBursts: 0
     - _BumpScale: 1
+    - _BurstCount: 0
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
+    - _DilationTexels: 1
     - _DstBlend: 0
-    - _Edge: 0
+    - _Edge: 0.02
+    - _EdgeWorld: 0.6
+    - _Falloff: 0.75
     - _FogRevealIntensity: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Intensity: 0.3
+    - _MemCoverageBiasWorld: 0.024414062
+    - _MemFalloffWorld: 0.75
+    - _MemInsetWorld: 0.5
+    - _MemWriteIntensity: 0.3
+    - _MemWriteThreshold: 0.2
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Radius: 0.019316405
+    - _QueuedCount: 0
+    - _Radius: 4
+    - _RadiusWorld: 3.609375
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
+    - _UseHardLiveWrite: 1
+    - _WriteBursts: 1
+    - _WriteLive: 1
     - _WriteMode: 1
+    - _WriteQueued: 0
     - _ZWrite: 1
     m_Colors:
+    - _BurstPos: {r: 0, g: 0, b: 0, a: 0}
+    - _BurstRad: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Position: {r: 0.55566406, g: 0.5595703, b: 0, a: 0}
+    - _PlayerPos: {r: -4.232617, g: 17.495018, b: 0, a: 0}
+    - _Position: {r: 0.43365, g: 0.49795, b: 0, a: 0}
+    - _PositionWorld: {r: -15.494993, g: -0.664668, b: 0, a: 0}
+    - _QueuedPos: {r: 0, g: 0, b: 0, a: 0}
+    - _QueuedRad: {r: 0, g: 0, b: 0, a: 0}
+    - _WorldMin: {r: -100, g: -100, b: 0, a: 0}
+    - _WorldSize: {r: 200, g: 200, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -33,7 +33,8 @@ public class Throwable : MonoBehaviour
     {
 
         // Move towards target (Mouse position)
-        Vector2 direction = (target - transform.position).normalized; 
+        Vector2 direction = (target - transform.position).normalized;
+        if (item == 1) { rb.rotation += -15f; } //Apply spin to bottle
         distance = Vector2.Distance(transform.position, target);
         speed = distance / timeToReach;
 
@@ -51,6 +52,7 @@ public class Throwable : MonoBehaviour
     {
         StartCoroutine(stopMakingSound(0.1f));
         inAir = false;
+        impactSound.Play();
         switch (item)
         {
             case 0:
