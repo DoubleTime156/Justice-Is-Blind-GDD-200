@@ -33,9 +33,22 @@ public class PlayerController2D_InputSystem : MonoBehaviour
         movement = context.ReadValue<Vector2>();
     }
 
+    public void OnRun(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            data.moveMulti = 1.5f;
+        }
+        else if (context.canceled)
+        {
+            data.moveMulti = 1.0f;
+        }
+
+    }
+
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * data.moveSpeed);
+        rb.MovePosition(rb.position + movement * data.moveSpeed * data.moveMulti);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

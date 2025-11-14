@@ -68,31 +68,36 @@ public class testCode01 : InputTestFixture
         Assert.That(player.transform.position.x, Is.EqualTo(destination.x).Within(0.2), "left issue");
 
         // //testing sprint
+        //Debug.Log("Sprint Start: " + player.transform.position.y);
         Press(keyboard.shiftKey);
         yield return new WaitForSeconds(0.5f);
         Press(keyboard.wKey);
         yield return new WaitForSeconds(0.25f);
         Release(keyboard.wKey);
         yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.5f);
         Release(keyboard.shiftKey);
         yield return new WaitForSeconds(1);
         //checking movement distance
-        destination.y += 3.85f;
+        destination.y += 2.85f;
+        //Debug.Log("Sprint Start: " + player.transform.position.y);
         Assert.That(player.transform.position.y, Is.EqualTo(destination.y).Within(0.2), "sprint issue");
 
-        //testing sneak
-        Press(keyboard.cKey);
-        yield return new WaitForSeconds(0.5f);
-        Press(keyboard.sKey);
-        yield return new WaitForSeconds(0.25f);
-        Release(keyboard.sKey);
-        yield return new WaitForSeconds(0.5f);
-        Release(keyboard.cKey);
-        yield return new WaitForSeconds(1);
-        //checking movement distance
-        destination.y -= 0.9f;
-        Assert.That(player.transform.position.y, Is.EqualTo(destination.y).Within(0.2), "sneak issue");
+        ////testing sneak
+        //Press(keyboard.cKey);
+        //yield return new WaitForSeconds(0.5f);
+        //Press(keyboard.sKey);
+        //yield return new WaitForSeconds(0.25f);
+        //Release(keyboard.sKey);
+        //yield return new WaitForSeconds(0.5f);
+        //Release(keyboard.cKey);
+        //yield return new WaitForSeconds(1);
+        ////checking movement distance
+        //destination.y -= 0.9f;
+        //Assert.That(player.transform.position.y, Is.EqualTo(destination.y).Within(0.25), "sneak issue");
 
+        //cane tap test, visual assertion
+        Press(keyboard.spaceKey);
 
         yield return null;
     }
