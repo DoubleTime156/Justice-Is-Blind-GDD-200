@@ -44,7 +44,8 @@ public class PlayerController2D_InputSystem : MonoBehaviour
         {
             gameManager.gameOver();
             this.enabled = false;
-        }else if (collision.gameObject.CompareTag("Pickup"))
+        }
+        else if (collision.gameObject.CompareTag("Pickup"))
         {
             data.inventory[collision.GetComponent<Pickup>().pickupType]++;
             inventoryUI.updateAmount();
@@ -57,10 +58,11 @@ public class PlayerController2D_InputSystem : MonoBehaviour
                 case 1:
                     bottlePickup.Play();
                     break;
-            }   
+            }
             Destroy(collision.gameObject);
 
-        } else if (collision.gameObject.CompareTag("Key") && !data.hasKey)
+        }
+        else if (collision.gameObject.CompareTag("Key") && !data.hasKey)
         {
             data.hasKey = true;
             inventoryUI.updateAmount();
