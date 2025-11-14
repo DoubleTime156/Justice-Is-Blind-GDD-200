@@ -10,6 +10,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movement;
     private GameManager gameManager;
+    private Inventory inventoryUI;
     public AudioSource coinPickup;
     public AudioSource bottlePickup;
 
@@ -19,9 +20,10 @@ public class PlayerController2D_InputSystem : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+        inventoryUI = GameObject.Find("Inventory").GetComponent<Inventory>();
 
         // Reset PlayerData
-        data.heldItem = 0;
+        data.heldItem = 1;
         data.inventory = defaultInventory;
         data.hasKey = false;
     }
@@ -42,10 +44,11 @@ public class PlayerController2D_InputSystem : MonoBehaviour
         {
             gameManager.gameOver();
             this.enabled = false;
-        }else if (collision.gameObject.CompareTag("Pickup"))
+        }
+        else if (collision.gameObject.CompareTag("Pickup"))
         {
             data.inventory[collision.GetComponent<Pickup>().pickupType]++;
-            gameManager.updateAmount();
+            inventoryUI.updateAmount();
             Debug.Log("Pickup collected");
             switch (collision.GetComponent<Pickup>().pickupType) // Play audio for pickups
             {
@@ -55,12 +58,14 @@ public class PlayerController2D_InputSystem : MonoBehaviour
                 case 1:
                     bottlePickup.Play();
                     break;
-            }   
+            }
             Destroy(collision.gameObject);
 
-        } else if (collision.gameObject.CompareTag("Key") && !data.hasKey)
+        }
+        else if (collision.gameObject.CompareTag("Key") && !data.hasKey)
         {
             data.hasKey = true;
+            inventoryUI.updateAmount();
             Destroy(collision.gameObject);
         }
     }
