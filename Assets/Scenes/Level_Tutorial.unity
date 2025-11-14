@@ -492,6 +492,7 @@ GameObject:
   - component: {fileID: 197386809}
   - component: {fileID: 197386808}
   - component: {fileID: 197386811}
+  - component: {fileID: 197386812}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -633,6 +634,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 329166479}
   speed: 5
+--- !u!114 &197386812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197386806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ComponentVersion: 1
+  m_AssetsPPU: 100
+  m_RefResolutionX: 1920
+  m_RefResolutionY: 1080
+  m_CropFrame: 0
+  m_GridSnapping: 1
+  m_FilterMode: 0
+  m_UpscaleRT: 0
+  m_PixelSnapping: 0
+  m_CropFrameX: 0
+  m_CropFrameY: 0
+  m_StretchFill: 0
 --- !u!1 &226731308
 GameObject:
   m_ObjectHideFlags: 0
@@ -1257,7 +1282,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 329166480}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
@@ -1354,13 +1379,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 329166480}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3285b92f0f9af546a3adb75da5ae828, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   calm: {fileID: 8300000, guid: 0f8e6f71ad157b649b8183d49270f9d5, type: 3}
-  chase: {fileID: 8300000, guid: ee1fbc5c947ea7846a91d11b73ebcb3f, type: 3}
+  chase: {fileID: 8300000, guid: fd0cadc6818941247b3457080553c2e6, type: 3}
   audioSource: {fileID: 329166494}
 --- !u!58 &329166496
 CircleCollider2D:
@@ -1543,6 +1568,11 @@ PrefabInstance:
       propertyPath: source
       value: 
       objectReference: {fileID: 898301519}
+    - target: {fileID: 8311339164101429479, guid: 2d139a0f093b6bb42b21a07850c7679c,
+        type: 3}
+      propertyPath: jukeMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: 620b00ab5859abf428ec5cacb1b1b3b6, type: 3}
     - target: {fileID: 9219757270736167529, guid: 2d139a0f093b6bb42b21a07850c7679c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2703,20 +2733,20 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 620b00ab5859abf428ec5cacb1b1b3b6, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  DopplerLevel: 0
+  MinDistance: 3
+  MaxDistance: 20
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -2749,7 +2779,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
