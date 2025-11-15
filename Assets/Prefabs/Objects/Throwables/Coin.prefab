@@ -380,7 +380,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noise: {fileID: 0}
-  radiusWorld: 6
+  radiusWorld: 3
   whiteHold: 0.8
   fadeSeconds: 2
   useVelocityStop: 1

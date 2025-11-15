@@ -1,0 +1,574 @@
+fileFormatVersion: 2
+guid: 2373d5162d73d4d42aa9841e226c318b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4872762640428316520
+    second: Jib_Assets-Sheet_0
+  - first:
+      213: -8817645872562541975
+    second: Jib_Assets-Sheet_1
+  - first:
+      213: -8640113862283795584
+    second: Jib_Assets-Sheet_2
+  - first:
+      213: -1404091268238470143
+    second: Jib_Assets-Sheet_3
+  - first:
+      213: -2643044899105834581
+    second: Jib_Assets-Sheet_4
+  - first:
+      213: -725629596987403124
+    second: Jib_Assets-Sheet_5
+  - first:
+      213: 8830288951824441503
+    second: Jib_Assets-Sheet_6
+  - first:
+      213: 8329870128219625205
+    second: Jib_Assets-Sheet_7
+  - first:
+      213: -1694538477917451050
+    second: Jib_Assets-Sheet_8
+  - first:
+      213: -3742125278227068828
+    second: Jib_Assets-Sheet_9
+  - first:
+      213: 5983320308935581737
+    second: Jib_Assets-Sheet_10
+  - first:
+      213: 1622411637536656527
+    second: Jib_Assets-Sheet_11
+  - first:
+      213: -5329737769977487073
+    second: Jib_Assets-Sheet_12
+  - first:
+      213: 5965454533158049812
+    second: Jib_Assets-Sheet_13
+  - first:
+      213: 4973589898029303895
+    second: Jib_Assets-Sheet_14
+  - first:
+      213: 8451153065413171540
+    second: Jib_Assets-Sheet_15
+  - first:
+      213: -7444615179567438550
+    second: Jib_Assets-Sheet_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 260
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Jib_Assets-Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 1039
+        width: 147
+        height: 194
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 898c97e0238706cb0800000000000000
+      internalID: -4872762640428316520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jib_Assets-Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 1039
+        width: 195
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96a68bafbcd61a580800000000000000
+      internalID: -8817645872562541975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jib_Assets-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 609
+        y: 1039
+        width: 101
+        height: 134
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08365a33836281880800000000000000
+      internalID: -8640113862283795584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jib_Assets-Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 843
+        y: 1039
+        width: 132
+        height: 166
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1041b644e6aa38ce0800000000000000
+      internalID: -1404091268238470143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jib_Assets-Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 1073
+        width: 194
+        height: 176
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba9736feaa4025bd0800000000000000
+      internalID: -2643044899105834581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jib_Assets-Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 779
+        width: 125
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c845e01e9bb0ee5f0800000000000000
+      internalID: -725629596987403124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jib_Assets-Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 779
+        width: 159
+        height: 190
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f906d8d440d7b8a70800000000000000
+      internalID: 8830288951824441503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jib_Assets-Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 529
+        y: 779
+        width: 243
+        height: 184
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f61ba18fb4a99370800000000000000
+      internalID: 8329870128219625205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jib_Assets-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 845
+        y: 778
+        width: 400
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6dccf7d7b3acb78e0800000000000000
+      internalID: -1694538477917451050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jib_Assets-Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 519
+        width: 142
+        height: 141
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4680446d2ec411cc0800000000000000
+      internalID: -3742125278227068828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jib_Assets-Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 519
+        width: 177
+        height: 177
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9206c77be16090350800000000000000
+      internalID: 5983320308935581737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jib_Assets-Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 579
+        y: 519
+        width: 142
+        height: 249
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8c05d6d9c6f38610800000000000000
+      internalID: 1622411637536656527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jib_Assets-Sheet_12
+      rect:
+        serializedVersion: 2
+        x: 926
+        y: 259
+        width: 220
+        height: 463
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1162828cb7f806b0800000000000000
+      internalID: -5329737769977487073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jib_Assets-Sheet_13
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 259
+        width: 133
+        height: 174
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41811a4aa4d89c250800000000000000
+      internalID: 5965454533158049812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jib_Assets-Sheet_14
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 258
+        width: 166
+        height: 190
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 758028a39adb50540800000000000000
+      internalID: 4973589898029303895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jib_Assets-Sheet_15
+      rect:
+        serializedVersion: 2
+        x: 581
+        y: 320
+        width: 142
+        height: 146
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 459d766dfe6884570800000000000000
+      internalID: 8451153065413171540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jib_Assets-Sheet_16
+      rect:
+        serializedVersion: 2
+        x: 807
+        y: 73
+        width: 220
+        height: 143
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a25e66cffe96fa890800000000000000
+      internalID: -7444615179567438550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: e95304e12bfb2aa40810260e228388b2
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceOnImport
+        value: True
+    nameFileIdTable:
+      Jib_Assets-Sheet_0: -4872762640428316520
+      Jib_Assets-Sheet_1: -8817645872562541975
+      Jib_Assets-Sheet_10: 5983320308935581737
+      Jib_Assets-Sheet_11: 1622411637536656527
+      Jib_Assets-Sheet_12: -5329737769977487073
+      Jib_Assets-Sheet_13: 5965454533158049812
+      Jib_Assets-Sheet_14: 4973589898029303895
+      Jib_Assets-Sheet_15: 8451153065413171540
+      Jib_Assets-Sheet_16: -7444615179567438550
+      Jib_Assets-Sheet_2: -8640113862283795584
+      Jib_Assets-Sheet_3: -1404091268238470143
+      Jib_Assets-Sheet_4: -2643044899105834581
+      Jib_Assets-Sheet_5: -725629596987403124
+      Jib_Assets-Sheet_6: 8830288951824441503
+      Jib_Assets-Sheet_7: 8329870128219625205
+      Jib_Assets-Sheet_8: -1694538477917451050
+      Jib_Assets-Sheet_9: -3742125278227068828
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
