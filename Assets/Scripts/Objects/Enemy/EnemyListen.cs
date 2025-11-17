@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyListen : MonoBehaviour
@@ -14,11 +15,17 @@ public class EnemyListen : MonoBehaviour
     public void UpdateListen()
     {
         HearSound = false;
+
+
+        // Old Listen Code
+        /*
+        HearSound = false;
         activeTargets.Clear();
 
-        ObjectSound[] emitters = FindObjectsByType<ObjectSound>(FindObjectsSortMode.None);
+        //ObjectSound[] emitters = FindObjectsByType<ObjectSound>(FindObjectsSortMode.None);
+        SoundMaker[] emitters = FindObjectsByType<SoundMaker>(FindObjectsSortMode.None);
 
-        foreach (ObjectSound e in emitters)
+        foreach (SoundMaker e in emitters)
         {
             if (e.IsMakingSound && 
                 Vector3.Distance(transform.position, e.gameObject.transform.position) < e.soundRadius)
@@ -38,5 +45,27 @@ public class EnemyListen : MonoBehaviour
                 ObjectEmitter = activeTargets[i];
             }
         }
+        */
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Sound"))
+        {
+            HearSound = true;
+            ObjectEmitter = other.GetComponent<GameObject>();
+        }
+    }
+
+
+    /*
+    void OnCollisionEnter2D(PolygonCollider2D poly)
+    {
+        if (poly.CompareTag("Sound"))
+        {
+            HearSound = true;
+            ObjectEmitter = poly.GetComponent<GameObject>();
+        }
+    }
+    */
 }

@@ -16,6 +16,8 @@ public class PlayerController2D_InputSystem : MonoBehaviour
 
     private int[] defaultInventory = { 0, 0 };
 
+    public Animator animator;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -31,6 +33,25 @@ public class PlayerController2D_InputSystem : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         movement = context.ReadValue<Vector2>();
+
+        //for movement animation
+        if(movement.y != 0)
+        {
+            //is moving horizontally
+            animator.SetBool("isMovingVert", true);
+
+        }
+        else if(movement.x != 0)
+        {
+            //is moving vertically
+            animator.SetBool("isMovingHoriz", true);
+        }
+        else
+        {
+            //not moving, make bool false
+            animator.SetBool("isMovingHoriz", false);
+            animator.SetBool("isMovingVert", false);
+        }
     }
 
     public void OnRun(InputAction.CallbackContext context)
