@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerController2D_InputSystem : MonoBehaviour
 {
     public PlayerData data;
+    public PersonAnimator personAnimator;
 
     private Rigidbody2D rb;
     private Vector2 movement;
@@ -16,7 +17,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
 
     private int[] defaultInventory = { 0, 0 };
 
-    public Animator animator;
+    //public Animator animator;
 
     void Start()
     {
@@ -35,6 +36,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
         movement = context.ReadValue<Vector2>();
 
         //for movement animation
+        /*
         if(movement.y != 0)
         {
             //is moving horizontally
@@ -52,11 +54,13 @@ public class PlayerController2D_InputSystem : MonoBehaviour
             animator.SetBool("isMovingHoriz", false);
             animator.SetBool("isMovingVert", false);
         }
+        */
     }
 
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement * data.moveSpeed);
+        personAnimator.isMoving = (movement.x == 0 && movement.y == 0);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
