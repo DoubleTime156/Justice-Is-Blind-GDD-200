@@ -13,6 +13,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
     private Inventory inventoryUI;
     public AudioSource coinPickup;
     public AudioSource bottlePickup;
+    public AudioSource keyPickup;
 
     private int[] defaultInventory = { 0, 0 };
 
@@ -64,6 +65,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Key") && !data.hasKey)
         {
+            keyPickup.Play();
             data.hasKey = true;
             inventoryUI.updateAmount();
             Destroy(collision.gameObject);

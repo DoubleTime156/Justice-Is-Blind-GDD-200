@@ -101,12 +101,16 @@ public class Throwable : MonoBehaviour
         }
     }
 
-    public void OnTriggerEnter2D(Collider2D collision) // If a bottle is still in air, destroy enemies they touch
+    public void OnTriggerEnter2D(Collider2D collision) 
     {
-        if (collision.CompareTag("Enemy") && item == 1 && inAir) 
+        if (collision.CompareTag("Enemy") && item == 1 && inAir) // If a bottle is still in air, destroy enemies they touch
         {
             Destroy(collision.gameObject);
             Destroy(gameObject);
+        }
+        if(collision.CompareTag("Enemy") && item == 0 && !inAir) // When an enemy inspects a coin, pick it up before going back to path
+        {
+            StartCoroutine(enemyPickupCoin(2.5f));
         }
     }
 
@@ -118,5 +122,11 @@ public class Throwable : MonoBehaviour
 
         // Stop making sound after time has past
         objectSound.IsMakingSound = false;
+    }
+
+    IEnumerator enemyPickupCoin(float waitTime) // When the enemy reaches the coin, the coin will wait a few seconds before disappearing
+    { 
+        yield return new WaitForSeconds(waitTime);
+        Destroy(gameObject);
     }
 }
