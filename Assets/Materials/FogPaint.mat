@@ -76,7 +76,7 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Intensity: 0.3
-    - _MemCoverageBiasWorld: 0.1953125
+    - _MemCoverageBiasWorld: 0.024414062
     - _MemFalloffWorld: 0.75
     - _MemInsetWorld: 0.5
     - _MemWriteIntensity: 0.3
@@ -103,7 +103,7 @@ Material:
     - _BurstRad: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _PlayerPos: {r: 14.843248, g: 19.792192, b: 0, a: 0}
+    - _PlayerPos: {r: -13.27, g: -0.41, b: 0, a: 0}
     - _Position: {r: 0.43365, g: 0.49795, b: 0, a: 0}
     - _PositionWorld: {r: -15.494993, g: -0.664668, b: 0, a: 0}
     - _QueuedPos: {r: 0, g: 0, b: 0, a: 0}
