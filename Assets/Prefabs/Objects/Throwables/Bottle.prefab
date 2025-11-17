@@ -35,7 +35,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -84,7 +84,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 709657289480405090, guid: 790103c68812ac14980ed8c45fed78a6, type: 3}
+  m_Sprite: {fileID: -907767961651953922, guid: af2c25152b0d3954c9cd1371d2d2cbae,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -173,7 +174,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 0.1
 --- !u!82 &-1651317461757201175
 AudioSource:
   m_ObjectHideFlags: 0
@@ -395,12 +396,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2855f5d276aa65d45a21d3a8ce7d3e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noise: {fileID: 0}
+  fogManager: {fileID: 0}
+  trailRadiusWorld: 0.8
+  trailHold: 0.08
+  trailHz: 20
   radiusWorld: 6
   whiteHold: 0.8
   useVelocityStop: 1
   stopSpeed: 0.1
   stopHoldTime: 0.05
+  revealOnFirstCollision: 1
 --- !u!114 &-7942899025305146320
 MonoBehaviour:
   m_ObjectHideFlags: 0
