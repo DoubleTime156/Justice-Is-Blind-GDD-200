@@ -37,7 +37,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
     {
         if (context.performed)
         {
-            data.moveMulti = 1.5f;
+            data.moveMulti = 2.0f;
         }
         else if (context.canceled)
         {

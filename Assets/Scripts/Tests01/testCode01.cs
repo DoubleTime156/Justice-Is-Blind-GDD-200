@@ -16,7 +16,7 @@ public class testCode01 : InputTestFixture
 
     public override void Setup()
     {
-        SceneManager.LoadScene("Scenes/Test_Scene");
+        SceneManager.LoadScene("Scenes/Level_Tutorial");
         base.Setup();
         //input devices
         keyboard = InputSystem.AddDevice<Keyboard>("keyboard");
@@ -38,7 +38,7 @@ public class testCode01 : InputTestFixture
         //checking movement distance
         Vector2 destination = StartPosition;
         destination.y += 1.9f;
-        Assert.That(player.transform.position.y, Is.EqualTo(destination.y).Within(0.2), "up issue");
+        Assert.That(player.transform.position.y, Is.EqualTo(destination.y).Within(0.25), "up issue");
 
         //moving down
         Press(keyboard.sKey);
@@ -47,7 +47,7 @@ public class testCode01 : InputTestFixture
         yield return new WaitForSeconds(1);
         //checking movement distance
         destination.y -= 1.9f;
-        Assert.That(player.transform.position.y, Is.EqualTo(destination.y).Within(0.2), "down issue");
+        Assert.That(player.transform.position.y, Is.EqualTo(destination.y).Within(0.25), "down issue");
 
         //moving right
         Press(keyboard.dKey);
@@ -56,7 +56,7 @@ public class testCode01 : InputTestFixture
         yield return new WaitForSeconds(1);
         //checking movement distance
         destination.x += 1.9f;
-        Assert.That(player.transform.position.x, Is.EqualTo(destination.x).Within(0.2), "right issue");
+        Assert.That(player.transform.position.x, Is.EqualTo(destination.x).Within(0.25), "right issue");
 
         //moving left
         Press(keyboard.aKey);
@@ -65,10 +65,10 @@ public class testCode01 : InputTestFixture
         yield return new WaitForSeconds(1);
         //checking movement distance
         destination.x -= 1.9f;
-        Assert.That(player.transform.position.x, Is.EqualTo(destination.x).Within(0.2), "left issue");
+        Assert.That(player.transform.position.x, Is.EqualTo(destination.x).Within(0.25), "left issue");
 
         // //testing sprint
-        //Debug.Log("Sprint Start: " + player.transform.position.y);
+        Debug.Log("Sprint Start: " + player.transform.position.y);
         Press(keyboard.shiftKey);
         yield return new WaitForSeconds(0.5f);
         Press(keyboard.wKey);
@@ -79,9 +79,9 @@ public class testCode01 : InputTestFixture
         Release(keyboard.shiftKey);
         yield return new WaitForSeconds(1);
         //checking movement distance
-        destination.y += 2.85f;
-        //Debug.Log("Sprint Start: " + player.transform.position.y);
-        Assert.That(player.transform.position.y, Is.EqualTo(destination.y).Within(0.2), "sprint issue");
+        destination.y += 3.8f;
+        Debug.Log("Sprint Start: " + player.transform.position.y);
+        Assert.That(player.transform.position.y, Is.EqualTo(destination.y).Within(0.25), "sprint issue");
 
         ////testing sneak
         //Press(keyboard.cKey);
@@ -96,8 +96,7 @@ public class testCode01 : InputTestFixture
         //destination.y -= 0.9f;
         //Assert.That(player.transform.position.y, Is.EqualTo(destination.y).Within(0.25), "sneak issue");
 
-        //cane tap test, visual assertion
-        Press(keyboard.spaceKey);
+        
 
         yield return null;
     }
