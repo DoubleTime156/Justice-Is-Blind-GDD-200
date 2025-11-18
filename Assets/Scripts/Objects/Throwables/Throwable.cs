@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Throwable : MonoBehaviour
 {
+    public FogManager fogManager;
+    private float radiusWorld = 6f;
+    private float whiteHold = 0.8f;
+
     private Vector3 target;
     private float speed;
     private int item;
@@ -107,8 +111,10 @@ public class Throwable : MonoBehaviour
         {
             Destroy(collision.gameObject);
             Destroy(gameObject);
+            fogManager.TriggerVisionBurstAt(transform.position, Mathf.Max(0f, radiusWorld), Mathf.Max(0.0001f, whiteHold), fogManager.defaultBurstFalloff);
+
         }
-        if(collision.CompareTag("Enemy") && item == 0 && !inAir) // When an enemy inspects a coin, pick it up before going back to path
+        if (collision.CompareTag("Enemy") && item == 0 && !inAir) // When an enemy inspects a coin, pick it up before going back to path
         {
             StartCoroutine(enemyPickupCoin(2.5f));
         }
