@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5868796905574323815}
   - component: {fileID: 7995204609416062710}
   - component: {fileID: 7507620217338003494}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Goon
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6231759294062671307}
   - component: {fileID: 8916082329153397833}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: LightVision
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: -8701913800614786865}
   - component: {fileID: 3387461862684107182}
   - component: {fileID: 2068274418561207334}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Goon
   m_TagString: Enemy
   m_Icon: {fileID: 0}
