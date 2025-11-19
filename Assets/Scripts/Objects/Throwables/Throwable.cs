@@ -107,8 +107,10 @@ public class Throwable : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision) 
     {
+        Debug.Log("Has Triggered Collider");
         if (collision.CompareTag("Enemy") && item == 1 && inAir) // If a bottle is still in air, destroy enemies they touch
         {
+            Debug.Log("Has found an enemy collider tag");
             Destroy(collision.gameObject);
             Destroy(gameObject);
             fogManager.TriggerVisionBurstAt(transform.position, Mathf.Max(0f, radiusWorld), Mathf.Max(0.0001f, whiteHold), fogManager.defaultBurstFalloff);
