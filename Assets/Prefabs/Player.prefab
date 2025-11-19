@@ -604,6 +604,7 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 684de57402381d94dbb0dd7a282858f3, type: 2}
   coinPickup: {fileID: -6507755775882685442}
   bottlePickup: {fileID: -8865577757524450621}
+  keyPickup: {fileID: 0}
   animator: {fileID: 0}
 --- !u!114 &4212852649017227333
 MonoBehaviour:
@@ -1156,7 +1157,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundRadius: 4
-  soundMaker: {fileID: 0}
+  soundMaker: {fileID: 2013124798389018593, guid: 89d363a34648e9d44b3d05f2d995a2cf,
+    type: 3}
 --- !u!114 &8291167075629656194
 MonoBehaviour:
   m_ObjectHideFlags: 0

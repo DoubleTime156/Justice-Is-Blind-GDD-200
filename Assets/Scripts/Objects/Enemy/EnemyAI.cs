@@ -61,6 +61,8 @@ public class EnemyAI : MonoBehaviour
             isAlert = false;
         }
 
+        //listen.HearSound = false;
+
 
         if (IsChasing) // Enemy is chasing
         {

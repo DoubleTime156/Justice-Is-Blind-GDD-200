@@ -8,7 +8,7 @@ public class EnemyListen : MonoBehaviour
 
     public float hearDistance;
 
-    public bool HearSound { get; private set; }
+    public bool HearSound;
 
     private List<GameObject> activeTargets = new List<GameObject>();
 
@@ -50,6 +50,7 @@ public class EnemyListen : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("Enemy hears throwable");
         if (other.CompareTag("Sound"))
         {
             HearSound = true;
