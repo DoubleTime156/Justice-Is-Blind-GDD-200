@@ -444,6 +444,7 @@ GameObject:
   - component: {fileID: 433600670923591202}
   - component: {fileID: 4504627844382805378}
   - component: {fileID: 5244588914472957553}
+  - component: {fileID: 7641100827236162740}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -602,9 +603,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 684de57402381d94dbb0dd7a282858f3, type: 2}
+  personAnimator: {fileID: 7641100827236162740}
   coinPickup: {fileID: -6507755775882685442}
   bottlePickup: {fileID: -8865577757524450621}
-  animator: {fileID: 0}
+  keyPickup: {fileID: 0}
 --- !u!114 &4212852649017227333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1318,6 +1320,20 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 1
+--- !u!114 &7641100827236162740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7126914669921339014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e34698638bc7014fb8dda3b6b6e8f33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMoving: 0
+  _animator: {fileID: 6040604634708551431}
 --- !u!1 &7500031847232509037
 GameObject:
   m_ObjectHideFlags: 0
@@ -1602,7 +1618,7 @@ Animator:
   m_GameObject: {fileID: 8167058829865836958}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 65d5ec3f2afd3a444a138c7f17f231a1, type: 2}
+  m_Controller: {fileID: 9100000, guid: 30b0632e7d7dc48b8bedbf64473b24cc, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
