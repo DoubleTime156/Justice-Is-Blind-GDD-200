@@ -56,7 +56,7 @@ Material:
     - _MemoryAlpha: 0.35
     - _MemoryStrength: 0.3
     - _QuantizeCircle: 1
-    - _Radius: 4
+    - _Radius: 5
     - _WhiteVisionCutoff: 0.95
     - _ZWrite: 0
     m_Colors:
