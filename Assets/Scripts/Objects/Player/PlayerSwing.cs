@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 
 
 public class PlayerSwing : MonoBehaviour {
@@ -20,7 +21,7 @@ public class PlayerSwing : MonoBehaviour {
         Vector3 mouseScreenPos = Mouse.current.position.ReadValue();
         mouseScreenPos.z = Camera.main.WorldToScreenPoint(transform.position).z;
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
-        //transform.rotation = Quaternion.LookRotation(Vector3.forward, mouseWorldPos - transform.position);
+        transform.rotation = Quaternion.LookRotation(Vector3.forward, mouseWorldPos - transform.position);
 
         // Collect only the valid targets (in angle and not blocked)
         var enemies = new System.Collections.Generic.List<Collider2D>();
@@ -34,9 +35,6 @@ public class PlayerSwing : MonoBehaviour {
             if (distance <= 0f) continue;
             dir.Normalize();
 
-            // Get current enemy health
-            EnemyData enemyHealthData = ScriptableObject.CreateInstance<EnemyData>();
-            enemyHealthData = enemyCollider.GetComponent<EnemyData>();
 
             float angle = Vector2.Angle(transform.up, dir);
 
@@ -50,8 +48,6 @@ public class PlayerSwing : MonoBehaviour {
                 if (hitObstacle.collider == null)
                 {
                     enemies.Add(enemyCollider);
-                    // Get current enemy health
-                    Debug.Log(enemyCollider.name + " Current Health: " + enemyHealthData);
                 }
             }
         }
@@ -62,11 +58,33 @@ public class PlayerSwing : MonoBehaviour {
             foreach (var target in enemies)
             {
                 if (target != null)
-                    Destroy(target.gameObject);
-                
+                {
+                    // Rotates the whole enemy, disable its AI,and collider
+                    target.transform.rotation = Quaternion.Euler(0, 0, 90);
+                    target.GetComponent<EnemyAI>().enabled = false;
+                    target.GetComponent<Collider2D>().enabled = false;
+                    target.GetComponentInChildren<Light2D>().enabled = false;
+
+                    // Tint the sprite
+                    SpriteRenderer sr = null;
+                    foreach (var renderer in target.GetComponentsInChildren<SpriteRenderer>())
+                    {
+                        if (renderer.gameObject.name == "alphaNPC_0")
+                        {
+                            sr = renderer;
+                            break;
+                        }
+                    }
+                    if (sr != null)
+                    {
+                        sr.color = Color.red;
+                    }
+                }
             }
-        } 
+        }
+
     }
+
 
     // Debug - Vision cone visual
     void OnDrawGizmos()
