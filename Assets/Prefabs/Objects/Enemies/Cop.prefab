@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6393094824206206157}
   - component: {fileID: 2887813125595183021}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: LightVision
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 6551074062262760684}
   - component: {fileID: 4961390285603268963}
   - component: {fileID: 1670148046045928913}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Cop
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 8489967983357464317}
   - component: {fileID: 3329898631829752540}
   - component: {fileID: 2744516738468911287}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: Cop
   m_TagString: Enemy
   m_Icon: {fileID: 0}

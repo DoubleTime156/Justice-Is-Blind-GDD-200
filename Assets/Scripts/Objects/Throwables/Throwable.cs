@@ -21,6 +21,8 @@ public class Throwable : MonoBehaviour
     public ObjectSound objectSound;
     public AudioSource throwSound;
     public AudioSource impactSound;
+    public ParticleSystem shatterParticles;
+
     public bool inAir = true; // Bottles can kill enemies if active
     public void Init(Vector3 targetPos, float initMoveSpeed, int heldItem)
     {
@@ -68,6 +70,7 @@ public class Throwable : MonoBehaviour
                 break;
             case 1:
                 Debug.Log("Bottle Landed");
+                spawnParticles();
                 GetComponent<Renderer>().enabled = false;
                 objectSound.IsMakingSound = true;
               //  RevealFog(0.07f);
@@ -112,7 +115,8 @@ public class Throwable : MonoBehaviour
         {
             Debug.Log("Has found an enemy collider tag");
             Destroy(collision.gameObject);
-            Destroy(gameObject);
+            rb.linearVelocity = new Vector2(0, 0);
+            itemBehavior();
             fogManager.TriggerVisionBurstAt(transform.position, Mathf.Max(0f, radiusWorld), Mathf.Max(0.0001f, whiteHold), fogManager.defaultBurstFalloff);
 
         }
@@ -120,6 +124,11 @@ public class Throwable : MonoBehaviour
         {
             StartCoroutine(enemyPickupCoin(2.5f));
         }
+    }
+
+    private void spawnParticles()
+    {
+        shatterParticles = Instantiate(shatterParticles, transform.position, Quaternion.identity);
     }
 
     IEnumerator stopMakingSound(float waitTime) // Makes sound to lure enemy and stops to prevent enemy jittering
