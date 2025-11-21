@@ -860,7 +860,7 @@ PrefabInstance:
     - target: {fileID: 1368145113099633967, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2969911981459378825, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
@@ -870,7 +870,7 @@ PrefabInstance:
     - target: {fileID: 2969911981459378825, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 58720503
+      value: 58720511
       objectReference: {fileID: 0}
     - target: {fileID: 3018968614818814497, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
