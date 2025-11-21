@@ -827,6 +827,41 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2302370536385749767, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2302370536385749767, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2302370536385749767, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 329166480}
+    - target: {fileID: 2302370536385749767, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2302370536385749767, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnRun
+      objectReference: {fileID: 0}
+    - target: {fileID: 2302370536385749767, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerController2D_InputSystem, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2302370536385749767, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2969911981459378825, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
       propertyPath: orthographic size
@@ -962,6 +997,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 329166478}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &329166480 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8996071929840542208, guid: 114436765f7463c49826ba3a8920a5a2,
+    type: 3}
+  m_PrefabInstance: {fileID: 329166478}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e693be3c3cafaa49b93c1f662055102, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &357502221
 PrefabInstance:
   m_ObjectHideFlags: 0

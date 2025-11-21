@@ -1104,15 +1104,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3258e2aab4649f4e9c8df42b7e03530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noiseReveal: {fileID: 1652579325}
   player: {fileID: 329166479}
-  playerVision: {fileID: 1247609655}
-  fogManager: {fileID: 1007062145}
-  noiseMultiplier: 2
-  objectSound: {fileID: 0}
+  maskMaterial: {fileID: 0}
+  fogMaskLayerName: FogMask
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 0
   tapKey: 32
   tapRadiusWorld: 6
   tapHoldSeconds: 0.8
+  rayCount: 512
+  objectSound: {fileID: 0}
   logTaps: 1
 --- !u!114 &329166483
 MonoBehaviour:
@@ -1127,6 +1129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundRadius: 4
+  soundMaker: {fileID: 0}
 --- !u!114 &329166490 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8996071929840542208, guid: 114436765f7463c49826ba3a8920a5a2,
@@ -1752,7 +1755,7 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000bf0000003f000000000000003f0000003f00000000000000bf000000bf000000000000003f000000bf00000000000000000000803f0000803f0000803f00000000000000000000803f00000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
@@ -18966,33 +18969,9 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: c405adb4225d94e41a85eb8048245f7e, type: 2}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  m_TileSpriteArray:
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  m_TileSpriteArray: []
   m_TileMatrixArray:
   - m_RefCount: 289
-    m_Data:
-      e00: 1
-      e01: 0
-      e02: 0
-      e03: 0
-      e10: 0
-      e11: 1
-      e12: 0
-      e13: 0
-      e20: 0
-      e21: 0
-      e22: 1
-      e23: 0
-      e30: 0
-      e31: 0
-      e32: 0
-      e33: 1
-  - m_RefCount: 0
     m_Data:
       e00: 1
       e01: 0

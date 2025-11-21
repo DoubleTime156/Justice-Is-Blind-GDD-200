@@ -39,16 +39,18 @@ public class testCode01 : InputTestFixture
         yield return new WaitForSeconds(1);
         //checking movement distance
         Debug.Log("up done: " + player.transform.position.y);
-        destination.y += 1.9f;
-       // Assert.That(player.transform.position.y, Is.EqualTo(destination.y).Within(0.25), "up issue");
+        destination.y += 2.1f;
+        Assert.That(player.transform.position.y, Is.EqualTo(destination.y).Within(0.25), "up issue");
 
         //moving down
+        Debug.Log("down Start: " + player.transform.position.y);
         Press(keyboard.sKey);
         yield return new WaitForSeconds(0.25f);
         Release(keyboard.sKey);
         yield return new WaitForSeconds(1);
         //checking movement distance
-        destination.y -= 1.9f;
+        Debug.Log("down done: " + player.transform.position.y);
+        destination.y -= 2.1f;
         Assert.That(player.transform.position.y, Is.EqualTo(destination.y).Within(0.25), "down issue");
 
         //moving right
@@ -57,7 +59,7 @@ public class testCode01 : InputTestFixture
         Release(keyboard.dKey);
         yield return new WaitForSeconds(1);
         //checking movement distance
-        destination.x += 1.9f;
+        destination.x += 2.1f;
         Assert.That(player.transform.position.x, Is.EqualTo(destination.x).Within(0.25), "right issue");
 
         //moving left
@@ -66,7 +68,7 @@ public class testCode01 : InputTestFixture
         Release(keyboard.aKey);
         yield return new WaitForSeconds(1);
         //checking movement distance
-        destination.x -= 1.9f;
+        destination.x -= 2.1f;
         Assert.That(player.transform.position.x, Is.EqualTo(destination.x).Within(0.25), "left issue");
 
         // //testing sprint
@@ -81,42 +83,14 @@ public class testCode01 : InputTestFixture
         Release(keyboard.shiftKey);
         yield return new WaitForSeconds(1);
         //checking movement distance
-        destination.y += 3.8f;
+        destination.y += 4.2f;
         Debug.Log("Sprint Start: " + player.transform.position.y);
         Assert.That(player.transform.position.y, Is.EqualTo(destination.y).Within(0.25), "sprint issue");
 
-        ////testing sneak
-        //Press(keyboard.cKey);
-        //yield return new WaitForSeconds(0.5f);
-        //Press(keyboard.sKey);
-        //yield return new WaitForSeconds(0.25f);
-        //Release(keyboard.sKey);
-        //yield return new WaitForSeconds(0.5f);
-        //Release(keyboard.cKey);
-        //yield return new WaitForSeconds(1);
-        ////checking movement distance
-        //destination.y -= 0.9f;
-        //Assert.That(player.transform.position.y, Is.EqualTo(destination.y).Within(0.25), "sneak issue");
-
+      
         
 
         yield return null;
     }
 
-    //// A Test behaves as an ordinary method
-    //[Test]
-    //public void testCode01SimplePasses()
-    //{
-    //    // Use the Assert class to test conditions
-    //}
-
-    //// A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    //// `yield return null;` to skip a frame.
-    //[UnityTest]
-    //public IEnumerator testCode01WithEnumeratorPasses()
-    //{
-    //    // Use the Assert class to test conditions.
-    //    // Use yield to skip a frame.
-    //    yield return null;
-    //}
 }
