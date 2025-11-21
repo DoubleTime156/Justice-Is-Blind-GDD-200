@@ -603,7 +603,7 @@ PrefabInstance:
         type: 3}
       propertyPath: pathfinder
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 875052049}
     - target: {fileID: 3812348469501226874, guid: f1f0a8780a2273f4da51be4faf6c8a14,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -855,6 +855,11 @@ PrefabInstance:
     - target: {fileID: 1368145113099633967, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
       propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1368145113099633967, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2969911981459378825, guid: 114436765f7463c49826ba3a8920a5a2,
@@ -2180,6 +2185,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f2d8a70749d8454f9542b93b3976d02, type: 3}
+--- !u!114 &875052049 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6116470963995488347, guid: 5f2d8a70749d8454f9542b93b3976d02,
+    type: 3}
+  m_PrefabInstance: {fileID: 875052048}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18a0229a13449034d95033c717d41a3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &898301513 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5330941391605183892, guid: 2d139a0f093b6bb42b21a07850c7679c,
@@ -2345,7 +2362,7 @@ PrefabInstance:
         type: 3}
       propertyPath: pathfinder
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 875052049}
     - target: {fileID: 3812348469501226874, guid: f1f0a8780a2273f4da51be4faf6c8a14,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -53615,7 +53632,7 @@ PrefabInstance:
         type: 3}
       propertyPath: pathfinder
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 875052049}
     - target: {fileID: 3812348469501226874, guid: f1f0a8780a2273f4da51be4faf6c8a14,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -53861,7 +53878,7 @@ PrefabInstance:
         type: 3}
       propertyPath: pathfinder
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 875052049}
     - target: {fileID: 3812348469501226874, guid: f1f0a8780a2273f4da51be4faf6c8a14,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -54109,7 +54126,7 @@ PrefabInstance:
         type: 3}
       propertyPath: pathfinder
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 875052049}
     - target: {fileID: 3812348469501226874, guid: f1f0a8780a2273f4da51be4faf6c8a14,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -54358,7 +54375,7 @@ PrefabInstance:
         type: 3}
       propertyPath: pathfinder
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 875052049}
     - target: {fileID: 3812348469501226874, guid: f1f0a8780a2273f4da51be4faf6c8a14,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -59567,7 +59584,7 @@ PrefabInstance:
         type: 3}
       propertyPath: pathfinder
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 875052049}
     - target: {fileID: 3812348469501226874, guid: f1f0a8780a2273f4da51be4faf6c8a14,
         type: 3}
       propertyPath: m_LocalScale.x
