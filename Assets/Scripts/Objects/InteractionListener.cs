@@ -47,14 +47,15 @@ public class InteractionListener : MonoBehaviour
 
     public void onInteract(InputAction.CallbackContext context)
     {
+        Debug.Log("E has been pressed");
         //if interaction is pressed down
         //  get all objects inside interactable in trigger and then do their stuff
-        if (context.performed)
+        if (context.started)
         {
+            Debug.Log("E performed");
             foreach (GameObject obj in interactableInTrigger)
             {
-                //tk: needs to call the behavior of the script
-                //tk: behavior of the script needs to toggle (not for all but for most)
+                Debug.Log("Object behavior called");
                 obj.GetComponent<BehaviorCallable>().Behavior();
             }
         }

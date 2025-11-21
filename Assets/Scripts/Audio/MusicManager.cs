@@ -25,53 +25,26 @@ public class MusicManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        //if any enemy is chasing, play chase music
-        if (enemyInTrigger.Length != 0)
+        if (enemyInTrigger.Length == 0)
         {
-            foreach (GameObject enemy in enemyInTrigger)
+            return;
+        }
+        
+        foreach (GameObject enemy in enemyInTrigger)
+        {
+            if (enemy == null) continue;
+
+            EnemyAI ai = enemy.GetComponent<EnemyAI>();
+            if (ai == null) continue;
+
+            if (ai.IsChasing)
             {
-                EnemyAI ai = enemy.GetComponent<EnemyAI>();
-                if (ai == null) continue;
-                if (!enemy.GetComponent<EnemyAI>().IsRoaming)
-                {
-                    toggleToChase();
-                    //track if any enemies are chasing
-                    allEnemiesCalm = false;
-                }
+                toggleToChase();
+                allEnemiesCalm = false;
             }
         }
 
-
-        //if the danger sensor isn't triggered, play calm music
         if (allEnemiesCalm)
-        {
-            toggleToCalm();
-        }
-
-        //resets the danger sensor
-        allEnemiesCalm = true;
-        
-        
-        
-            if (enemyInTrigger.Length == 0)
-                return;
-
-            foreach (GameObject enemy in enemyInTrigger)
-            {
-                if (enemy == null) continue;
-
-                EnemyAI ai = enemy.GetComponent<EnemyAI>();
-                if (ai == null) continue;
-
-                if (ai.IsChasing)
-                {
-                    toggleToChase();
-                    allEnemiesCalm = false;
-                }
-            }
-
-            if (allEnemiesCalm)
         {
             toggleToCalm();
         }

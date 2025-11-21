@@ -827,6 +827,16 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 5.4
       objectReference: {fileID: 0}
+    - target: {fileID: 5244588914472957553, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680886667433533600, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7126914669921339014, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
       propertyPath: m_Name
@@ -1129,6 +1139,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2449833991526658934, guid: 2d139a0f093b6bb42b21a07850c7679c, type: 3}
+    - {fileID: 8311339164101429479, guid: 2d139a0f093b6bb42b21a07850c7679c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -1136,6 +1147,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 898301519}
+    - targetCorrespondingSourceObject: {fileID: 5330941391605183892, guid: 2d139a0f093b6bb42b21a07850c7679c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 898301524}
   m_SourcePrefab: {fileID: 100100000, guid: 2d139a0f093b6bb42b21a07850c7679c, type: 3}
 --- !u!114 &419195423 stripped
 MonoBehaviour:
@@ -2307,6 +2322,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &898301524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898301513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e431d53a28ce742b48a68a221b5bff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jukeMusic: {fileID: 8300000, guid: 620b00ab5859abf428ec5cacb1b1b3b6, type: 3}
+  source: {fileID: 898301519}
+  offJuke: {fileID: 5629314375462806004, guid: f74b0732c5543e140b7c9cbd6e2c6fef, type: 3}
+  onJuke: {fileID: 5629314375462806004, guid: f74b0732c5543e140b7c9cbd6e2c6fef, type: 3}
 --- !u!1001 &914390012
 PrefabInstance:
   m_ObjectHideFlags: 0
