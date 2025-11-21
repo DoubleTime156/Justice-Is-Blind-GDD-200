@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerController2D_InputSystem : MonoBehaviour
 {
     public PlayerData data;
+    public PersonAnimator personAnimator;
 
     private Rigidbody2D rb;
     private Vector2 movement;
@@ -13,10 +14,11 @@ public class PlayerController2D_InputSystem : MonoBehaviour
     private Inventory inventoryUI;
     public AudioSource coinPickup;
     public AudioSource bottlePickup;
+    public AudioSource keyPickup;
 
     private int[] defaultInventory = { 0, 0 };
 
-    public Animator animator;
+    //public Animator animator;
 
     void Start()
     {
@@ -33,25 +35,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         movement = context.ReadValue<Vector2>();
-
-        //for movement animation
-        if(movement.y != 0)
-        {
-            //is moving horizontally
-            animator.SetBool("isMovingVert", true);
-
-        }
-        else if(movement.x != 0)
-        {
-            //is moving vertically
-            animator.SetBool("isMovingHoriz", true);
-        }
-        else
-        {
-            //not moving, make bool false
-            animator.SetBool("isMovingHoriz", false);
-            animator.SetBool("isMovingVert", false);
-        }
+        personAnimator.movement = movement;
     }
 
     public void OnRun(InputAction.CallbackContext context)
@@ -98,6 +82,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Key") && !data.hasKey)
         {
+            keyPickup.Play();
             data.hasKey = true;
             inventoryUI.updateAmount();
             Destroy(collision.gameObject);

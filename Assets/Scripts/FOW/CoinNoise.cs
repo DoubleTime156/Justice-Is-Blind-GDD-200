@@ -6,16 +6,16 @@ public class CoinNoise : MonoBehaviour
     public FogManager fogManager;
 
     public float trailRadiusWorld = 0.8f;
-    public float trailHold = 0.08f;
-    public float trailHz = 20f;
+    private float trailHold = 0.08f;
+    private float trailHz = 20f;
 
-    public float radiusWorld = 6f;
-    public float whiteHold = 0.8f;
+    private float radiusWorld = 6f;
+    private float whiteHold = 0.8f;
 
-    public bool useVelocityStop = true;
-    public float stopSpeed = 0.1f;
-    public float stopHoldTime = 0.05f;
-    public bool revealOnFirstCollision = true;
+    private bool useVelocityStop = true;
+    private float stopSpeed = 0.1f;
+    private float stopHoldTime = 0.05f;
+    private bool revealOnFirstCollision = true;
 
     Rigidbody2D rb;
     bool fired;
