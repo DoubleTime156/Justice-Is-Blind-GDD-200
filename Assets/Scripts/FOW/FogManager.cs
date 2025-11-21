@@ -9,83 +9,60 @@ public class FogManager : MonoBehaviour
     public Material fogDisplayMaterial;
     public Transform player;
 
-    public int rtSize = 4096;
-
-    RenderTexture fogMemory;
-    RenderTexture fogScratch;
+    public int rtSize = 2048;
+    private RenderTexture fogMemory;
+    private RenderTexture fogScratch;
 
     public Vector2 worldMin = new Vector2(-100f, -100f);
     public Vector2 worldMax = new Vector2(100f, 100f);
 
-    public MaskController maskController;
-    public RenderTexture liveMaskOverride;
-
     public float liveFalloff = 0.75f;
     public float memoryAlpha = 0.35f;
+    public float memoryEdgeWorld = 0.6f;
     public float memoryIntensity = 0.3f;
 
-    public bool writeLiveToMemory = true;
-    public bool writeBurstsToMemory = true;
-    public bool writeQueuedToMemory = false;
+    private enum WriteMode { LERP = 0, MAX = 1 }
+
+    private struct RevealReq
+    {
+        public Vector2 worldPos;
+        public float radiusWorld;
+        public float intensity;
+        public float edgeWorld;
+        public WriteMode writeMode;
+    }
+
+    private readonly List<RevealReq> _queue = new();
+
+    private static readonly int MainTexID = Shader.PropertyToID("_MainTex");
+    private static readonly int WorldMinID = Shader.PropertyToID("_WorldMin");
+    private static readonly int WorldSizeID = Shader.PropertyToID("_WorldSize");
+    private static readonly int PosWorldID = Shader.PropertyToID("_PositionWorld");
+    private static readonly int RadiusWID = Shader.PropertyToID("_RadiusWorld");
+    private static readonly int EdgeWID = Shader.PropertyToID("_EdgeWorld");
+    private static readonly int IntensityID = Shader.PropertyToID("_Intensity");
+    private static readonly int WriteModeID = Shader.PropertyToID("_WriteMode");
+
+    private static readonly int BurstCountID = Shader.PropertyToID("_BurstCount");
+    private static readonly int BurstPosID = Shader.PropertyToID("_BurstPos");
+    private static readonly int BurstRadID = Shader.PropertyToID("_BurstRad");
 
     public float defaultBurstFalloff = 0.75f;
     [Range(1, 32)] public int maxBursts = 8;
 
-    public float memCoverageBiasTexels = 0.5f;
-
-    struct Burst { public Vector2 pos; public float r; public float f; public float t; }
-    readonly List<Burst> bursts = new();
-
-    enum WriteMode { LERP = 0, MAX = 1 }
-    struct Q { public Vector2 pos; public float r; public float intensity; public WriteMode mode; }
-    readonly List<Q> queue = new();
-
-    static readonly int MainTexID = Shader.PropertyToID("_MainTex");
-    static readonly int WorldMinID = Shader.PropertyToID("_WorldMin");
-    static readonly int WorldSizeID = Shader.PropertyToID("_WorldSize");
-    static readonly int LiveMaskID = Shader.PropertyToID("_LiveMaskTex");
-    static readonly int MemWriteIntensityID = Shader.PropertyToID("_MemWriteIntensity");
-    static readonly int MemCoverageBiasWorldID = Shader.PropertyToID("_MemCoverageBiasWorld");
-    static readonly int WriteLiveID = Shader.PropertyToID("_WriteLive");
-    static readonly int WriteBurstsID = Shader.PropertyToID("_WriteBursts");
-    static readonly int WriteQueuedID = Shader.PropertyToID("_WriteQueued");
-    static readonly int BurstCountID = Shader.PropertyToID("_BurstCount");
-    static readonly int BurstPosID = Shader.PropertyToID("_BurstPos");
-    static readonly int BurstRadID = Shader.PropertyToID("_BurstRad");
-    static readonly int QueuedCountID = Shader.PropertyToID("_QueuedCount");
-    static readonly int QueuedPosID = Shader.PropertyToID("_QueuedPos");
-    static readonly int QueuedRadID = Shader.PropertyToID("_QueuedRad");
-    static readonly int DispLiveMaskID = Shader.PropertyToID("_LiveMaskTex");
-    static readonly int DispWorldMinID = Shader.PropertyToID("_WorldMin");
-    static readonly int DispWorldSizeID = Shader.PropertyToID("_WorldSize");
-    static readonly int DispBurstCountID = Shader.PropertyToID("_BurstCount");
-    static readonly int DispBurstPosID = Shader.PropertyToID("_BurstPos");
-    static readonly int DispBurstRadID = Shader.PropertyToID("_BurstRad");
-    static readonly int DispMemAlphaID = Shader.PropertyToID("_MemoryAlpha");
+    private struct Burst
+    {
+        public Vector2 worldPos;
+        public float radiusWorld;
+        public float falloffWorld;
+        public float timer;
+    }
+    private readonly List<Burst> _bursts = new();
 
     void Start()
     {
-        var desc = new RenderTextureDescriptor(rtSize, rtSize, RenderTextureFormat.ARGB32, 0)
-        { useMipMap = false, autoGenerateMips = false, msaaSamples = 1 };
-        fogMemory = new RenderTexture(desc);
-        fogScratch = new RenderTexture(desc);
-        fogMemory.filterMode = FilterMode.Bilinear;
-        fogScratch.filterMode = FilterMode.Bilinear;
-        fogMemory.wrapMode = TextureWrapMode.Clamp;
-        fogScratch.wrapMode = TextureWrapMode.Clamp;
-        fogMemory.anisoLevel = 0;
-        fogScratch.anisoLevel = 0;
-        fogMemory.Create();
-        fogScratch.Create();
-
-        if (fogDisplayMaterial) fogDisplayMaterial.SetTexture("_FogTex", fogMemory);
-
-        Vector2 size = worldMax - worldMin;
-        Vector4 minV = new Vector4(worldMin.x, worldMin.y, 0, 0);
-        Vector4 sizeV = new Vector4(size.x, size.y, 0, 0);
-        if (fogPainterMaterial) { fogPainterMaterial.SetVector(WorldMinID, minV); fogPainterMaterial.SetVector(WorldSizeID, sizeV); }
-        if (fogDisplayMaterial) { fogDisplayMaterial.SetVector(DispWorldMinID, minV); fogDisplayMaterial.SetVector(DispWorldSizeID, sizeV); }
-
+        InitializeRenderTextures();
+        PushWorldParamsToMaterials();
         ClearFog();
     }
 
@@ -93,6 +70,52 @@ public class FogManager : MonoBehaviour
     {
         if (fogMemory) { fogMemory.Release(); Destroy(fogMemory); }
         if (fogScratch) { fogScratch.Release(); Destroy(fogScratch); }
+    }
+
+    void InitializeRenderTextures()
+    {
+        var desc = new RenderTextureDescriptor(rtSize, rtSize, RenderTextureFormat.ARGB32, 0)
+        {
+            useMipMap = false,
+            autoGenerateMips = false,
+            msaaSamples = 1
+        };
+
+        if (fogMemory) { fogMemory.Release(); Destroy(fogMemory); }
+        if (fogScratch) { fogScratch.Release(); Destroy(fogScratch); }
+
+        fogMemory = new RenderTexture(desc);
+        fogScratch = new RenderTexture(desc);
+
+        fogMemory.filterMode = FilterMode.Bilinear;
+        fogScratch.filterMode = FilterMode.Bilinear;
+        fogMemory.wrapMode = TextureWrapMode.Clamp;
+        fogScratch.wrapMode = TextureWrapMode.Clamp;
+        fogMemory.anisoLevel = 0;
+        fogScratch.anisoLevel = 0;
+
+        fogMemory.Create();
+        fogScratch.Create();
+
+        if (fogDisplayMaterial) fogDisplayMaterial.SetTexture("_FogTex", fogMemory);
+    }
+
+    void PushWorldParamsToMaterials()
+    {
+        Vector2 worldSize = worldMax - worldMin;
+        Vector4 minV = new Vector4(worldMin.x, worldMin.y, 0, 0);
+        Vector4 sizeV = new Vector4(worldSize.x, worldSize.y, 0, 0);
+
+        if (fogPainterMaterial)
+        {
+            fogPainterMaterial.SetVector(WorldMinID, minV);
+            fogPainterMaterial.SetVector(WorldSizeID, sizeV);
+        }
+        if (fogDisplayMaterial)
+        {
+            fogDisplayMaterial.SetVector(WorldMinID, minV);
+            fogDisplayMaterial.SetVector(WorldSizeID, sizeV);
+        }
     }
 
     public RenderTexture GetFogMemory() => fogMemory;
@@ -105,109 +128,113 @@ public class FogManager : MonoBehaviour
         RenderTexture.active = prev;
     }
 
-    public void EnqueueRevealWorld(Vector2 pos, float radiusWorld, float intensity = 1f, float edgeWorld = 0.5f, bool brightenOnly = false)
+    public void EnqueueRevealWorld(Vector2 worldPos, float radiusWorld, float intensity = 1f, float edgeWorld = 0.5f, bool brightenOnly = false)
     {
-        queue.Add(new Q { pos = pos, r = Mathf.Max(0f, radiusWorld), intensity = Mathf.Clamp01(intensity), mode = brightenOnly ? WriteMode.MAX : WriteMode.LERP });
+        _queue.Add(new RevealReq
+        {
+            worldPos = worldPos,
+            radiusWorld = Mathf.Max(0f, radiusWorld),
+            intensity = intensity,
+            edgeWorld = Mathf.Max(0f, edgeWorld),
+            writeMode = brightenOnly ? WriteMode.MAX : WriteMode.LERP
+        });
     }
 
-    public void TriggerVisionBurstAt(Vector2 pos, float radiusWorld, float durationSeconds, float falloffWorld = -1f)
+    public void TriggerVisionBurstAt(Vector2 worldPos, float radiusWorld, float durationSeconds, float falloffWorld = -1f)
     {
         if (falloffWorld < 0f) falloffWorld = defaultBurstFalloff;
-        if (bursts.Count >= maxBursts) bursts.RemoveAt(0);
-        bursts.Add(new Burst { pos = pos, r = Mathf.Max(0f, radiusWorld), f = Mathf.Max(1e-6f, falloffWorld), t = Mathf.Max(0f, durationSeconds) });
+        if (_bursts.Count >= maxBursts) _bursts.RemoveAt(0);
+
+        _bursts.Add(new Burst
+        {
+            worldPos = worldPos,
+            radiusWorld = Mathf.Max(0f, radiusWorld),
+            falloffWorld = Mathf.Max(1e-6f, falloffWorld),
+            timer = Mathf.Max(0f, durationSeconds)
+        });
     }
 
     public void FlushNow() => LateUpdate();
 
-    RenderTexture ResolveLiveMask()
-    {
-        if (liveMaskOverride) return liveMaskOverride;
-        if (maskController) return maskController.LiveMaskRT;
-        return null;
-    }
-
     void LateUpdate()
     {
-        for (int i = bursts.Count - 1; i >= 0; --i)
+        if (player == null)
         {
-            var b = bursts[i]; b.t -= Time.deltaTime;
-            if (b.t <= 0f) bursts.RemoveAt(i); else bursts[i] = b;
+            _queue.Clear();
+            return;
         }
 
-        var liveMask = ResolveLiveMask();
-        if (fogPainterMaterial == null || liveMask == null) return;
+        Vector2 worldSize = worldMax - worldMin;
+        float minWorld = Mathf.Min(worldSize.x, worldSize.y);
+        float texelWorld = minWorld / rtSize;
+        float safeEdge = Mathf.Max(memoryEdgeWorld, 1.5f * texelWorld);
 
-        Graphics.Blit(fogMemory, fogScratch);
+        EnqueueRevealWorld(
+            player.position,
+            playerVision ? playerVision.radius : 3f,
+            memoryIntensity,
+            safeEdge,
+            true
+        );
 
-        Vector2 size = worldMax - worldMin;
-        float minWorld = Mathf.Min(size.x, size.y);
-        float texelWorld = minWorld / Mathf.Max(1, rtSize);
-        float covBias = Mathf.Max(0f, memCoverageBiasTexels) * texelWorld;
-
-        fogPainterMaterial.SetTexture(MainTexID, fogScratch);
-        fogPainterMaterial.SetTexture(LiveMaskID, liveMask);
-        fogPainterMaterial.SetVector(WorldMinID, new Vector4(worldMin.x, worldMin.y, 0, 0));
-        fogPainterMaterial.SetVector(WorldSizeID, new Vector4(size.x, size.y, 0, 0));
-        fogPainterMaterial.SetFloat(MemWriteIntensityID, Mathf.Clamp01(memoryIntensity));
-        fogPainterMaterial.SetFloat(MemCoverageBiasWorldID, covBias);
-        fogPainterMaterial.SetInt(WriteLiveID, writeLiveToMemory ? 1 : 0);
-        fogPainterMaterial.SetInt(WriteBurstsID, writeBurstsToMemory ? 1 : 0);
-        fogPainterMaterial.SetInt(WriteQueuedID, writeQueuedToMemory ? 1 : 0);
-
-        int bc = Mathf.Min(maxBursts, bursts.Count);
-        fogPainterMaterial.SetInt(BurstCountID, bc);
-        if (bc > 0)
+        if (_queue.Count > 0 && fogPainterMaterial != null)
         {
-            var posA = new Vector4[bc];
-            var radA = new Vector4[bc];
-            for (int i = 0; i < bc; i++)
+            fogPainterMaterial.SetVector(WorldMinID, new Vector4(worldMin.x, worldMin.y, 0, 0));
+            fogPainterMaterial.SetVector(WorldSizeID, new Vector4(worldSize.x, worldSize.y, 0, 0));
+
+            Graphics.Blit(fogMemory, fogScratch);
+
+            for (int i = 0; i < _queue.Count; i++)
             {
-                var b = bursts[i];
-                posA[i] = new Vector4(b.pos.x, b.pos.y, 0, 0);
-                radA[i] = new Vector4(b.r, b.f, 0, 0);
+                var r = _queue[i];
+                fogPainterMaterial.SetVector(PosWorldID, new Vector4(r.worldPos.x, r.worldPos.y, 0, 0));
+                fogPainterMaterial.SetFloat(RadiusWID, r.radiusWorld);
+                fogPainterMaterial.SetFloat(EdgeWID, Mathf.Max(1e-6f, r.edgeWorld));
+                fogPainterMaterial.SetFloat(IntensityID, r.intensity);
+                fogPainterMaterial.SetFloat(WriteModeID, (r.writeMode == WriteMode.MAX) ? 1f : 0f);
+                fogPainterMaterial.SetTexture(MainTexID, fogScratch);
+
+                Graphics.Blit(fogScratch, fogMemory, fogPainterMaterial);
+                Graphics.Blit(fogMemory, fogScratch);
             }
-            fogPainterMaterial.SetVectorArray(BurstPosID, posA);
-            fogPainterMaterial.SetVectorArray(BurstRadID, radA);
         }
 
-        int qc = queue.Count;
-        fogPainterMaterial.SetInt(QueuedCountID, qc);
-        if (qc > 0)
+        _queue.Clear();
+
+        for (int i = _bursts.Count - 1; i >= 0; --i)
         {
-            var qPos = new Vector4[qc];
-            var qRad = new Vector4[qc];
-            for (int i = 0; i < qc; i++)
-            {
-                qPos[i] = new Vector4(queue[i].pos.x, queue[i].pos.y, 0, 0);
-                qRad[i] = new Vector4(queue[i].r, 0f, queue[i].intensity, queue[i].mode == WriteMode.MAX ? 1f : 0f);
-            }
-            fogPainterMaterial.SetVectorArray(QueuedPosID, qPos);
-            fogPainterMaterial.SetVectorArray(QueuedRadID, qRad);
+            var b = _bursts[i];
+            b.timer -= Time.deltaTime;
+            if (b.timer <= 0f) _bursts.RemoveAt(i);
+            else _bursts[i] = b;
         }
 
-        Graphics.Blit(fogScratch, fogMemory, fogPainterMaterial);
-        queue.Clear();
-
-        if (fogDisplayMaterial)
+        if (fogDisplayMaterial && playerVision)
         {
-            fogDisplayMaterial.SetTexture(DispLiveMaskID, liveMask);
-            fogDisplayMaterial.SetVector(DispWorldMinID, new Vector4(worldMin.x, worldMin.y, 0, 0));
-            fogDisplayMaterial.SetVector(DispWorldSizeID, new Vector4(size.x, size.y, 0, 0));
-            fogDisplayMaterial.SetInt(DispBurstCountID, bc);
-            if (bc > 0)
+            int burstCount = Mathf.Min(maxBursts, _bursts.Count);
+            if (burstCount > 0)
             {
-                var posA = new Vector4[bc];
-                var radA = new Vector4[bc];
-                for (int i = 0; i < bc; i++)
+                Vector4[] posArray = new Vector4[burstCount];
+                Vector4[] radArray = new Vector4[burstCount];
+                for (int i = 0; i < burstCount; i++)
                 {
-                    var b = bursts[i];
-                    posA[i] = new Vector4(b.pos.x, b.pos.y, 0, 0);
-                    radA[i] = new Vector4(b.r, Mathf.Max(1e-6f, b.f), 0, 0);
+                    var b = _bursts[i];
+                    posArray[i] = new Vector4(b.worldPos.x, b.worldPos.y, 0, 0);
+                    radArray[i] = new Vector4(b.radiusWorld, Mathf.Max(1e-6f, b.falloffWorld), 0, 0);
                 }
-                fogDisplayMaterial.SetVectorArray(DispBurstPosID, posA);
-                fogDisplayMaterial.SetVectorArray(DispBurstRadID, radA);
+                fogDisplayMaterial.SetInt(BurstCountID, burstCount);
+                fogDisplayMaterial.SetVectorArray(BurstPosID, posArray);
+                fogDisplayMaterial.SetVectorArray(BurstRadID, radArray);
             }
-            fogDisplayMaterial.SetFloat(DispMemAlphaID, memoryAlpha);
+            else
+            {
+                fogDisplayMaterial.SetInt(BurstCountID, 0);
+            }
+
+            fogDisplayMaterial.SetVector("_PlayerPos", new Vector4(player.position.x, player.position.y, 0, 0));
+            fogDisplayMaterial.SetFloat("_Radius", playerVision.radius);
+            fogDisplayMaterial.SetFloat("_Falloff", Mathf.Max(1e-6f, liveFalloff));
+            fogDisplayMaterial.SetFloat("_MemoryAlpha", memoryAlpha);
         }
     }
 }
