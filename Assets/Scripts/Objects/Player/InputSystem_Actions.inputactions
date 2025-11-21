@@ -503,10 +503,10 @@
                 {
                     "name": "",
                     "id": "10204cae-4231-40b2-8f13-4b694e7ea762",
-                    "path": "<Keyboard>/anyKey",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
