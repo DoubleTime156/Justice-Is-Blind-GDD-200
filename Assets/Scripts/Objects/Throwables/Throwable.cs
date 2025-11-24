@@ -22,6 +22,7 @@ public class Throwable : MonoBehaviour
     public AudioSource throwSound;
     public AudioSource impactSound;
     public ParticleSystem shatterParticles;
+    public ParticleSystem knockoutParticles;
 
     public bool inAir = true; // Bottles can kill enemies if active
     public void Init(Vector3 targetPos, float initMoveSpeed, int heldItem)
@@ -114,6 +115,7 @@ public class Throwable : MonoBehaviour
         if (collision.CompareTag("Enemy") && item == 1 && inAir) // If a bottle is still in air, destroy enemies they touch
         {
             Debug.Log("Has found an enemy collider tag");
+            knockoutParticles = Instantiate(knockoutParticles, collision.transform.position, Quaternion.identity);
             Destroy(collision.gameObject);
             rb.linearVelocity = new Vector2(0, 0);
             itemBehavior();

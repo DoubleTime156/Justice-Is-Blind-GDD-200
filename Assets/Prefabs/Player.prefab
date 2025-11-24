@@ -436,6 +436,7 @@ GameObject:
   - component: {fileID: 4094326966453593539}
   - component: {fileID: -6507755775882685442}
   - component: {fileID: -8865577757524450621}
+  - component: {fileID: -491143495382935328}
   - component: {fileID: -2230688974381632413}
   - component: {fileID: 8804006639392312957}
   - component: {fileID: 5999546140063198426}
@@ -606,7 +607,7 @@ MonoBehaviour:
   personAnimator: {fileID: 7641100827236162740}
   coinPickup: {fileID: -6507755775882685442}
   bottlePickup: {fileID: -8865577757524450621}
-  keyPickup: {fileID: 0}
+  keyPickup: {fileID: -491143495382935328}
 --- !u!114 &4212852649017227333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -814,8 +815,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a186e6ab5803644d90768192bf82f70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerViewRadius: 1.64
+  playerViewRadius: 3
   playerViewAngle: 44.59
+  knockoutParticles: {fileID: 1104930591671799747, guid: e0e73ffb190d399468fb203a23f9f11c,
+    type: 3}
 --- !u!82 &-6507755775882685442
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1010,6 +1013,103 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!82 &-491143495382935328
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7126914669921339014}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: fe1151ff463d2a7409247245fa6cea24, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!82 &-2230688974381632413
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1119,15 +1219,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3258e2aab4649f4e9c8df42b7e03530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noiseReveal: {fileID: 0}
   player: {fileID: 8776994412918227710}
-  playerVision: {fileID: 0}
-  fogManager: {fileID: 0}
-  noiseMultiplier: 2
-  objectSound: {fileID: 7406056349144967297}
+  maskMaterial: {fileID: 0}
+  fogMaskLayerName: FogMask
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 0
   tapKey: 32
   tapRadiusWorld: 6
   tapHoldSeconds: 0.8
+  rayCount: 512
+  objectSound: {fileID: 7406056349144967297}
   logTaps: 1
 --- !u!114 &5999546140063198426
 MonoBehaviour:
@@ -1332,8 +1434,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e34698638bc7014fb8dda3b6b6e8f33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMoving: 0
   _animator: {fileID: 6040604634708551431}
+  movement: {x: 0, y: 0}
 --- !u!1 &7500031847232509037
 GameObject:
   m_ObjectHideFlags: 0
