@@ -8,6 +8,12 @@ public class PlayerSwing : MonoBehaviour {
     public float playerViewRadius;
     public float playerViewAngle;
 
+    private GameObject swingRange;
+
+    private void Awake()
+    {
+        swingRange = transform.Find("SwingRange").gameObject;
+    }
 
     public void OnSwing(InputAction.CallbackContext context)
     {
@@ -15,13 +21,15 @@ public class PlayerSwing : MonoBehaviour {
         if (!context.performed) return;
         
         // Find all enemies inside the view radius
-        Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(transform.position, playerViewRadius, LayerMask.GetMask("Enemy"));
+        Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(swingRange.transform.position, playerViewRadius, LayerMask.GetMask("Enemy"));
 
-        // Get mouse world position and rotate player to face its
+        // Get mouse world position and rotate player to face it
         Vector3 mouseScreenPos = Mouse.current.position.ReadValue();
-        mouseScreenPos.z = Camera.main.WorldToScreenPoint(transform.position).z;
+        mouseScreenPos.z = Camera.main.WorldToScreenPoint(swingRange.transform.position).z;
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
-        transform.rotation = Quaternion.LookRotation(Vector3.forward, mouseWorldPos - transform.position);
+        Vector3 direction = mouseWorldPos - swingRange.transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        swingRange.transform.rotation = Quaternion.Euler(0, 0, angle);
 
         // Collect only the valid targets (in angle and not blocked)
         var enemies = new System.Collections.Generic.List<Collider2D>();
@@ -30,19 +38,17 @@ public class PlayerSwing : MonoBehaviour {
         {
             if (enemyCollider == null) continue;
 
-            Vector2 dir = (Vector2)(enemyCollider.transform.position - transform.position);
+            Vector2 dir = (Vector2)(enemyCollider.transform.position - swingRange.transform.position);
             float distance = dir.magnitude;
             if (distance <= 0f) continue;
             dir.Normalize();
 
+            float angleToEnemy = Vector2.Angle(swingRange.transform.up, dir);
 
-            float angle = Vector2.Angle(transform.up, dir);
-
-
-            if (angle <= playerViewAngle)
+            if (angleToEnemy <= playerViewAngle)
             {
                 // Raycast towards the enemy to check for obstacles
-                RaycastHit2D hitObstacle = Physics2D.Raycast(transform.position, dir, distance, LayerMask.GetMask("Obstacle"));
+                RaycastHit2D hitObstacle = Physics2D.Raycast(swingRange.transform.position, dir, distance, LayerMask.GetMask("Obstacle"));
 
                 // If no obstacle hit, mark this enemy as a valid target, and get enemy data
                 if (hitObstacle.collider == null)
@@ -60,7 +66,8 @@ public class PlayerSwing : MonoBehaviour {
                 if (target != null)
                 {
                     // Rotates the whole enemy, disable its AI,and collider
-                    target.transform.rotation = Quaternion.Euler(0, 0, 90);
+                    target.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    target.transform.GetChild(0).rotation = Quaternion.Euler(0, 0, -90); // Gets sprite child and rotates it
                     target.GetComponent<EnemyAI>().enabled = false;
                     target.GetComponent<Collider2D>().enabled = false;
                     target.GetComponentInChildren<Light2D>().enabled = false;
