@@ -1,0 +1,1159 @@
+fileFormatVersion: 2
+guid: 49d59e222e58f4b519e448badb665ae1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5535720676123508151
+    second: Master_JC_SpriteSheet_1_0
+  - first:
+      213: 7593290063798653999
+    second: Master_JC_SpriteSheet_1_1
+  - first:
+      213: -6247196053195418170
+    second: Master_JC_SpriteSheet_1_2
+  - first:
+      213: -69811591547432513
+    second: Master_JC_SpriteSheet_1_3
+  - first:
+      213: -3076287008299952433
+    second: Master_JC_SpriteSheet_1_4
+  - first:
+      213: -620080319619295031
+    second: Master_JC_SpriteSheet_1_5
+  - first:
+      213: 333618670658637117
+    second: Master_JC_SpriteSheet_1_6
+  - first:
+      213: -5828964371249076837
+    second: Master_JC_SpriteSheet_1_7
+  - first:
+      213: 3817968414649913667
+    second: Master_JC_SpriteSheet_1_8
+  - first:
+      213: 7923173467650959498
+    second: Master_JC_SpriteSheet_1_9
+  - first:
+      213: 6785483238738437724
+    second: Master_JC_SpriteSheet_1_10
+  - first:
+      213: 1684825779161898863
+    second: Master_JC_SpriteSheet_1_11
+  - first:
+      213: -1550384973891772107
+    second: Master_JC_SpriteSheet_1_12
+  - first:
+      213: -8911058291451457460
+    second: Master_JC_SpriteSheet_1_13
+  - first:
+      213: -6459287465551541073
+    second: Master_JC_SpriteSheet_1_14
+  - first:
+      213: -123951927827228944
+    second: Master_JC_SpriteSheet_1_15
+  - first:
+      213: -7780128328641750130
+    second: Master_JC_SpriteSheet_1_16
+  - first:
+      213: 4279944908401195901
+    second: Master_JC_SpriteSheet_1_17
+  - first:
+      213: -2109704600292555682
+    second: Master_JC_SpriteSheet_1_18
+  - first:
+      213: -6499193517135005282
+    second: Master_JC_SpriteSheet_1_19
+  - first:
+      213: 4707259910091592348
+    second: Master_JC_SpriteSheet_1_20
+  - first:
+      213: 1350221429668914121
+    second: Master_JC_SpriteSheet_1_21
+  - first:
+      213: 302029132076848517
+    second: Master_JC_SpriteSheet_1_22
+  - first:
+      213: 4082235579900404363
+    second: Master_JC_SpriteSheet_1_23
+  - first:
+      213: 738371439762506291
+    second: Master_JC_SpriteSheet_1_24
+  - first:
+      213: -5018382547722172983
+    second: Master_JC_SpriteSheet_1_25
+  - first:
+      213: 8004783050674370464
+    second: Master_JC_SpriteSheet_1_26
+  - first:
+      213: 8389403182519571340
+    second: Master_JC_SpriteSheet_1_27
+  - first:
+      213: 1770957420322787937
+    second: Master_JC_SpriteSheet_1_28
+  - first:
+      213: 5846812952742583814
+    second: Master_JC_SpriteSheet_1_29
+  - first:
+      213: -7210683030464067736
+    second: Master_JC_SpriteSheet_1_30
+  - first:
+      213: 9036969751400981860
+    second: Master_JC_SpriteSheet_1_31
+  - first:
+      213: 2226344997479329060
+    second: Master_JC_SpriteSheet_1_32
+  - first:
+      213: -618653378993577850
+    second: Master_JC_SpriteSheet_1_33
+  - first:
+      213: -5611083737898581875
+    second: Master_JC_SpriteSheet_1_34
+  - first:
+      213: 417375719301188886
+    second: Master_JC_SpriteSheet_1_35
+  - first:
+      213: 1896586218422785997
+    second: Master_JC_SpriteSheet_1_36
+  - first:
+      213: 5685329492145626685
+    second: Master_JC_SpriteSheet_1_37
+  - first:
+      213: 4820169441433719550
+    second: Master_JC_SpriteSheet_1_38
+  - first:
+      213: -5481633614928110591
+    second: Master_JC_SpriteSheet_1_39
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2874
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bd702c10a4d2dc40800000000000000
+      internalID: 5535720676123508151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_1
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 2874
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f24d8310519c06960800000000000000
+      internalID: 7593290063798653999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_2
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 2874
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c59017e9408d49a0800000000000000
+      internalID: -6247196053195418170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_3
+      rect:
+        serializedVersion: 2
+        x: 1209
+        y: 2874
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb15c943abaf70ff0800000000000000
+      internalID: -69811591547432513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_4
+      rect:
+        serializedVersion: 2
+        x: 1612
+        y: 2874
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc6d12bc345de45d0800000000000000
+      internalID: -3076287008299952433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_5
+      rect:
+        serializedVersion: 2
+        x: 2015
+        y: 2874
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c891e01c380567f0800000000000000
+      internalID: -620080319619295031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2395
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3dcb03d96041a400800000000000000
+      internalID: 333618670658637117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_7
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 2395
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b956a4b99cb5b1fa0800000000000000
+      internalID: -5828964371249076837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_8
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 2395
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3419ede6b062cf430800000000000000
+      internalID: 3817968414649913667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_9
+      rect:
+        serializedVersion: 2
+        x: 1209
+        y: 2395
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a88a2214a44c4fd60800000000000000
+      internalID: 7923173467650959498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_10
+      rect:
+        serializedVersion: 2
+        x: 1612
+        y: 2395
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c562f5afd01ea2e50800000000000000
+      internalID: 6785483238738437724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_11
+      rect:
+        serializedVersion: 2
+        x: 2015
+        y: 2395
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6f9d5b9e14b16710800000000000000
+      internalID: 1684825779161898863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1916
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 531e31e941deb7ae0800000000000000
+      internalID: -1550384973891772107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_13
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 1916
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c409c3d52bf855480800000000000000
+      internalID: -8911058291451457460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_14
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 1916
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: faccaa9d5400c56a0800000000000000
+      internalID: -6459287465551541073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_15
+      rect:
+        serializedVersion: 2
+        x: 1209
+        y: 1916
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f612acd062a74ef0800000000000000
+      internalID: -123951927827228944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_16
+      rect:
+        serializedVersion: 2
+        x: 1612
+        y: 1916
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8bda58818e670490800000000000000
+      internalID: -7780128328641750130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_17
+      rect:
+        serializedVersion: 2
+        x: 2015
+        y: 1916
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7bbe73d73b656b30800000000000000
+      internalID: 4279944908401195901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1437
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e540e8ef7d2d8b2e0800000000000000
+      internalID: -2109704600292555682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_19
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 1437
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9975ac2ee93ec5a0800000000000000
+      internalID: -6499193517135005282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_20
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 1437
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c925276b2fb835140800000000000000
+      internalID: 4707259910091592348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_21
+      rect:
+        serializedVersion: 2
+        x: 1209
+        y: 1437
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c3298b8c33fcb210800000000000000
+      internalID: 1350221429668914121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_22
+      rect:
+        serializedVersion: 2
+        x: 1612
+        y: 1437
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 585924935e5013400800000000000000
+      internalID: 302029132076848517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_23
+      rect:
+        serializedVersion: 2
+        x: 2015
+        y: 1437
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b82ac6d91a307a830800000000000000
+      internalID: 4082235579900404363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 958
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 332865399e83f3a00800000000000000
+      internalID: 738371439762506291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_25
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 958
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c5000059af1b5ab0800000000000000
+      internalID: -5018382547722172983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_26
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 958
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a7738ff5c3b61f60800000000000000
+      internalID: 8004783050674370464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_27
+      rect:
+        serializedVersion: 2
+        x: 1209
+        y: 958
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c835c9bdeb52d6470800000000000000
+      internalID: 8389403182519571340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_28
+      rect:
+        serializedVersion: 2
+        x: 1612
+        y: 958
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1629eae0464b39810800000000000000
+      internalID: 1770957420322787937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_29
+      rect:
+        serializedVersion: 2
+        x: 2015
+        y: 958
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60edf5c176d042150800000000000000
+      internalID: 5846812952742583814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 479
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8678045dcf18eeb90800000000000000
+      internalID: -7210683030464067736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_31
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 479
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 465a436eb14c96d70800000000000000
+      internalID: 9036969751400981860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_32
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 479
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42d2932caf095ee10800000000000000
+      internalID: 2226344997479329060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_33
+      rect:
+        serializedVersion: 2
+        x: 1209
+        y: 479
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6802ef1970a1a67f0800000000000000
+      internalID: -618653378993577850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_34
+      rect:
+        serializedVersion: 2
+        x: 1612
+        y: 479
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d808595b11d6122b0800000000000000
+      internalID: -5611083737898581875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_35
+      rect:
+        serializedVersion: 2
+        x: 2015
+        y: 479
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61d02de5101dac500800000000000000
+      internalID: 417375719301188886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_36
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc7ddfafd17025a10800000000000000
+      internalID: 1896586218422785997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_37
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 0
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3e546a0d0956ee40800000000000000
+      internalID: 5685329492145626685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_38
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 0
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef299d1919ea4e240800000000000000
+      internalID: 4820169441433719550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Master_JC_SpriteSheet_1_39
+      rect:
+        serializedVersion: 2
+        x: 1209
+        y: 0
+        width: 403
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10c9e5925435de3b0800000000000000
+      internalID: -5481633614928110591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5cf473877b9b6433fbe4c311947fcec0
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":6.0,"y":7.0},"gridSpriteSize":{"x":403.0,"y":479.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Master_JC_SpriteSheet_1_0: 5535720676123508151
+      Master_JC_SpriteSheet_1_1: 7593290063798653999
+      Master_JC_SpriteSheet_1_10: 6785483238738437724
+      Master_JC_SpriteSheet_1_11: 1684825779161898863
+      Master_JC_SpriteSheet_1_12: -1550384973891772107
+      Master_JC_SpriteSheet_1_13: -8911058291451457460
+      Master_JC_SpriteSheet_1_14: -6459287465551541073
+      Master_JC_SpriteSheet_1_15: -123951927827228944
+      Master_JC_SpriteSheet_1_16: -7780128328641750130
+      Master_JC_SpriteSheet_1_17: 4279944908401195901
+      Master_JC_SpriteSheet_1_18: -2109704600292555682
+      Master_JC_SpriteSheet_1_19: -6499193517135005282
+      Master_JC_SpriteSheet_1_2: -6247196053195418170
+      Master_JC_SpriteSheet_1_20: 4707259910091592348
+      Master_JC_SpriteSheet_1_21: 1350221429668914121
+      Master_JC_SpriteSheet_1_22: 302029132076848517
+      Master_JC_SpriteSheet_1_23: 4082235579900404363
+      Master_JC_SpriteSheet_1_24: 738371439762506291
+      Master_JC_SpriteSheet_1_25: -5018382547722172983
+      Master_JC_SpriteSheet_1_26: 8004783050674370464
+      Master_JC_SpriteSheet_1_27: 8389403182519571340
+      Master_JC_SpriteSheet_1_28: 1770957420322787937
+      Master_JC_SpriteSheet_1_29: 5846812952742583814
+      Master_JC_SpriteSheet_1_3: -69811591547432513
+      Master_JC_SpriteSheet_1_30: -7210683030464067736
+      Master_JC_SpriteSheet_1_31: 9036969751400981860
+      Master_JC_SpriteSheet_1_32: 2226344997479329060
+      Master_JC_SpriteSheet_1_33: -618653378993577850
+      Master_JC_SpriteSheet_1_34: -5611083737898581875
+      Master_JC_SpriteSheet_1_35: 417375719301188886
+      Master_JC_SpriteSheet_1_36: 1896586218422785997
+      Master_JC_SpriteSheet_1_37: 5685329492145626685
+      Master_JC_SpriteSheet_1_38: 4820169441433719550
+      Master_JC_SpriteSheet_1_39: -5481633614928110591
+      Master_JC_SpriteSheet_1_4: -3076287008299952433
+      Master_JC_SpriteSheet_1_5: -620080319619295031
+      Master_JC_SpriteSheet_1_6: 333618670658637117
+      Master_JC_SpriteSheet_1_7: -5828964371249076837
+      Master_JC_SpriteSheet_1_8: 3817968414649913667
+      Master_JC_SpriteSheet_1_9: 7923173467650959498
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
