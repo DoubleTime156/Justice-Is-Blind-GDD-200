@@ -45,7 +45,16 @@ public class HideEnemies : MonoBehaviour
                 float distance = Vector3.Distance(player.position, enemy.transform.position);
 
                 enemyRenderer.enabled = distance <= viewRadius;
+
             }
+            //Light lightRenderer = enemy.GetComponentInChildren<Light>();
+            //if (enemyRenderer != null)
+            //{
+            //    float distance = Vector3.Distance(player.position, enemy.transform.position);
+
+            //    lightRenderer.enabled = distance <= viewRadius;
+
+            //}
         }
     }
 }

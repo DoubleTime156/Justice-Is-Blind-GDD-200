@@ -706,7 +706,7 @@ MonoBehaviour:
   personAnimator: {fileID: 7641100827236162740}
   coinPickup: {fileID: -6507755775882685442}
   bottlePickup: {fileID: -8865577757524450621}
-  keyPickup: {fileID: 0}
+  keyPickup: {fileID: -6507755775882685442}
 --- !u!114 &4212852649017227333
 MonoBehaviour:
   m_ObjectHideFlags: 0
