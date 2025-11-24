@@ -12,6 +12,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
     private Vector2 movement;
     private GameManager gameManager;
     private Inventory inventoryUI;
+    private GameOver gameOverUI;
     public AudioSource coinPickup;
     public AudioSource bottlePickup;
     public AudioSource keyPickup;
@@ -23,7 +24,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+        gameOverUI = GameObject.Find("Game_Over_Screen").GetComponent<GameOver>();
         inventoryUI = GameObject.Find("Inventory").GetComponent<Inventory>();
 
         // Reset PlayerData
@@ -47,7 +48,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            gameManager.gameOver();
+            gameOverUI.gameOver();
             this.enabled = false;
         }
         else if (collision.gameObject.CompareTag("Pickup"))

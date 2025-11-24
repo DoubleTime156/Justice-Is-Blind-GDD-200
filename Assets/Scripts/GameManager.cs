@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI gameOverText;
     public Button restartButton;
+    public Button quitButton;
 
 
     public void startGame() // Start game from beginning when Start is pressed on main menu
@@ -27,11 +28,18 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Over");
         gameOverText.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(true);
+        quitButton.gameObject.SetActive(true);
     }
     public void restartGame() // Reload the scene when restart is clicked
     {
         Debug.Log("restart");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void mainMenu() // Load main menu scene
+    {
+        Debug.Log("Quit to menu");
+        SceneManager.LoadScene("Main Menu");
     }
    
 }
