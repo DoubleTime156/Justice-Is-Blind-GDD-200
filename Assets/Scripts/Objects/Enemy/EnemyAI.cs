@@ -91,7 +91,7 @@ public class EnemyAI : MonoBehaviour
 
                 transformer.SetSpeed(data.roamingSpeed);
 
-                pathfind.UpdatePath(roam.nodes[roam.AtNode].position);
+                pathfind.UpdatePath(roam.Nodes[roam.AtNode].position);
                 pathfind.SetTargetNodeTransforms();
                 dir = pathfind.TargetDir;
             }
@@ -118,7 +118,7 @@ public class EnemyAI : MonoBehaviour
         pathfind.SetNextTargetNode();
 
         // If at roaming location, start roaming
-        if (!IsChasing && Vector3.Distance(transform.position, roam.nodes[roam.AtNode].position) < 1) 
+        if (!IsChasing && Vector3.Distance(transform.position, roam.Nodes[roam.AtNode].position) < 1) 
             IsRoaming = true;
     }
 
@@ -162,7 +162,7 @@ public class EnemyAI : MonoBehaviour
 
         transformer.SetSpeed(data.roamingSpeed);
 
-        pathfind.UpdatePath(roam.nodes[roam.AtNode].position);
+        pathfind.UpdatePath(roam.Nodes[roam.AtNode].position);
         pathfind.SetTargetNodeTransforms();
         dir = pathfind.TargetDir;
 

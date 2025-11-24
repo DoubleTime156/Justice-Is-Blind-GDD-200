@@ -1,51 +1,47 @@
+// CaneTap.cs
 using UnityEngine;
 
 public class CaneTap : MonoBehaviour
 {
-    public NoiseReveal noiseReveal;
     public Transform player;
+    public Material maskMaterial;
+    public string fogMaskLayerName = "FogMask";
+    public LayerMask obstacleMask;
 
-    public PlayerPosition playerVision;
-    public FogManager fogManager;
-    public float noiseMultiplier = 2f;
-    public ObjectSound objectSound;
     public KeyCode tapKey = KeyCode.Space;
-
     public float tapRadiusWorld = 6f;
     public float tapHoldSeconds = 0.8f;
+    public int rayCount = 512;
 
+    public ObjectSound objectSound;
     public bool logTaps = true;
 
-    private float tapCooldown;
-    private bool canTap = true;
+    bool cooling;
+    float timer;
 
     void Update()
     {
-        if (noiseReveal == null || player == null) return;
+        if (player == null || maskMaterial == null) return;
 
-        if (Input.GetKeyDown(tapKey) && canTap)
+        if (Input.GetKeyDown(tapKey) && !cooling)
         {
-            float r = tapRadiusWorld > 0f ? tapRadiusWorld :
-                      (playerVision != null ? playerVision.radius * Mathf.Max(0.01f, noiseMultiplier) : 6f);
+            NoiseMask.Spawn(maskMaterial, fogMaskLayerName, obstacleMask, player.position, tapRadiusWorld, tapHoldSeconds, rayCount);
 
-        //    noiseReveal.holdSeconds = tapHoldSeconds;
-            noiseReveal.RevealAtWorld(player.position, r);
+            if (objectSound != null) objectSound.IsMakingSound = true;
+            cooling = true;
+            timer = tapHoldSeconds;
 
-            canTap = false;
-            tapCooldown = tapHoldSeconds;
-
-            if (logTaps) Debug.Log($"[CaneTap] Burst at {player.position}, r={r}, hold={tapHoldSeconds}s");
+            if (logTaps) Debug.Log($"[CaneTap] NoiseMask at {player.position} r={tapRadiusWorld} hold={tapHoldSeconds}s");
         }
 
-        if (!canTap)
+        if (cooling)
         {
-            tapCooldown -= Time.deltaTime;
-            if (tapCooldown <= 0f) canTap = true;
+            timer -= Time.deltaTime;
+            if (timer <= 0f)
+            {
+                cooling = false;
+                if (objectSound != null) objectSound.IsMakingSound = false;
+            }
         }
-    }
-
-    void FixedUpdate()
-    {
-        if (objectSound != null) objectSound.IsMakingSound = !canTap;
     }
 }

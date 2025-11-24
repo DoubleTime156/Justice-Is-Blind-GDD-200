@@ -1,27 +1,24 @@
-Shader "Custom/FogAccumulateSmooth"
+Shader "Custom/FogPainterSmooth"
 {
     Properties
     {
         _MainTex ("Base (Fog Memory)", 2D) = "black" {}
         _WorldMin ("World Min", Vector) = (0,0,0,0)
         _WorldSize("World Size", Vector) = (1,1,0,0)
-
-        _PlayerPos ("Player Position (world)", Vector) = (0,0,0,0)
-        _Radius    ("Vision Radius (world)", Float) = 3
-        _Falloff   ("Live Falloff (world)", Float) = 0.75
+        _LiveMaskTex ("Live Mask", 2D) = "black" {}
 
         _BurstCount ("Burst Count", Int) = 0
         _BurstPos   ("Burst Pos", Vector) = (0,0,0,0)
-        _BurstRad   ("Burst Rad", Vector) = (0,0,0,0)   // x=radius, y=falloff
+        _BurstRad   ("Burst Rad", Vector) = (0,0,0,0)
 
         _QueuedCount ("Queued Count", Int) = 0
         _QueuedPos   ("Queued Pos", Vector) = (0,0,0,0)
-        _QueuedRad   ("Queued Rad", Vector) = (0,0,0,0) // x=radius, z=intensity, w=mode(0=lerp,1=max)
+        _QueuedRad   ("Queued Rad", Vector) = (0,0,0,0)
 
         _MemWriteIntensity ("Memory Write Intensity", Range(0,1)) = 0.30
         _MemCoverageBiasWorld ("Coverage Bias (world)", Float) = 0.0
         _WriteLive   ("Write Live", Int) = 1
-        _WriteBursts ("Write Bursts", Int) = 0
+        _WriteBursts ("Write Bursts", Int) = 1
         _WriteQueued ("Write Queued", Int) = 0
     }
     SubShader
@@ -47,22 +44,20 @@ Shader "Custom/FogAccumulateSmooth"
             struct v2f { float2 uv:TEXCOORD0; float4 vertex:SV_POSITION; };
 
             sampler2D _MainTex;
+            sampler2D _LiveMaskTex;
             float4 _WorldMin, _WorldSize;
 
-            float4 _PlayerPos;
-            float  _Radius, _Falloff;
-
-            int    _BurstCount;
+            int _BurstCount;
             float4 _BurstPos[MAX_BURSTS];
             float4 _BurstRad[MAX_BURSTS];
 
-            int    _QueuedCount;
+            int _QueuedCount;
             float4 _QueuedPos[MAX_QUEUED];
             float4 _QueuedRad[MAX_QUEUED];
 
-            float  _MemWriteIntensity;
-            float  _MemCoverageBiasWorld;
-            int    _WriteLive, _WriteBursts, _WriteQueued;
+            float _MemWriteIntensity;
+            float _MemCoverageBiasWorld;
+            int _WriteLive, _WriteBursts, _WriteQueued;
 
             v2f vert(appdata v){ v2f o; o.vertex = UnityObjectToClipPos(v.vertex); o.uv = v.uv; return o; }
 
@@ -76,15 +71,15 @@ Shader "Custom/FogAccumulateSmooth"
             fixed4 frag(v2f i) : SV_Target
             {
                 float current = tex2D(_MainTex, i.uv).r;
+
                 float2 pWorld = _WorldMin.xy + i.uv * _WorldSize.xy;
 
                 float writeVal = current;
 
                 if (_WriteLive > 0)
                 {
-                    float rW = max(0.0, _Radius + _MemCoverageBiasWorld);
-                    float m  = maskSoft(pWorld, _PlayerPos.xy, rW, _Falloff);
-                    writeVal = max(writeVal, m * _MemWriteIntensity);
+                    float liveMask = tex2D(_LiveMaskTex, i.uv).r;
+                    writeVal = max(writeVal, liveMask * _MemWriteIntensity);
                 }
 
                 if (_WriteBursts > 0)
@@ -109,7 +104,8 @@ Shader "Custom/FogAccumulateSmooth"
                         float rQ = max(0.0, _QueuedRad[m].x + _MemCoverageBiasWorld);
                         float inten = saturate(_QueuedRad[m].z);
                         float mode  = _QueuedRad[m].w;
-                        float mQ = maskSoft(pWorld, _QueuedPos[m].xy, rQ, _Falloff);
+                        float2 cQ = _QueuedPos[m].xy;
+                        float mQ = maskSoft(pWorld, cQ, rQ, 0.5);
                         float t  = mQ * inten;
                         writeVal = (mode > 0.5) ? max(writeVal, t) : lerp(writeVal, t, mQ);
                     }

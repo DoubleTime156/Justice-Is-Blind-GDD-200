@@ -9,13 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8081276789919761065}
-  - component: {fileID: 8413632710458509818}
+  - component: {fileID: 72172585710105280}
   - component: {fileID: 2905806389837252163}
   - component: {fileID: 2481678513796734709}
   - component: {fileID: 2116555235714269520}
   - component: {fileID: 49488760603439227}
   - component: {fileID: -5801125953512000106}
   - component: {fileID: 2765417716086006819}
+  - component: {fileID: 4670974043389246146}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -33,12 +34,12 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &8413632710458509818
+--- !u!212 &72172585710105280
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -61,7 +62,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -82,9 +83,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3338749442709606003, guid: 46de7ede55c5f474b9e6f3b914167589,
+  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847,
     type: 3}
-  m_Color: {r: 0.16352195, g: 0.03033897, b: 0.03033897, a: 0}
+  m_Color: {r: 0.899371, g: 0.899371, b: 0.899371, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -106,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c596633959c9f848bb723b9dfda77f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectSound: {fileID: 0}
+  objectSound: {fileID: 4670974043389246146}
   throwSound: {fileID: 49488760603439227}
   impactSound: {fileID: -5801125953512000106}
   inAir: 1
@@ -144,8 +145,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Offset: {x: 0.0033611855, y: 0.0054651103}
+  m_Radius: 0.4947296
 --- !u!50 &2116555235714269520
 Rigidbody2D:
   serializedVersion: 5
@@ -379,10 +380,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2855f5d276aa65d45a21d3a8ce7d3e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noise: {fileID: 0}
+  fogManager: {fileID: 0}
+  trailRadiusWorld: 0.8
+  trailHold: 0.08
+  trailHz: 20
   radiusWorld: 3
   whiteHold: 0.8
-  fadeSeconds: 2
   useVelocityStop: 1
   stopSpeed: 0.1
   stopHoldTime: 0.05
+  revealOnFirstCollision: 1
+--- !u!114 &4670974043389246146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3308582481418504106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24581dd133dbd8d43ad47f3fe59dc242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundRadius: 6
+  soundMaker: {fileID: 2013124798389018593, guid: 89d363a34648e9d44b3d05f2d995a2cf,
+    type: 3}
