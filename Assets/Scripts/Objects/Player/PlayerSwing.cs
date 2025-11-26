@@ -6,6 +6,7 @@ public class PlayerSwing : MonoBehaviour {
 
     public float playerViewRadius;
     public float playerViewAngle;
+    public ParticleSystem knockoutParticles;
 
     public void OnSwing(InputAction.CallbackContext context)
     {
@@ -55,8 +56,8 @@ public class PlayerSwing : MonoBehaviour {
             foreach (var target in targets)
             {
                 if (target != null)
-                    Destroy(target.gameObject);
-                
+                knockoutParticles = Instantiate(knockoutParticles, target.transform.position, Quaternion.identity);
+                Destroy(target.gameObject);    
             }
         }
     }
