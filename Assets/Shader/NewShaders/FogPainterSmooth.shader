@@ -71,9 +71,7 @@ Shader "Custom/FogPainterSmooth"
             fixed4 frag(v2f i) : SV_Target
             {
                 float current = tex2D(_MainTex, i.uv).r;
-
                 float2 pWorld = _WorldMin.xy + i.uv * _WorldSize.xy;
-
                 float writeVal = current;
 
                 if (_WriteLive > 0)

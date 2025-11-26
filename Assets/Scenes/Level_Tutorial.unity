@@ -53234,6 +53234,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 329166479}
+    - target: {fileID: 3386503790652708357, guid: 5f2d8a70749d8454f9542b93b3976d02,
+        type: 3}
+      propertyPath: maskLayer.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 4010818475595019903, guid: 5f2d8a70749d8454f9542b93b3976d02,
         type: 3}
       propertyPath: player

@@ -57,7 +57,7 @@ public class MaskController : MonoBehaviour
             Destroy(liveMaskRT);
         }
 
-        var desc = new RenderTextureDescriptor(rtSize, rtSize, RenderTextureFormat.ARGB32, 24);
+        var desc = new RenderTextureDescriptor(rtSize, rtSize, RenderTextureFormat.ARGB32, 0);
         desc.msaaSamples = 1;
         desc.useMipMap = false;
         desc.autoGenerateMips = false;

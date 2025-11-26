@@ -63,6 +63,11 @@ public class FogManager : MonoBehaviour
     static readonly int DispBurstRadID = Shader.PropertyToID("_BurstRad");
     static readonly int DispMemAlphaID = Shader.PropertyToID("_MemoryAlpha");
 
+    void Awake()
+    {
+        if (maskController == null) maskController = FindObjectOfType<MaskController>();
+    }
+
     void Start()
     {
         var desc = new RenderTextureDescriptor(rtSize, rtSize, RenderTextureFormat.ARGB32, 0)
@@ -73,8 +78,6 @@ public class FogManager : MonoBehaviour
         fogScratch.filterMode = FilterMode.Bilinear;
         fogMemory.wrapMode = TextureWrapMode.Clamp;
         fogScratch.wrapMode = TextureWrapMode.Clamp;
-        fogMemory.anisoLevel = 0;
-        fogScratch.anisoLevel = 0;
         fogMemory.Create();
         fogScratch.Create();
 
@@ -119,11 +122,11 @@ public class FogManager : MonoBehaviour
 
     public void FlushNow() => LateUpdate();
 
-    RenderTexture ResolveLiveMask()
+    RenderTexture ResolveLiveMaskRT()
     {
         if (liveMaskOverride) return liveMaskOverride;
-        if (maskController) return maskController.LiveMaskRT;
-        return null;
+        if (maskController == null) maskController = FindObjectOfType<MaskController>();
+        return maskController ? maskController.LiveMaskRT : null;
     }
 
     void LateUpdate()
@@ -134,8 +137,7 @@ public class FogManager : MonoBehaviour
             if (b.t <= 0f) bursts.RemoveAt(i); else bursts[i] = b;
         }
 
-        var liveMask = ResolveLiveMask();
-        if (fogPainterMaterial == null || liveMask == null) return;
+        if (fogPainterMaterial == null) return;
 
         Graphics.Blit(fogMemory, fogScratch);
 
@@ -144,8 +146,11 @@ public class FogManager : MonoBehaviour
         float texelWorld = minWorld / Mathf.Max(1, rtSize);
         float covBias = Mathf.Max(0f, memCoverageBiasTexels) * texelWorld;
 
+        var liveMaskRT = ResolveLiveMaskRT();
+        Texture liveMaskTex = liveMaskRT != null ? (Texture)liveMaskRT : (Texture)Texture2D.blackTexture;
+
         fogPainterMaterial.SetTexture(MainTexID, fogScratch);
-        fogPainterMaterial.SetTexture(LiveMaskID, liveMask);
+        fogPainterMaterial.SetTexture(LiveMaskID, liveMaskTex);
         fogPainterMaterial.SetVector(WorldMinID, new Vector4(worldMin.x, worldMin.y, 0, 0));
         fogPainterMaterial.SetVector(WorldSizeID, new Vector4(size.x, size.y, 0, 0));
         fogPainterMaterial.SetFloat(MemWriteIntensityID, Mathf.Clamp01(memoryIntensity));
@@ -190,7 +195,7 @@ public class FogManager : MonoBehaviour
 
         if (fogDisplayMaterial)
         {
-            fogDisplayMaterial.SetTexture(DispLiveMaskID, liveMask);
+            fogDisplayMaterial.SetTexture(DispLiveMaskID, liveMaskTex);
             fogDisplayMaterial.SetVector(DispWorldMinID, new Vector4(worldMin.x, worldMin.y, 0, 0));
             fogDisplayMaterial.SetVector(DispWorldSizeID, new Vector4(size.x, size.y, 0, 0));
             fogDisplayMaterial.SetInt(DispBurstCountID, bc);
