@@ -2,33 +2,24 @@ Shader "Custom/FogPainterSmooth"
 {
     Properties
     {
-        _MainTex ("Base (Fog Memory)", 2D) = "black" {}
-        _WorldMin ("World Min", Vector) = (0,0,0,0)
-        _WorldSize("World Size", Vector) = (1,1,0,0)
-        _LiveMaskTex ("Live Mask", 2D) = "black" {}
+        _MainTex        ("Fog Memory (RT)", 2D) = "black" {}
+        _WorldMin       ("World Min",       Vector) = (0,0,0,0)
+        _WorldSize      ("World Size",      Vector) = (1,1,0,0)
 
-        _BurstCount ("Burst Count", Int) = 0
-        _BurstPos   ("Burst Pos", Vector) = (0,0,0,0)
-        _BurstRad   ("Burst Rad", Vector) = (0,0,0,0)
+        _PositionWorld  ("Center (world)",  Vector) = (0,0,0,0)
+        _RadiusWorld    ("Radius (world)",  Float)  = 3.0
+        _EdgeWorld      ("Edge (world)",    Float)  = 0.6
 
-        _QueuedCount ("Queued Count", Int) = 0
-        _QueuedPos   ("Queued Pos", Vector) = (0,0,0,0)
-        _QueuedRad   ("Queued Rad", Vector) = (0,0,0,0)
-
-        _MemWriteIntensity ("Memory Write Intensity", Range(0,1)) = 0.30
-        _MemCoverageBiasWorld ("Coverage Bias (world)", Float) = 0.0
-        _WriteLive   ("Write Live", Int) = 1
-        _WriteBursts ("Write Bursts", Int) = 1
-        _WriteQueued ("Write Queued", Int) = 0
+        _Intensity      ("Write Intensity", Range(0,1)) = 0.3   // 1 = white, 0.3 = memory
+        _WriteMode      ("0=LERP 1=MAX",    Float)  = 1.0       // walking uses MAX
     }
     SubShader
     {
         Tags { "RenderType"="Opaque" }
-        LOD 100
         ZWrite Off
-        ZTest Always
-        Cull Off
-        Blend Off
+        ZTest  Always
+        Blend  Off
+        LOD 100
 
         Pass
         {
@@ -37,80 +28,53 @@ Shader "Custom/FogPainterSmooth"
             #pragma vertex vert
             #pragma fragment frag
             #include "UnityCG.cginc"
-            #define MAX_BURSTS 32
-            #define MAX_QUEUED 64
 
-            struct appdata { float4 vertex:POSITION; float2 uv:TEXCOORD0; };
-            struct v2f { float2 uv:TEXCOORD0; float4 vertex:SV_POSITION; };
+            struct appdata { float4 vertex : POSITION; float2 uv : TEXCOORD0; };
+            struct v2f      { float4 pos : SV_POSITION; float2 uv : TEXCOORD0; };
 
             sampler2D _MainTex;
-            sampler2D _LiveMaskTex;
             float4 _WorldMin, _WorldSize;
 
-            int _BurstCount;
-            float4 _BurstPos[MAX_BURSTS];
-            float4 _BurstRad[MAX_BURSTS];
+            float4 _PositionWorld;
+            float  _RadiusWorld, _EdgeWorld;
+            float  _Intensity;
+            float  _WriteMode;
 
-            int _QueuedCount;
-            float4 _QueuedPos[MAX_QUEUED];
-            float4 _QueuedRad[MAX_QUEUED];
+            v2f vert(appdata v){ v2f o; o.pos = UnityObjectToClipPos(v.vertex); o.uv = v.uv; return o; }
 
-            float _MemWriteIntensity;
-            float _MemCoverageBiasWorld;
-            int _WriteLive, _WriteBursts, _WriteQueued;
-
-            v2f vert(appdata v){ v2f o; o.vertex = UnityObjectToClipPos(v.vertex); o.uv = v.uv; return o; }
-
-            float maskSoft(float2 p, float2 c, float r, float f)
-            {
-                float d = distance(p, c);
-                float e = max(1e-6f, f);
-                return saturate(1.0 - smoothstep(r - e, r + e, d));
-            }
+            // world->uv helper used with blit screen-space uv
+            float2 WorldToUV(float2 w) { return saturate((w - _WorldMin.xy) / _WorldSize.xy); }
 
             fixed4 frag(v2f i) : SV_Target
             {
+                // read current fog value at this pixel
                 float current = tex2D(_MainTex, i.uv).r;
-                float2 pWorld = _WorldMin.xy + i.uv * _WorldSize.xy;
-                float writeVal = current;
 
-                if (_WriteLive > 0)
+                // compute this pixel's world position by inverting the screen uv into world via _WorldMin/Size
+                // (we're blitting a full-screen quad whose uv == fog uv already)
+                float2 fogUV = i.uv;
+
+                // distance in UV space between pixel and center (convert center/size)
+                float2 centerUV = WorldToUV(_PositionWorld.xy);
+                float worldToUV = 1.0 / min(_WorldSize.x, _WorldSize.y);
+                float rUV = _RadiusWorld * worldToUV;
+                float eUV = max(1e-6f, _EdgeWorld) * worldToUV;
+
+                float d     = distance(fogUV, centerUV);
+                float inside = 1.0 - smoothstep(rUV - eUV, rUV + eUV, d); // 1 inside, 0 outside
+
+                float written = current;
+                if (_WriteMode < 0.5)
                 {
-                    float liveMask = tex2D(_LiveMaskTex, i.uv).r;
-                    writeVal = max(writeVal, liveMask * _MemWriteIntensity);
+                    written = lerp(current, _Intensity, inside);
+                }
+                else
+                {
+                    float t = max(current, _Intensity);
+                    written = lerp(current, t, step(0.0001, inside));
                 }
 
-                if (_WriteBursts > 0)
-                {
-                    int n = clamp(_BurstCount, 0, MAX_BURSTS);
-                    [unroll]
-                    for (int k=0;k<n;++k)
-                    {
-                        float rB = max(0.0, _BurstRad[k].x + _MemCoverageBiasWorld);
-                        float fB = max(1e-6f, _BurstRad[k].y);
-                        float mB = maskSoft(pWorld, _BurstPos[k].xy, rB, fB);
-                        writeVal = max(writeVal, mB * _MemWriteIntensity);
-                    }
-                }
-
-                if (_WriteQueued > 0)
-                {
-                    int qn = clamp(_QueuedCount, 0, MAX_QUEUED);
-                    [unroll]
-                    for (int m=0;m<qn;++m)
-                    {
-                        float rQ = max(0.0, _QueuedRad[m].x + _MemCoverageBiasWorld);
-                        float inten = saturate(_QueuedRad[m].z);
-                        float mode  = _QueuedRad[m].w;
-                        float2 cQ = _QueuedPos[m].xy;
-                        float mQ = maskSoft(pWorld, cQ, rQ, 0.5);
-                        float t  = mQ * inten;
-                        writeVal = (mode > 0.5) ? max(writeVal, t) : lerp(writeVal, t, mQ);
-                    }
-                }
-
-                writeVal = saturate(writeVal);
-                return fixed4(writeVal, writeVal, writeVal, 1);
+                return fixed4(written, written, written, 1);
             }
             ENDCG
         }
