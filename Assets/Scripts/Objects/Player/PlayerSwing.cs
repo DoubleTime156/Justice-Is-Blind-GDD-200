@@ -8,10 +8,15 @@ public class PlayerSwing : MonoBehaviour {
     public float playerViewAngle;
     public ParticleSystem knockoutParticles;
 
+    [SerializeField] private PersonAnimator personAnimator;
+    [SerializeField] private Animator _animator;
+
     public void OnSwing(InputAction.CallbackContext context)
     {
         // Only handle swing when the action is performed
         if (!context.performed) return;
+
+        _animator.SetTrigger("OnSwing");
         
         // Find all enemies inside the view radius
         Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(transform.position, playerViewRadius, LayerMask.GetMask("Enemy"));
