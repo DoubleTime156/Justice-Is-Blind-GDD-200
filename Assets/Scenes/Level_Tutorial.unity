@@ -1124,6 +1124,18 @@ PrefabInstance:
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3724801594447472379, guid: 2d139a0f093b6bb42b21a07850c7679c,
+        type: 3}
+      propertyPath: onJuke
+      value: 
+      objectReference: {fileID: -6608296718218486522, guid: 1513167ec28ea3b43af433193916b9a7,
+        type: 3}
+    - target: {fileID: 3724801594447472379, guid: 2d139a0f093b6bb42b21a07850c7679c,
+        type: 3}
+      propertyPath: offJuke
+      value: 
+      objectReference: {fileID: -4022612629342725949, guid: 9e14ef80ce00b5b42be3c20e83a82cb4,
+        type: 3}
     - target: {fileID: 5330941391605183892, guid: 2d139a0f093b6bb42b21a07850c7679c,
         type: 3}
       propertyPath: m_Name
@@ -2814,6 +2826,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SoundMeter
+      objectReference: {fileID: 0}
+    - target: {fileID: 7917829887886926898, guid: ec1976d0c5348bd46a019903d900664a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8480371566624831681, guid: ec1976d0c5348bd46a019903d900664a,
         type: 3}
