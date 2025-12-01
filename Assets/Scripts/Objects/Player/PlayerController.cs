@@ -7,6 +7,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
 {
     public PlayerData data;
     public PersonAnimator personAnimator;
+    public VisionRaycast visionRaycast;
 
     private Rigidbody2D rb;
     private Vector2 movement;
@@ -41,6 +42,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement * data.moveSpeed);
+        visionRaycast.isMoving = movement.x != 0 || movement.y != 0;
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

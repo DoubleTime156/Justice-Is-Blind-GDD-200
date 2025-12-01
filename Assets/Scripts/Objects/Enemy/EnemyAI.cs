@@ -136,10 +136,11 @@ public class EnemyAI : MonoBehaviour
         {
             Vector3 listenPos = listen.ObjectEmitter.transform.position;
             lastKnownPos = listenPos;
+            listen.SetHearSound(false);
         }
 
-            // Look at sound
-            vision.UpdateVision(lastKnownPos);
+        // Look at sound
+        vision.UpdateVision(lastKnownPos);
         dir = vision.TargetDir;
         transformer.UpdateDirection(dir);
 

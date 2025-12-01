@@ -14,7 +14,7 @@ public class EnemyListen : MonoBehaviour
 
     public void UpdateListen()
     {
-        HearSound = false;
+        //HearSound = false;
 
 
         // Old Listen Code
@@ -57,15 +57,8 @@ public class EnemyListen : MonoBehaviour
         }
     }
 
-
-    /*
-    void OnCollisionEnter2D(PolygonCollider2D poly)
+    public void SetHearSound(bool newHearSound)
     {
-        if (poly.CompareTag("Sound"))
-        {
-            HearSound = true;
-            ObjectEmitter = poly.GetComponent<GameObject>();
-        }
+        HearSound = newHearSound;
     }
-    */
 }
