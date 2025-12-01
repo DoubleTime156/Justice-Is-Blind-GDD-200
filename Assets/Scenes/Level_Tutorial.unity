@@ -2286,6 +2286,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7015802077785335043, guid: 5f2d8a70749d8454f9542b93b3976d02,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7015802077785335043, guid: 5f2d8a70749d8454f9542b93b3976d02,
+        type: 3}
+      propertyPath: quitButton
+      value: 
+      objectReference: {fileID: 1351430793}
+    - target: {fileID: 7015802077785335043, guid: 5f2d8a70749d8454f9542b93b3976d02,
+        type: 3}
       propertyPath: gameOverText
       value: 
       objectReference: {fileID: 419195423}
@@ -53472,6 +53482,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1351430793 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4684181210812845874, guid: aadde9abc1e357541817097cdf7e7d78,
+    type: 3}
+  m_PrefabInstance: {fileID: 688457569}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1375044748
 PrefabInstance:
   m_ObjectHideFlags: 0
