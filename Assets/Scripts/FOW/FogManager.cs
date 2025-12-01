@@ -209,7 +209,7 @@ public class FogManager : MonoBehaviour
             else _bursts[i] = b;
         }
 
-        if (fogDisplayMaterial && playerVision)
+        if (fogDisplayMaterial)
         {
             int burstCount = Mathf.Min(maxBursts, _bursts.Count);
             if (burstCount > 0)
@@ -231,9 +231,6 @@ public class FogManager : MonoBehaviour
                 fogDisplayMaterial.SetInt(BurstCountID, 0);
             }
 
-            fogDisplayMaterial.SetVector("_PlayerPos", new Vector4(player.position.x, player.position.y, 0, 0));
-            fogDisplayMaterial.SetFloat("_Radius", playerVision.radius);
-            fogDisplayMaterial.SetFloat("_Falloff", Mathf.Max(1e-6f, liveFalloff));
             fogDisplayMaterial.SetFloat("_MemoryAlpha", memoryAlpha);
         }
     }
