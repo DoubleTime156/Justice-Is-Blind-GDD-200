@@ -108,9 +108,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c596633959c9f848bb723b9dfda77f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fogManager: {fileID: 0}
   objectSound: {fileID: 2483730834216912078}
   throwSound: {fileID: -1651317461757201175}
   impactSound: {fileID: 4101873241110360144}
+  shatterParticles: {fileID: 7132348258161352827, guid: 4c1a64e94b11bae40b1fcf9abf4cbfd6,
+    type: 3}
+  knockoutParticles: {fileID: 1104930591671799747, guid: e0e73ffb190d399468fb203a23f9f11c,
+    type: 3}
   inAir: 1
 --- !u!50 &1089203037418962202
 Rigidbody2D:
@@ -398,14 +403,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fogManager: {fileID: 0}
   trailRadiusWorld: 0.8
-  trailHold: 0.08
-  trailHz: 20
-  radiusWorld: 6
-  whiteHold: 0.8
-  useVelocityStop: 1
-  stopSpeed: 0.1
-  stopHoldTime: 0.05
-  revealOnFirstCollision: 1
 --- !u!114 &-7942899025305146320
 MonoBehaviour:
   m_ObjectHideFlags: 0

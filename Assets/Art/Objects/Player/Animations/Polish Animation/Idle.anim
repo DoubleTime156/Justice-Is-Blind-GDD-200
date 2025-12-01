@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GoonSideWalkBeta
+  m_Name: Idle
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,14 +21,23 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -5535259021724047136, guid: 63e31ed1ceb5146339c88ceb15ff196c,
+      value: {fileID: 1106142283647283060, guid: 22286892f3ffe4024971546ac4d87091,
+        type: 3}
+    - time: 0.2
+      value: {fileID: 1083205375525516529, guid: 22286892f3ffe4024971546ac4d87091,
+        type: 3}
+    - time: 0.4
+      value: {fileID: -545528801418833158, guid: 22286892f3ffe4024971546ac4d87091,
+        type: 3}
+    - time: 0.48333332
+      value: {fileID: -545528801418833158, guid: 22286892f3ffe4024971546ac4d87091,
         type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
     flags: 2
-  m_SampleRate: 12
+  m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -45,13 +54,16 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -5535259021724047136, guid: 63e31ed1ceb5146339c88ceb15ff196c, type: 3}
+    - {fileID: 1106142283647283060, guid: 22286892f3ffe4024971546ac4d87091, type: 3}
+    - {fileID: 1083205375525516529, guid: 22286892f3ffe4024971546ac4d87091, type: 3}
+    - {fileID: -545528801418833158, guid: 22286892f3ffe4024971546ac4d87091, type: 3}
+    - {fileID: -545528801418833158, guid: 22286892f3ffe4024971546ac4d87091, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.083333336
+    m_StopTime: 0.5
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

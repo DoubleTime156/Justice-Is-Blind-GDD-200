@@ -15,6 +15,7 @@ public class PersonAnimator : MonoBehaviour
         _animator.SetFloat("AnimMoveX", movement.x);
         _animator.SetFloat("AnimMoveY", movement.y);
         
+       // _animator.SetBool("CaneSmash", );
     }
  
 }
