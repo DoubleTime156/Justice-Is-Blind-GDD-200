@@ -67,7 +67,7 @@ public class PlayerSwing : MonoBehaviour {
                 {
                     // Rotates the whole enemy, disable its AI,and collider
                     target.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    target.transform.GetChild(0).rotation = Quaternion.Euler(0, 0, -90); // Gets sprite child and rotates it
+                    target.transform.GetChild(0).rotation = Quaternion.Euler(0, 0, -90); // Gets enemy sprite child and rotates it
                     target.GetComponent<EnemyAI>().enabled = false;
                     target.GetComponent<Collider2D>().enabled = false;
                     target.GetComponentInChildren<Light2D>().enabled = false;
@@ -76,7 +76,7 @@ public class PlayerSwing : MonoBehaviour {
                     SpriteRenderer sr = null;
                     foreach (var renderer in target.GetComponentsInChildren<SpriteRenderer>())
                     {
-                        if (renderer.gameObject.name == "alphaNPC_0")
+                        if (renderer.gameObject.name == "Goon")
                         {
                             sr = renderer;
                             break;
