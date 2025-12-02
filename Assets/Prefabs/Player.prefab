@@ -465,6 +465,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visionRadius: 5
+  isMoving: 0
 --- !u!23 &7113713087504103376
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -705,6 +706,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 684de57402381d94dbb0dd7a282858f3, type: 2}
   personAnimator: {fileID: 7641100827236162740}
+  visionRaycast: {fileID: 3018968614818814497}
   coinPickup: {fileID: -6507755775882685442}
   bottlePickup: {fileID: -8865577757524450621}
   keyPickup: {fileID: -491143495382935328}
@@ -1360,7 +1362,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundRadius: 4
-  soundMaker: {fileID: 0}
+  soundMaker: {fileID: 2013124798389018593, guid: 89d363a34648e9d44b3d05f2d995a2cf,
+    type: 3}
 --- !u!114 &8291167075629656194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1722,6 +1725,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visionRadius: 5
+  isMoving: 0
 --- !u!1 &8167058829865836958
 GameObject:
   m_ObjectHideFlags: 0

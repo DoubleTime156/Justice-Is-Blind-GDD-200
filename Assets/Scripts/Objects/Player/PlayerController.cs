@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -45,14 +46,18 @@ public class PlayerController2D_InputSystem : MonoBehaviour
         visionRaycast.isMoving = movement.x != 0 || movement.y != 0;
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
             gameManager.gameOver();
             this.enabled = false;
         }
-        else if (collision.gameObject.CompareTag("Pickup"))
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Pickup"))
         {
             data.inventory[collision.GetComponent<Pickup>().pickupType]++;
             inventoryUI.updateAmount();

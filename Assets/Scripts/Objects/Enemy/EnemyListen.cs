@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyListen : MonoBehaviour
 {
-    public GameObject ObjectEmitter {  get; private set; }
+    public Transform ObjectEmitterTransform {  get; private set; }
 
     public float hearDistance;
 
@@ -50,10 +50,11 @@ public class EnemyListen : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log(Time.time);
         if (other.CompareTag("Sound"))
         {
             HearSound = true;
-            ObjectEmitter = other.GetComponent<GameObject>();
+            ObjectEmitterTransform = other.GetComponent<Transform>();
         }
     }
 
