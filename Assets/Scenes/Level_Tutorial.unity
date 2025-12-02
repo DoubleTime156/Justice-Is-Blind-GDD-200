@@ -879,7 +879,7 @@ PrefabInstance:
     - target: {fileID: 2969911981459378825, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
       propertyPath: orthographic size
-      value: 2.12
+      value: 2.255
       objectReference: {fileID: 0}
     - target: {fileID: 2969911981459378825, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
@@ -893,14 +893,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4094326966453593539, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
+      propertyPath: _animator
+      value: 
+      objectReference: {fileID: 329166480}
+    - target: {fileID: 4094326966453593539, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4094326966453593539, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
+      propertyPath: personAnimator
+      value: 
+      objectReference: {fileID: 329166481}
+    - target: {fileID: 4094326966453593539, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
       propertyPath: playerViewRadius
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4094326966453593539, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
+      propertyPath: knockoutParticles
+      value: 
+      objectReference: {fileID: 1104930591671799747, guid: e0e73ffb190d399468fb203a23f9f11c,
+        type: 3}
     - target: {fileID: 5225759310077618387, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1030,6 +1046,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 329166478}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &329166480 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6040604634708551431, guid: 114436765f7463c49826ba3a8920a5a2,
+    type: 3}
+  m_PrefabInstance: {fileID: 329166478}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &329166481 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7641100827236162740, guid: 114436765f7463c49826ba3a8920a5a2,
+    type: 3}
+  m_PrefabInstance: {fileID: 329166478}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 414050641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e34698638bc7014fb8dda3b6b6e8f33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &357502221
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53410,6 +53444,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerViewRadius: 3
   playerViewAngle: 45
+  knockoutParticles: {fileID: 0}
+  personAnimator: {fileID: 0}
+  _animator: {fileID: 0}
 --- !u!1 &1217292216
 GameObject:
   m_ObjectHideFlags: 0

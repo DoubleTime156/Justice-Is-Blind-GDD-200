@@ -598,6 +598,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerViewRadius: 3
   playerViewAngle: 45
+  knockoutParticles: {fileID: 0}
+  personAnimator: {fileID: 752992477}
+  _animator: {fileID: 1382341176}
 --- !u!1 &454946865
 GameObject:
   m_ObjectHideFlags: 0
@@ -1623,7 +1626,7 @@ PrefabInstance:
     - target: {fileID: 2969911981459378825, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
       propertyPath: orthographic size
-      value: 2.12
+      value: 2.255
       objectReference: {fileID: 0}
     - target: {fileID: 2969911981459378825, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
@@ -1645,6 +1648,12 @@ PrefabInstance:
       propertyPath: personAnimator
       value: 
       objectReference: {fileID: 752992477}
+    - target: {fileID: 4094326966453593539, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
+      propertyPath: knockoutParticles
+      value: 
+      objectReference: {fileID: 1104930591671799747, guid: e0e73ffb190d399468fb203a23f9f11c,
+        type: 3}
     - target: {fileID: 5225759310077618387, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
       propertyPath: m_LocalPosition.x
