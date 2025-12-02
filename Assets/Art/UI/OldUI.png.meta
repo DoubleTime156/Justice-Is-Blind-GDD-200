@@ -1,25 +1,25 @@
 fileFormatVersion: 2
-guid: 283b387e6450cef4dae46190f19b3ae0
+guid: 923abc9441d799942aa11dc0115f4588
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3362200063325841780
-    second: Ui_Revamp 1_0
+      213: -511910793408786014
+    second: Ui 1_0
   - first:
-      213: -8109635589781832072
-    second: Ui_Revamp 1_1
+      213: 4618679714467947732
+    second: Ui 1_1
   - first:
-      213: 2591703191021719141
-    second: Ui_Revamp 1_2
+      213: 6998592733206231973
+    second: Ui 1_2
   - first:
-      213: -5329460571744499387
-    second: Ui_Revamp 1_3
+      213: 2627704030559318008
+    second: Ui 1_3
   - first:
-      213: 1886131093569576385
-    second: Ui_Revamp 1_4
+      213: 1472028492336150151
+    second: Ui 1_4
   - first:
-      213: 7773437063028087959
-    second: Ui_Revamp 1_5
+      213: -735379166747370298
+    second: Ui 1_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -128,7 +128,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BottleOL
+      name: Bottle_OL
       rect:
         serializedVersion: 2
         x: 18
@@ -143,20 +143,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4792556d42fe8ae20800000000000000
-      internalID: 3362200063325841780
+      spriteID: 2a15e2a78d355e8f0800000000000000
+      internalID: -511910793408786014
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KeyOL
+      name: Key_OL
       rect:
         serializedVersion: 2
         x: 78
-        y: 63
+        y: 64
         width: 32
-        height: 65
+        height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -165,36 +165,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 87e3035d569c47f80800000000000000
-      internalID: -8109635589781832072
+      spriteID: 4d42a20cab8d81040800000000000000
+      internalID: 4618679714467947732
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Key
-      rect:
-        serializedVersion: 2
-        x: 82
-        y: 0
-        width: 32
-        height: 63
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 56e8810225497f320800000000000000
-      internalID: 2591703191021719141
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CoinOl
+      name: Coin_OL
       rect:
         serializedVersion: 2
         x: 127
@@ -209,8 +187,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 54908b0c8d3f906b0800000000000000
-      internalID: -5329460571744499387
+      spriteID: 8ffa954c4ea777420800000000000000
+      internalID: 2627704030559318008
       vertices: []
       indices: 
       edges: []
@@ -231,8 +209,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1cd98088c32ec2a10800000000000000
-      internalID: 1886131093569576385
+      spriteID: 78633f85d12bd6410800000000000000
+      internalID: 1472028492336150151
       vertices: []
       indices: 
       edges: []
@@ -241,8 +219,8 @@ TextureImporter:
       name: Coin
       rect:
         serializedVersion: 2
-        x: 127
-        y: 2
+        x: 128
+        y: 1
         width: 64
         height: 62
       alignment: 0
@@ -253,8 +231,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 79c15a9c2dbc0eb60800000000000000
-      internalID: 7773437063028087959
+      spriteID: 6ccdcc64b886bc5f0800000000000000
+      internalID: -735379166747370298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Key
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 0
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 720479ba7d98a194a9a8c212888bcd0a
+      internalID: -2110271642
       vertices: []
       indices: 
       edges: []
@@ -263,7 +263,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 6187cc50597c56b4aa50b819fc29a76d
+    spriteID: 0e2294da0a7bc944b88bb9504fbb8b8e
     internalID: 0
     vertices: []
     indices: 
@@ -273,12 +273,13 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Bottle: 1886131093569576385
-      BottleOL: 3362200063325841780
-      Coin: 7773437063028087959
-      CoinOl: -5329460571744499387
-      Key: 2591703191021719141
-      KeyOL: -8109635589781832072
+      Bottle: 1472028492336150151
+      Bottle_OL: -511910793408786014
+      Coin: -735379166747370298
+      Coin_OL: 2627704030559318008
+      Key: -2110271642
+      Key_OL: 4618679714467947732
+      Ui 1_2: 6998592733206231973
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
