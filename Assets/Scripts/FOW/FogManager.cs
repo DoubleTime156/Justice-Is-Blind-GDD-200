@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-[DefaultExecutionOrder(-50)]
 public class FogManager : MonoBehaviour
 {
     public PlayerPosition playerVision;
@@ -20,6 +19,7 @@ public class FogManager : MonoBehaviour
     public MaskController maskController;
     public RenderTexture liveMaskOverride;
 
+    public float liveFalloff = 0.75f;
     public float memoryAlpha = 0.35f;
     public float memoryIntensity = 0.3f;
 
@@ -104,7 +104,7 @@ public class FogManager : MonoBehaviour
         RenderTexture.active = prev;
     }
 
-    public void EnqueueRevealWorld(Vector2 pos, float radiusWorld, float intensity = 1f, bool brightenOnly = false)
+    public void EnqueueRevealWorld(Vector2 pos, float radiusWorld, float intensity = 1f, float edgeWorld = 0.5f, bool brightenOnly = false)
     {
         queue.Add(new Q { pos = pos, r = Mathf.Max(0f, radiusWorld), intensity = Mathf.Clamp01(intensity), mode = brightenOnly ? WriteMode.MAX : WriteMode.LERP });
     }
@@ -208,5 +208,10 @@ public class FogManager : MonoBehaviour
             }
             fogDisplayMaterial.SetFloat(DispMemAlphaID, memoryAlpha);
         }
+
+        // >>> GLOBALS for all masked sprites <<<
+        Shader.SetGlobalTexture("_LiveMaskTex", liveMask);
+        Shader.SetGlobalVector("_WorldMin", new Vector4(worldMin.x, worldMin.y, 0, 0));
+        Shader.SetGlobalVector("_WorldSize", new Vector4(size.x, size.y, 0, 0));
     }
 }
