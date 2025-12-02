@@ -74,10 +74,11 @@ public class PlayerSwing : MonoBehaviour {
                 {
                     // Rotates the whole enemy, disable its AI,and collider
                     target.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    target.transform.GetChild(0).rotation = Quaternion.Euler(0, 0, -90); // Gets enemy sprite child and rotates it
+                    target.transform.GetChild(1).rotation = Quaternion.Euler(0, 0, -90); // Gets enemy sprite child and rotates it
+                    target.GetComponentInChildren<Light2D>().enabled = false;
                     target.GetComponent<EnemyAI>().enabled = false;
                     target.GetComponent<Collider2D>().enabled = false;
-                    target.GetComponentInChildren<Light2D>().enabled = false;
+                    
 
                     // Play knockout particles
                     ParticleSystem particles = Instantiate(knockoutParticles, target.transform.position, Quaternion.identity);
