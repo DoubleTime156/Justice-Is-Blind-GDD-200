@@ -3,9 +3,9 @@ fileFormatVersion: 2
 guid: 3955c67723607254086f1b31be1edb62
 AssemblyDefinitionImporter:
 ========
-guid: 074df1a1bfb6142409e22e9361983e00
-DefaultImporter:
->>>>>>>> origin/Main-2:Assets/Scenes/Level_3.unity.meta
+guid: 262dab8916c1d50429a9cbc0e261bb4f
+PrefabImporter:
+>>>>>>>> origin/Main-2:Assets/Particles/Broken Bottle.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

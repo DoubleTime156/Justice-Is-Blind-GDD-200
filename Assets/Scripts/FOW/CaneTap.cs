@@ -1,5 +1,6 @@
 // CaneTap.cs
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CaneTap : MonoBehaviour
 {
@@ -23,17 +24,6 @@ public class CaneTap : MonoBehaviour
     {
         if (player == null || maskMaterial == null) return;
 
-        if (Input.GetKeyDown(tapKey) && !cooling)
-        {
-            NoiseMask.Spawn(maskMaterial, fogMaskLayerName, obstacleMask, player.position, tapRadiusWorld, tapHoldSeconds, rayCount);
-
-            if (objectSound != null) objectSound.IsMakingSound = true;
-            cooling = true;
-            timer = tapHoldSeconds;
-
-            if (logTaps) Debug.Log($"[CaneTap] NoiseMask at {player.position} r={tapRadiusWorld} hold={tapHoldSeconds}s");
-        }
-
         if (cooling)
         {
             timer -= Time.deltaTime;
@@ -44,4 +34,20 @@ public class CaneTap : MonoBehaviour
             }
         }
     }
+
+    public void onTap(InputAction.CallbackContext context)
+    {
+        if (context.performed && !cooling)
+        {
+            NoiseMask.Spawn(maskMaterial, fogMaskLayerName, obstacleMask, player.position, tapRadiusWorld, tapHoldSeconds, rayCount);
+
+            if (objectSound != null) objectSound.IsMakingSound = true;
+            cooling = true;
+            timer = tapHoldSeconds;
+
+            if (logTaps) Debug.Log($"[CaneTap] NoiseMask at {player.position} r={tapRadiusWorld} hold={tapHoldSeconds}s");
+        }
+
+    }
+
 }
