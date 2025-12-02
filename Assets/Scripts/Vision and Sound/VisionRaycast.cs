@@ -6,6 +6,7 @@ public class VisionRaycast : MonoBehaviour
     public float visionRadius;
 
     private int _rayCount = 360;
+    int pointCount;
 
     private int _pointCount;
     private List<Vector2> _pointPos;
@@ -109,5 +110,31 @@ public class VisionRaycast : MonoBehaviour
         mesh.Clear();
         mesh.vertices = vertices;
         mesh.triangles = tris;
+    }
+
+    public bool IsPointInsideVision(Vector2 worldPoint)
+    {
+        if (mesh == null || mesh.vertexCount < 3) return false;
+
+        var verts = mesh.vertices;
+        int n = verts.Length - 1;
+        if (n < 3) return false;
+
+        Vector2 p = worldPoint;
+        Vector2 prev = (Vector2)transform.TransformPoint(verts[n]);
+        bool inside = false;
+
+        for (int i = 1; i <= n; i++)
+        {
+            Vector2 cur = (Vector2)transform.TransformPoint(verts[i]);
+            bool cond = ((cur.y > p.y) != (prev.y > p.y));
+            if (cond)
+            {
+                float xInt = (prev.x - cur.x) * (p.y - cur.y) / ((prev.y - cur.y) + Mathf.Epsilon) + cur.x;
+                if (p.x < xInt) inside = !inside;
+            }
+            prev = cur;
+        }
+        return inside;
     }
 }
