@@ -1765,7 +1765,7 @@ PrefabInstance:
     - target: {fileID: 3002117212254038217, guid: 0ff95e06e75599c44b7dbbffa51a9fbb,
         type: 3}
       propertyPath: levelName
-      value: Level_3
+      value: Main Menu
       objectReference: {fileID: 0}
     - target: {fileID: 3754647008404286908, guid: 0ff95e06e75599c44b7dbbffa51a9fbb,
         type: 3}
@@ -2433,6 +2433,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5999546140063198426, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
+      propertyPath: fogMaskLayer.m_Bits
+      value: 256
       objectReference: {fileID: 0}
     - target: {fileID: 6033904444973926759, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}

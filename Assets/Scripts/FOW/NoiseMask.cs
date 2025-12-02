@@ -1,6 +1,7 @@
 // NoiseMask.cs
 using UnityEngine;
 
+[RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class NoiseMask : MonoBehaviour
 {
     public Material maskMaterial;
@@ -11,6 +12,7 @@ public class NoiseMask : MonoBehaviour
     public int rayCount = 512;
 
     Mesh mesh;
+    PolygonCollider2D poly;
     float timer;
 
     public void Init(Material mat, string fogLayer, LayerMask obstacle, Vector2 worldPos, float radius, float hold, int rays)
@@ -30,9 +32,7 @@ public class NoiseMask : MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer(fogMaskLayerName);
 
         var mf = GetComponent<MeshFilter>();
-        if (!mf) mf = gameObject.AddComponent<MeshFilter>();
         var mr = GetComponent<MeshRenderer>();
-        if (!mr) mr = gameObject.AddComponent<MeshRenderer>();
         mr.sharedMaterial = maskMaterial;
 
         if (mesh == null) mesh = new Mesh();
@@ -48,11 +48,9 @@ public class NoiseMask : MonoBehaviour
         {
             float ang = step * i * Mathf.Deg2Rad;
             Vector2 dir = new Vector2(Mathf.Cos(ang), Mathf.Sin(ang));
-
             var hit = Physics2D.Raycast((Vector2)transform.position, dir, radiusWorld, obstacleMask);
             Vector2 end = hit ? (Vector2)transform.position + dir * (hit.distance - 0.01f)
                               : (Vector2)transform.position + dir * radiusWorld;
-
             verts[i + 1] = transform.InverseTransformPoint(end);
 
             int a = 0, b = i + 1, c = (i + 1) % rayCount + 1;
@@ -63,6 +61,15 @@ public class NoiseMask : MonoBehaviour
         mesh.Clear();
         mesh.vertices = verts;
         mesh.triangles = tris;
+
+        if (poly == null) poly = gameObject.GetComponent<PolygonCollider2D>();
+        if (poly == null) poly = gameObject.AddComponent<PolygonCollider2D>();
+        poly.isTrigger = true;
+
+        Vector2[] path = new Vector2[rayCount];
+        for (int i = 0; i < rayCount; i++) path[i] = verts[i + 1];
+        poly.pathCount = 1;
+        poly.SetPath(0, path);
 
         timer = holdSeconds;
         enabled = true;
@@ -77,7 +84,7 @@ public class NoiseMask : MonoBehaviour
     public static void Spawn(Material mat, string fogLayer, LayerMask obstacle, Vector2 pos, float radius, float hold, int rays)
     {
         var go = new GameObject("NoiseMask");
-        var burst = go.AddComponent<NoiseMask>();
-        burst.Init(mat, fogLayer, obstacle, pos, radius, hold, rays);
+        var nm = go.AddComponent<NoiseMask>();
+        nm.Init(mat, fogLayer, obstacle, pos, radius, hold, rays);
     }
 }
