@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 6fc5f34c313d03b42936b5be865bbd3f
+guid: daee4fe736784a04197ec192402a5e1f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6784036347422203546
-    second: ELEVATOR_0
+      213: -4962647773852856466
+    second: UntitledArtwork6_0
+  - first:
+      213: 4146301503987720214
+    second: UntitledArtwork6_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +116,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ELEVATOR_0
+      name: Closed
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 389
-        height: 513
+        x: 36
+        y: 259
+        width: 188
+        height: 261
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a9e50775d1db52e50800000000000000
-      internalID: 6784036347422203546
+      spriteID: e6f0e169422212bb0800000000000000
+      internalID: -4962647773852856466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Open
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 259
+        width: 188
+        height: 261
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61d260559b99c6f438901dd97f01e6b4
+      internalID: 911027183
       vertices: []
       indices: 
       edges: []
@@ -138,7 +163,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 717c7283d1d3d3743aad743d70af8e3f
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +173,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ELEVATOR_0: 6784036347422203546
+      Closed: -4962647773852856466
+      Open: 911027183
+      UntitledArtwork6_1: 4146301503987720214
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
