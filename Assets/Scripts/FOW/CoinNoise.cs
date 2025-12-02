@@ -3,53 +3,71 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class CoinNoise : MonoBehaviour
 {
-    public FogManager fogManager;
+    public Material maskMaterial;
+    public string fogMaskLayerName = "FogMask";
+    public LayerMask obstacleMask;
+    public int rayCount = 512;
 
     public float trailRadiusWorld = 0.8f;
     private float trailHold = 0.08f;
     private float trailHz = 20f;
 
-    private float radiusWorld = 6f;
-    private float whiteHold = 0.8f;
+    public float impactRadiusWorld = 6f;
+    public float impactHold = 0.8f;
 
     private bool useVelocityStop = true;
     private float stopSpeed = 0.1f;
     private float stopHoldTime = 0.05f;
     private bool revealOnFirstCollision = true;
 
+    private ObjectSound objectSound;
+    private bool logTrail = false;
+    private bool logImpact = true;
+
     Rigidbody2D rb;
     bool fired;
     float stillTimer;
-    float trailTimer;
+    float nextTrailTime;
+    float impactTimer;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        if (fogManager == null) fogManager = FindObjectOfType<FogManager>();
     }
 
     void Update()
     {
-        if (!fired && fogManager != null && trailRadiusWorld > 0f && trailHz > 0f)
+        if (!fired && maskMaterial != null && trailRadiusWorld > 0f && trailHz > 0f)
         {
-            trailTimer -= Time.deltaTime;
-            if (trailTimer <= 0f)
+            if (Time.time >= nextTrailTime)
             {
-                fogManager.TriggerVisionBurstAt(transform.position, trailRadiusWorld, Mathf.Max(0.0001f, trailHold), fogManager.defaultBurstFalloff);
-                trailTimer += 1f / trailHz;
+                if (!useVelocityStop || rb == null || rb.linearVelocity.sqrMagnitude > stopSpeed * stopSpeed)
+                {
+                    NoiseMask.Spawn(maskMaterial, fogMaskLayerName, obstacleMask, transform.position, trailRadiusWorld, trailHold, rayCount);
+                    if (objectSound) objectSound.IsMakingSound = true;
+                    if (logTrail) Debug.Log($"[CoinNoise] Trail at {transform.position} r={trailRadiusWorld} hold={trailHold}s");
+                }
+                nextTrailTime = Time.time + 1f / trailHz;
             }
         }
 
-        if (fired || !useVelocityStop || rb == null) return;
-
-        if (rb.linearVelocity.sqrMagnitude <= stopSpeed * stopSpeed)
+        if (!fired && useVelocityStop && rb != null)
         {
-            stillTimer += Time.deltaTime;
-            if (stillTimer >= stopHoldTime) Fire();
+            if (rb.linearVelocity.sqrMagnitude <= stopSpeed * stopSpeed)
+            {
+                stillTimer += Time.deltaTime;
+                if (stillTimer >= stopHoldTime) Fire();
+            }
+            else
+            {
+                stillTimer = 0f;
+            }
         }
-        else
+
+        if (fired && impactTimer > 0f)
         {
-            stillTimer = 0f;
+            impactTimer -= Time.deltaTime;
+            if (impactTimer <= 0f && objectSound) objectSound.IsMakingSound = false;
         }
     }
 
@@ -65,8 +83,11 @@ public class CoinNoise : MonoBehaviour
 
     void Fire()
     {
-        if (fogManager == null) return;
-        fogManager.TriggerVisionBurstAt(transform.position, Mathf.Max(0f, radiusWorld), Mathf.Max(0.0001f, whiteHold), fogManager.defaultBurstFalloff);
+        if (maskMaterial == null) return;
+        NoiseMask.Spawn(maskMaterial, fogMaskLayerName, obstacleMask, transform.position, impactRadiusWorld, impactHold, rayCount);
+        if (objectSound) objectSound.IsMakingSound = true;
+        impactTimer = impactHold;
         fired = true;
+        if (logImpact) Debug.Log($"[CoinNoise] Impact at {transform.position} r={impactRadiusWorld} hold={impactHold}s");
     }
 }

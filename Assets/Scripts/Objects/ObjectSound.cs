@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Numerics;
-using Mono.Cecil.Cil;
 using NUnit.Framework;
 using UnityEngine;
 using Object = System.Object;
@@ -28,7 +27,8 @@ public class ObjectSound : MonoBehaviour
         {
             IsMakingSound = false;
             tempTimer = 3f;
-            Instantiate(soundMaker, transform);
+            soundMaker.transform.position = gameObject.transform.position;
+            Instantiate(soundMaker);
         }
 
         tempTimer -= Time.fixedDeltaTime;
