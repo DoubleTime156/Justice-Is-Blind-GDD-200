@@ -1003,12 +1003,12 @@ PrefabInstance:
     - target: {fileID: 8776994412918227710, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 21.5
+      value: 14.549999
       objectReference: {fileID: 0}
     - target: {fileID: 8776994412918227710, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 24.71
+      value: 5.8099995
       objectReference: {fileID: 0}
     - target: {fileID: 8776994412918227710, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
@@ -14656,7 +14656,7 @@ PrefabInstance:
     - target: {fileID: 3002117212254038217, guid: 0ff95e06e75599c44b7dbbffa51a9fbb,
         type: 3}
       propertyPath: levelName
-      value: Main Menu
+      value: End Screen
       objectReference: {fileID: 0}
     - target: {fileID: 3002117212254038217, guid: 0ff95e06e75599c44b7dbbffa51a9fbb,
         type: 3}
