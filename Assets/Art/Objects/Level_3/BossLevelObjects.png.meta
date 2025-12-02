@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 6fc5f34c313d03b42936b5be865bbd3f
+guid: 423b56355ab310e44bae4444ed8ac29f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6784036347422203546
-    second: ELEVATOR_0
+      213: 6598252551158587770
+    second: BossLevelObjects_0
+  - first:
+      213: 704020939544728921
+    second: BossLevelObjects_1
+  - first:
+      213: 9150011684545918452
+    second: BossLevelObjects_2
+  - first:
+      213: -5704865407501097219
+    second: BossLevelObjects_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +122,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ELEVATOR_0
+      name: Desk
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 389
-        height: 513
+        width: 259
+        height: 150
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a9e50775d1db52e50800000000000000
-      internalID: 6784036347422203546
+      spriteID: a716f1a7cb3b19b50800000000000000
+      internalID: 6598252551158587770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossChair_1
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 7
+        width: 154
+        height: 206
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9551000805f25c900800000000000000
+      internalID: 704020939544728921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cabnet_2
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 0
+        width: 218
+        height: 260
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f57804f52f5bfe70800000000000000
+      internalID: 9150011684545918452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossLevelObjects_3
+      rect:
+        serializedVersion: 2
+        x: 837
+        y: 0
+        width: 150
+        height: 250
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df6ab76332f34d0b0800000000000000
+      internalID: -5704865407501097219
       vertices: []
       indices: 
       edges: []
@@ -138,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: b11b8236199b5714dbc3ad2a16cd6daa
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ELEVATOR_0: 6784036347422203546
+      BossChair_1: 704020939544728921
+      BossLevelObjects_3: -5704865407501097219
+      Cabnet_2: 9150011684545918452
+      Desk: 6598252551158587770
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
