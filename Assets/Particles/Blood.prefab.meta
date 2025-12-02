@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/Test_Scene.unity.meta
+guid: d3e54b06b79e57d49b61984a1d183392
+DefaultImporter:
+========
 guid: 443929c2e0558174ba6b96538c00535e
 PrefabImporter:
+>>>>>>>> origin/Main-2:Assets/Particles/Blood.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
