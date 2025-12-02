@@ -1666,6 +1666,11 @@ PrefabInstance:
       objectReference: {fileID: 1382341176}
     - target: {fileID: 4094326966453593539, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4094326966453593539, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
       propertyPath: personAnimator
       value: 
       objectReference: {fileID: 752992477}
@@ -1719,6 +1724,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7406056349144967297, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406056349144967297, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
+      propertyPath: soundMaker
+      value: 
+      objectReference: {fileID: 2013124798389018593, guid: 89d363a34648e9d44b3d05f2d995a2cf,
+        type: 3}
     - target: {fileID: 7906881722234873964, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
       propertyPath: m_Layer
