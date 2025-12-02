@@ -39,9 +39,22 @@ public class PlayerController2D_InputSystem : MonoBehaviour
         personAnimator.movement = movement;
     }
 
+    public void OnRun(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            data.moveMulti = 2.0f;
+        }
+        else if (context.canceled)
+        {
+            data.moveMulti = 1.0f;
+        }
+
+    }
+
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * data.moveSpeed);
+        rb.MovePosition(rb.position + movement * data.moveSpeed * data.moveMulti);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
