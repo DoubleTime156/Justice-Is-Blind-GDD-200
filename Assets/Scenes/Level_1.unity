@@ -4493,6 +4493,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4045542906792460690, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4094326966453593539, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
       propertyPath: _animator
@@ -4511,6 +4516,11 @@ PrefabInstance:
     - target: {fileID: 5225759310077618387, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
       propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5244588914472957553, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5338111105030491330, guid: 114436765f7463c49826ba3a8920a5a2,
@@ -4561,7 +4571,7 @@ PrefabInstance:
     - target: {fileID: 8776994412918227710, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 24.71
+      value: 24.789
       objectReference: {fileID: 0}
     - target: {fileID: 8776994412918227710, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
