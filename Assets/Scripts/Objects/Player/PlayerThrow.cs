@@ -19,13 +19,6 @@ public class PlayerThrow : MonoBehaviour
         inventoryUI = GameObject.Find("Inventory").GetComponent<Inventory>();
     }
 
-    /*
-    public void OnSwing(InputAction.CallbackContext context)
-    {
-        Debug.Log("Player swung weapon!");
-    }
-    */
-
     // Player presses F to throw object
     public void OnThrow(InputAction.CallbackContext context)
     {
