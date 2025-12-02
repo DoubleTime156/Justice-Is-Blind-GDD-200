@@ -107,9 +107,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c596633959c9f848bb723b9dfda77f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fogManager: {fileID: 0}
   objectSound: {fileID: 4670974043389246146}
   throwSound: {fileID: 49488760603439227}
   impactSound: {fileID: -5801125953512000106}
+  shatterParticles: {fileID: 0}
+  knockoutParticles: {fileID: 0}
   inAir: 1
 --- !u!58 &2481678513796734709
 CircleCollider2D:
@@ -380,16 +383,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2855f5d276aa65d45a21d3a8ce7d3e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fogManager: {fileID: 0}
+  maskMaterial: {fileID: 2100000, guid: 30e1334e4a7032249a94f34b407fb133, type: 2}
+  fogMaskLayerName: FogMask
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 64
+  rayCount: 512
   trailRadiusWorld: 0.8
   trailHold: 0.08
   trailHz: 20
-  radiusWorld: 3
-  whiteHold: 0.8
+  impactRadiusWorld: 6
+  impactHold: 0.8
   useVelocityStop: 1
   stopSpeed: 0.1
   stopHoldTime: 0.05
   revealOnFirstCollision: 1
+  objectSound: {fileID: 0}
+  logTrail: 0
+  logImpact: 1
 --- !u!114 &4670974043389246146
 MonoBehaviour:
   m_ObjectHideFlags: 0
