@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,6 +8,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
 {
     public PlayerData data;
     public PersonAnimator personAnimator;
+    public VisionRaycast visionRaycast;
 
     private Rigidbody2D rb;
     private Vector2 movement;
@@ -55,16 +57,21 @@ public class PlayerController2D_InputSystem : MonoBehaviour
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement * data.moveSpeed * data.moveMulti);
+        visionRaycast.isMoving = movement.x != 0 || movement.y != 0;
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
             gameOverUI.gameOver();
             this.enabled = false;
         }
-        else if (collision.gameObject.CompareTag("Pickup"))
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Pickup"))
         {
             data.inventory[collision.GetComponent<Pickup>().pickupType]++;
             inventoryUI.updateAmount();

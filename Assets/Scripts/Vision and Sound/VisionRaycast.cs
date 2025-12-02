@@ -4,10 +4,9 @@ using UnityEngine;
 public class VisionRaycast : MonoBehaviour
 {
     public float visionRadius;
+    public bool isMoving;
 
     private int _rayCount = 360;
-    int pointCount;
-
     private int _pointCount;
     private List<Vector2> _pointPos;
 
@@ -33,10 +32,13 @@ public class VisionRaycast : MonoBehaviour
         _pointPos = new List<Vector2>();
 
         Trigger();
+        UpdateRays();
+        BuildMesh();
     }
 
     void FixedUpdate()
     {
+
         Trigger();
         UpdateRays();
         BuildMesh();
@@ -68,14 +70,33 @@ public class VisionRaycast : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(rays[i].pos, rays[i].dir, visionRadius, LayerMask.GetMask("Obstacle"));
             if (hit)
             {
-                // Go to wall if hit
-                rays[i].pos += rays[i].dir * (hit.distance - 0.01f);
+                Vector2 wallPos = rays[i].dir * (hit.distance - 0.01f);
+
+                // Check orientation
+                bool verticalWall = Mathf.Abs(hit.normal.x) > Mathf.Abs(hit.normal.y);
+
+                if (verticalWall)
+                {
+                    // LEFT/RIGHT wall
+                    if (hit.distance + 0.15f < visionRadius)
+                        rays[i].pos += wallPos - hit.normal * 0.1f;
+                    else
+                        rays[i].pos += rays[i].dir * visionRadius;
+                }
+                else
+                {
+                    // UP/DOWN wall
+                    if (hit.distance + 1f < visionRadius)
+                        rays[i].pos += wallPos - hit.normal * 0.95f;
+                    else
+                        rays[i].pos += rays[i].dir * visionRadius;
+                }
             }
             else
             {
-                // Go to vision radius if no hit
                 rays[i].pos += rays[i].dir * visionRadius;
             }
+
 
             _pointPos[i] = rays[i].pos;
         }
