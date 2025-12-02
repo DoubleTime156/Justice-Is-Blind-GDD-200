@@ -2417,7 +2417,7 @@ PrefabInstance:
     - target: {fileID: 3531471598708548603, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3545401168799289422, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
@@ -2528,6 +2528,11 @@ PrefabInstance:
         type: 3}
       propertyPath: playerVision
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8804006639392312957, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
+      propertyPath: tapRadiusWorld
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8804006639392312957, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
@@ -18378,6 +18383,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1219825974}
     m_Modifications:
+    - target: {fileID: 461728616064917407, guid: f1f0a8780a2273f4da51be4faf6c8a14,
+        type: 3}
+      propertyPath: renderers.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1540599939337548769, guid: f1f0a8780a2273f4da51be4faf6c8a14,
         type: 3}
       propertyPath: RoamType

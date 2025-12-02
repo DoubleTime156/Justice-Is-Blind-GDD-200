@@ -401,8 +401,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2855f5d276aa65d45a21d3a8ce7d3e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fogManager: {fileID: 0}
+  maskMaterial: {fileID: 2100000, guid: 30e1334e4a7032249a94f34b407fb133, type: 2}
+  fogMaskLayerName: FogMask
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 64
+  rayCount: 512
   trailRadiusWorld: 0.8
+  trailHold: 0.08
+  trailHz: 20
+  impactRadiusWorld: 6
+  impactHold: 0.8
+  useVelocityStop: 1
+  stopSpeed: 0.1
+  stopHoldTime: 0.05
+  revealOnFirstCollision: 1
+  objectSound: {fileID: 0}
+  logTrail: 0
+  logImpact: 1
 --- !u!114 &-7942899025305146320
 MonoBehaviour:
   m_ObjectHideFlags: 0
