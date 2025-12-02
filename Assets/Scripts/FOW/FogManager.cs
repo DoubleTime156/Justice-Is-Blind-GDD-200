@@ -209,7 +209,6 @@ public class FogManager : MonoBehaviour
             fogDisplayMaterial.SetFloat(DispMemAlphaID, memoryAlpha);
         }
 
-        // >>> GLOBALS for all masked sprites <<<
         Shader.SetGlobalTexture("_LiveMaskTex", liveMask);
         Shader.SetGlobalVector("_WorldMin", new Vector4(worldMin.x, worldMin.y, 0, 0));
         Shader.SetGlobalVector("_WorldSize", new Vector4(size.x, size.y, 0, 0));
