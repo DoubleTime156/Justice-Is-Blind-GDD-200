@@ -6,22 +6,29 @@ using UnityEngine.InputSystem;
 public class PlayerController2D_InputSystem : MonoBehaviour
 {
     public PlayerData data;
+    public PersonAnimator personAnimator;
 
     private Rigidbody2D rb;
     private Vector2 movement;
     private GameManager gameManager;
+    private Inventory inventoryUI;
+    private GameOver gameOverUI;
     public AudioSource coinPickup;
     public AudioSource bottlePickup;
+    public AudioSource keyPickup;
 
     private int[] defaultInventory = { 0, 0 };
+
+    //public Animator animator;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+        gameOverUI = GameObject.Find("Game_Over_Screen").GetComponent<GameOver>();
+        inventoryUI = GameObject.Find("Inventory").GetComponent<Inventory>();
 
         // Reset PlayerData
-        data.heldItem = 0;
+        data.heldItem = 1;
         data.inventory = defaultInventory;
         data.hasKey = false;
     }
@@ -29,23 +36,25 @@ public class PlayerController2D_InputSystem : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         movement = context.ReadValue<Vector2>();
+        personAnimator.movement = movement;
     }
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * data.moveSpeed * data.moveMulti);
+        rb.MovePosition(rb.position + movement * data.moveSpeed);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            gameManager.gameOver();
+            gameOverUI.gameOver();
             this.enabled = false;
-        }else if (collision.gameObject.CompareTag("Pickup"))
+        }
+        else if (collision.gameObject.CompareTag("Pickup"))
         {
             data.inventory[collision.GetComponent<Pickup>().pickupType]++;
-            gameManager.updateAmount();
+            inventoryUI.updateAmount();
             Debug.Log("Pickup collected");
             switch (collision.GetComponent<Pickup>().pickupType) // Play audio for pickups
             {
@@ -55,39 +64,16 @@ public class PlayerController2D_InputSystem : MonoBehaviour
                 case 1:
                     bottlePickup.Play();
                     break;
-            }   
+            }
             Destroy(collision.gameObject);
 
-        } else if (collision.gameObject.CompareTag("Key") && !data.hasKey)
+        }
+        else if (collision.gameObject.CompareTag("Key") && !data.hasKey)
         {
+            keyPickup.Play();
             data.hasKey = true;
+            inventoryUI.updateAmount();
             Destroy(collision.gameObject);
         }
     }
-
-    public void onSneak(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            data.moveMulti = 0.5f;
-        }
-        else if (context.canceled)
-        {
-            data.moveMulti = 1.0f;
-        }
-
-    }
-
-    public void onSprint(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            data.moveMulti = 2.0f;
-        }
-        else if (context.canceled)
-        {
-            data.moveMulti = 1.0f;
-        }
-    }
-    
 }

@@ -2,21 +2,33 @@ Shader "Custom/FogPainterSmooth"
 {
     Properties
     {
-        _MainTex   ("Base (Fog Memory)", 2D) = "black" {}
-        _Position  ("Position (UV)", Vector) = (0,0,0,0)
-        _Radius    ("Radius (UV)", Float) = 0.05
-        _Intensity ("Write Intensity", Range(0,1)) = 1.0   // 1=white, 0.3=gray memory
-        _Edge      ("Edge Softness (UV)", Range(0,0.1)) = 0.02
-        _WriteMode ("0=LERP, 1=MAX", Float) = 0
-    }
+        _MainTex ("Base (Fog Memory)", 2D) = "black" {}
+        _WorldMin ("World Min", Vector) = (0,0,0,0)
+        _WorldSize("World Size", Vector) = (1,1,0,0)
+        _LiveMaskTex ("Live Mask", 2D) = "black" {}
 
+        _BurstCount ("Burst Count", Int) = 0
+        _BurstPos   ("Burst Pos", Vector) = (0,0,0,0)
+        _BurstRad   ("Burst Rad", Vector) = (0,0,0,0)
+
+        _QueuedCount ("Queued Count", Int) = 0
+        _QueuedPos   ("Queued Pos", Vector) = (0,0,0,0)
+        _QueuedRad   ("Queued Rad", Vector) = (0,0,0,0)
+
+        _MemWriteIntensity ("Memory Write Intensity", Range(0,1)) = 0.30
+        _MemCoverageBiasWorld ("Coverage Bias (world)", Float) = 0.0
+        _WriteLive   ("Write Live", Int) = 1
+        _WriteBursts ("Write Bursts", Int) = 1
+        _WriteQueued ("Write Queued", Int) = 0
+    }
     SubShader
     {
         Tags { "RenderType"="Opaque" }
         LOD 100
-        Blend Off
         ZWrite Off
         ZTest Always
+        Cull Off
+        Blend Off
 
         Pass
         {
@@ -25,48 +37,82 @@ Shader "Custom/FogPainterSmooth"
             #pragma vertex vert
             #pragma fragment frag
             #include "UnityCG.cginc"
+            #define MAX_BURSTS 32
+            #define MAX_QUEUED 64
 
-            struct appdata { float4 vertex : POSITION; float2 uv : TEXCOORD0; };
-            struct v2f      { float2 uv : TEXCOORD0; float4 vertex : SV_POSITION; };
+            struct appdata { float4 vertex:POSITION; float2 uv:TEXCOORD0; };
+            struct v2f { float2 uv:TEXCOORD0; float4 vertex:SV_POSITION; };
 
             sampler2D _MainTex;
-            float4 _Position;
-            float  _Radius;
-            float  _Intensity;
-            float  _Edge;
-            float  _WriteMode; 
+            sampler2D _LiveMaskTex;
+            float4 _WorldMin, _WorldSize;
 
-            v2f vert(appdata v)
+            int _BurstCount;
+            float4 _BurstPos[MAX_BURSTS];
+            float4 _BurstRad[MAX_BURSTS];
+
+            int _QueuedCount;
+            float4 _QueuedPos[MAX_QUEUED];
+            float4 _QueuedRad[MAX_QUEUED];
+
+            float _MemWriteIntensity;
+            float _MemCoverageBiasWorld;
+            int _WriteLive, _WriteBursts, _WriteQueued;
+
+            v2f vert(appdata v){ v2f o; o.vertex = UnityObjectToClipPos(v.vertex); o.uv = v.uv; return o; }
+
+            float maskSoft(float2 p, float2 c, float r, float f)
             {
-                v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = v.uv;
-                return o;
+                float d = distance(p, c);
+                float e = max(1e-6f, f);
+                return saturate(1.0 - smoothstep(r - e, r + e, d));
             }
 
             fixed4 frag(v2f i) : SV_Target
             {
                 float current = tex2D(_MainTex, i.uv).r;
 
-                float dist   = distance(i.uv, _Position.xy);
-                float edge   = max(0.0, _Edge);
-                float inside = 1.0 - smoothstep(_Radius - edge, _Radius, dist);
+                float2 pWorld = _WorldMin.xy + i.uv * _WorldSize.xy;
 
-                float written = current;
+                float writeVal = current;
 
-                if (_WriteMode < 0.5)
+                if (_WriteLive > 0)
                 {
-                    float target = _Intensity;
-                    written = lerp(current, target, inside);
-                }
-                else
-                {
-                    float target = _Intensity;
-                    float insideValue = max(current, target);
-                    written = lerp(current, insideValue, step(0.0001, inside)); 
+                    float liveMask = tex2D(_LiveMaskTex, i.uv).r;
+                    writeVal = max(writeVal, liveMask * _MemWriteIntensity);
                 }
 
-                return fixed4(written, written, written, 1);
+                if (_WriteBursts > 0)
+                {
+                    int n = clamp(_BurstCount, 0, MAX_BURSTS);
+                    [unroll]
+                    for (int k=0;k<n;++k)
+                    {
+                        float rB = max(0.0, _BurstRad[k].x + _MemCoverageBiasWorld);
+                        float fB = max(1e-6f, _BurstRad[k].y);
+                        float mB = maskSoft(pWorld, _BurstPos[k].xy, rB, fB);
+                        writeVal = max(writeVal, mB * _MemWriteIntensity);
+                    }
+                }
+
+                if (_WriteQueued > 0)
+                {
+                    int qn = clamp(_QueuedCount, 0, MAX_QUEUED);
+                    [unroll]
+                    for (int m=0;m<qn;++m)
+                    {
+                        float rQ = max(0.0, _QueuedRad[m].x + _MemCoverageBiasWorld);
+                        float inten = saturate(_QueuedRad[m].z);
+                        float mode  = _QueuedRad[m].w;
+                        float2 cQ = _QueuedPos[m].xy;
+                        float mQ = maskSoft(pWorld, cQ, rQ, 0.5);
+                        float t  = mQ * inten;
+                        writeVal = (mode > 0.5) ? max(writeVal, t) : lerp(writeVal, t, mQ);
+                    }
+                }
+
+                writeVal = saturate(writeVal);
+                return fixed4(writeVal, writeVal, writeVal, 1);
             }
             ENDCG
         }

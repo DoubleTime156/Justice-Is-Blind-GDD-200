@@ -41,27 +41,7 @@ public class FogRevealer : MonoBehaviour
         isRevealing = true;
     }
 
-    void Update()
-    {
-        if (!isRevealing) return;
-
-        timer += Time.deltaTime;
-
-        if (timer > fullRevealDuration)
-        {
-            float t = (timer - fullRevealDuration) / fadeDuration;
-            t = Mathf.Clamp01(t);
-
-            float visibility = Mathf.Lerp(1f, 0.3f, t);
-            PaintFog(visibility);
-
-            if (t >= 1f)
-            {
-                isRevealing = false;
-                Destroy(this); 
-            }
-        }
-    }
+   
 
     void PaintFog(float strength)
     {

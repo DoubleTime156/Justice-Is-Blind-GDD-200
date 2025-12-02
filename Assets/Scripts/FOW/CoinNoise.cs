@@ -1,27 +1,47 @@
 using UnityEngine;
 
-public class CoinNoiseOnLand : MonoBehaviour
+[RequireComponent(typeof(Rigidbody2D))]
+public class CoinNoise : MonoBehaviour
 {
-    public NoiseReveal noise;
-    public float radiusWorld = 6f;
-    public float whiteHold = 0.8f;
-    public float fadeSeconds = 2f;
-    public bool useVelocityStop = true;
-    public float stopSpeed = 0.1f;
-    public float stopHoldTime = 0.05f;
+    public FogManager fogManager;
 
-    private Rigidbody2D rb;
-    private bool fired;
-    private float stillTimer;
+    public float trailRadiusWorld = 0.8f;
+    private float trailHold = 0.08f;
+    private float trailHz = 20f;
+
+    private float radiusWorld = 6f;
+    private float whiteHold = 0.8f;
+
+    private bool useVelocityStop = true;
+    private float stopSpeed = 0.1f;
+    private float stopHoldTime = 0.05f;
+    private bool revealOnFirstCollision = true;
+
+    Rigidbody2D rb;
+    bool fired;
+    float stillTimer;
+    float trailTimer;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        if (fogManager == null) fogManager = FindObjectOfType<FogManager>();
     }
 
     void Update()
     {
+        if (!fired && fogManager != null && trailRadiusWorld > 0f && trailHz > 0f)
+        {
+            trailTimer -= Time.deltaTime;
+            if (trailTimer <= 0f)
+            {
+                fogManager.TriggerVisionBurstAt(transform.position, trailRadiusWorld, Mathf.Max(0.0001f, trailHold), fogManager.defaultBurstFalloff);
+                trailTimer += 1f / trailHz;
+            }
+        }
+
         if (fired || !useVelocityStop || rb == null) return;
+
         if (rb.linearVelocity.sqrMagnitude <= stopSpeed * stopSpeed)
         {
             stillTimer += Time.deltaTime;
@@ -35,18 +55,18 @@ public class CoinNoiseOnLand : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!fired) Fire();
+        if (!fired && revealOnFirstCollision) Fire();
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!fired && revealOnFirstCollision) Fire();
     }
 
     void Fire()
     {
-        if (noise == null) noise = FindObjectOfType<NoiseReveal>();
-        if (noise != null)
-        {
-            noise.fullBrightTime = whiteHold;
-            noise.fadeDuration = fadeSeconds;
-            noise.RevealAtWorld(transform.position, radiusWorld);
-        }
+        if (fogManager == null) return;
+        fogManager.TriggerVisionBurstAt(transform.position, Mathf.Max(0f, radiusWorld), Mathf.Max(0.0001f, whiteHold), fogManager.defaultBurstFalloff);
         fired = true;
     }
 }

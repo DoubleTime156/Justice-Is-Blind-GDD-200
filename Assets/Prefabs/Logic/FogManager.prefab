@@ -44,10 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90478f3abaf4425418730d1ffbf8566b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerVision: {fileID: 0}
   fogPainterMaterial: {fileID: 2100000, guid: 62c38e4fd275e5b40aa8ec157c960444, type: 2}
   fogDisplayMaterial: {fileID: 2100000, guid: 24efac89a47560449b45e6350ed67b64, type: 2}
   player: {fileID: 0}
-  rtSize: 512
+  rtSize: 4096
   worldMin: {x: -100, y: -100}
   worldMax: {x: 100, y: 100}
-  revealRadiusUV: 0.02
+  defaultBurstFalloff: 0.75
+  maxBursts: 8
