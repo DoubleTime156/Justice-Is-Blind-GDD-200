@@ -4530,7 +4530,7 @@ PrefabInstance:
     - target: {fileID: 2969911981459378825, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
       propertyPath: orthographic size
-      value: 2.255
+      value: 5.4
       objectReference: {fileID: 0}
     - target: {fileID: 2969911981459378825, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
@@ -63995,9 +63995,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 5
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2

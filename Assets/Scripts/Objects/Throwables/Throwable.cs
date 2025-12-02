@@ -94,41 +94,43 @@ public class Throwable : MonoBehaviour
   //  }
 
 
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("throwable hit wall!");
-        inAir = false;
-        switch (item)
-        {
-            case 0:
-                itemBehavior();
-                break;
-            case 1:
-                itemBehavior();
-                break;
-        }
-    }
+  public void OnCollisionEnter2D(Collision2D collision)
+  {
+      if (collision.gameObject.CompareTag("Enemy") && item == 1 &&
+          inAir) // If a bottle is still in air, destroy enemies they touch
+      {
+          Debug.Log("Has found an enemy collider tag");
+          knockoutParticles = Instantiate(knockoutParticles, collision.transform.position, Quaternion.identity);
+          Destroy(collision.gameObject);
+          rb.linearVelocity = new Vector2(0, 0);
+          itemBehavior();
+          fogManager.TriggerVisionBurstAt(transform.position, Mathf.Max(0f, radiusWorld), Mathf.Max(0.0001f, whiteHold),
+              fogManager.defaultBurstFalloff);
 
-    public void OnTriggerEnter2D(Collider2D collision) 
-    {
-        Debug.Log("Has Triggered Collider");
-        if (collision.CompareTag("Enemy") && item == 1 && inAir) // If a bottle is still in air, destroy enemies they touch
-        {
-            Debug.Log("Has found an enemy collider tag");
-            knockoutParticles = Instantiate(knockoutParticles, collision.transform.position, Quaternion.identity);
-            Destroy(collision.gameObject);
-            rb.linearVelocity = new Vector2(0, 0);
-            itemBehavior();
-            fogManager.TriggerVisionBurstAt(transform.position, Mathf.Max(0f, radiusWorld), Mathf.Max(0.0001f, whiteHold), fogManager.defaultBurstFalloff);
+      }
 
-        }
-        if (collision.CompareTag("Enemy") && item == 0 && !inAir) // When an enemy inspects a coin, pick it up before going back to path
-        {
-            StartCoroutine(enemyPickupCoin(2.5f));
-        }
-    }
+      if (collision.gameObject.CompareTag("Enemy") && item == 0 &&
+          !inAir) // When an enemy inspects a coin, pick it up before going back to path
+      {
+          StartCoroutine(enemyPickupCoin(2.5f));
+      }
 
-    private void spawnParticles()
+      if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+      {
+          inAir = false;
+          switch (item)
+          {
+              case 0:
+                  itemBehavior();
+                  break;
+              case 1:
+                  itemBehavior();
+                  break;
+          }
+      }
+    } 
+  
+  private void spawnParticles()
     {
         shatterParticles = Instantiate(shatterParticles, transform.position, Quaternion.identity);
     }
