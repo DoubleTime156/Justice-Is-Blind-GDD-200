@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,11 +8,13 @@ public class PlayerController2D_InputSystem : MonoBehaviour
 {
     public PlayerData data;
     public PersonAnimator personAnimator;
+    public VisionRaycast visionRaycast;
 
     private Rigidbody2D rb;
     private Vector2 movement;
     private GameManager gameManager;
     private Inventory inventoryUI;
+    private GameOver gameOverUI;
     public AudioSource coinPickup;
     public AudioSource bottlePickup;
     public AudioSource keyPickup;
@@ -23,7 +26,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+        gameOverUI = GameObject.Find("Game_Over_Screen").GetComponent<GameOver>();
         inventoryUI = GameObject.Find("Inventory").GetComponent<Inventory>();
 
         // Reset PlayerData
@@ -38,19 +41,37 @@ public class PlayerController2D_InputSystem : MonoBehaviour
         personAnimator.movement = movement;
     }
 
-    void FixedUpdate()
+    public void OnRun(InputAction.CallbackContext context)
     {
-        rb.MovePosition(rb.position + movement * data.moveSpeed);
+        if (context.performed)
+        {
+            data.moveMulti = 2.0f;
+        }
+        else if (context.canceled)
+        {
+            data.moveMulti = 1.0f;
+        }
+
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    void FixedUpdate()
+    {
+        rb.MovePosition(rb.position + movement * data.moveSpeed * data.moveMulti);
+        visionRaycast.isMoving = movement.x != 0 || movement.y != 0;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            gameManager.gameOver();
+            gameOverUI.gameOver();
             this.enabled = false;
         }
-        else if (collision.gameObject.CompareTag("Pickup"))
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Pickup"))
         {
             data.inventory[collision.GetComponent<Pickup>().pickupType]++;
             inventoryUI.updateAmount();

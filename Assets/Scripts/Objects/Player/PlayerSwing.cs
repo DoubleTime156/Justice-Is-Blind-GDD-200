@@ -1,62 +1,90 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 
 
 public class PlayerSwing : MonoBehaviour {
 
     public float playerViewRadius;
     public float playerViewAngle;
+    public ParticleSystem knockoutParticles;
+
+    [SerializeField] private PersonAnimator personAnimator;
+    [SerializeField] private Animator _animator;
+    private GameObject swingRange;
+    private void Awake()
+    {
+        swingRange = transform.Find("SwingRange").gameObject;
+    }
 
     public void OnSwing(InputAction.CallbackContext context)
     {
         // Only handle swing when the action is performed
         if (!context.performed) return;
-        
+
+        _animator.SetTrigger("OnSwing");
+
         // Find all enemies inside the view radius
-        Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(transform.position, playerViewRadius, LayerMask.GetMask("Enemy"));
+        Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(swingRange.transform.position, playerViewRadius, LayerMask.GetMask("Enemy"));
 
         // Get mouse world position and rotate player to face it
         Vector3 mouseScreenPos = Mouse.current.position.ReadValue();
-        mouseScreenPos.z = Camera.main.WorldToScreenPoint(transform.position).z;
+        mouseScreenPos.z = Camera.main.WorldToScreenPoint(swingRange.transform.position).z;
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
-        //transform.rotation = Quaternion.LookRotation(Vector3.forward, mouseWorldPos - transform.position);
+        Vector3 direction = mouseWorldPos - swingRange.transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        swingRange.transform.rotation = Quaternion.Euler(0, 0, angle);
+
 
         // Collect only the valid targets (in angle and not blocked)
-        var targets = new System.Collections.Generic.List<Collider2D>();
+        var enemies = new System.Collections.Generic.List<Collider2D>();
 
         foreach (Collider2D enemyCollider in enemiesInRange)
         {
             if (enemyCollider == null) continue;
 
-            Vector2 dir = (Vector2)(enemyCollider.transform.position - transform.position);
+            Vector2 dir = (Vector2)(enemyCollider.transform.position - swingRange.transform.position);
             float distance = dir.magnitude;
             if (distance <= 0f) continue;
             dir.Normalize();
 
-            float angle = Vector2.Angle(transform.up, dir);
+            float angleToEnemy = Vector2.Angle(swingRange.transform.up, dir);
 
-            if (angle <= playerViewAngle)
+
+            if (angleToEnemy <= playerViewAngle)
             {
                 // Raycast towards the enemy to check for obstacles
-                RaycastHit2D hitObstacle = Physics2D.Raycast(transform.position, dir, distance, LayerMask.GetMask("Obstacle"));
+                RaycastHit2D hitObstacle = Physics2D.Raycast(swingRange.transform.position, dir, distance, LayerMask.GetMask("Obstacle"));
 
                 // If no obstacle hit, mark this enemy as a valid target, and get enemy data
                 if (hitObstacle.collider == null)
                 {
-                    targets.Add(enemyCollider);
-                    //EnemyData enemyData = enemyCollider.GetComponent<EnemyData>();
+                    enemies.Add(enemyCollider);
                 }
             }
         }
 
+
         // Destroy only the valid targets collected above
-        if (targets.Count > 0)
+        if (enemies.Count > 0)
         {
-            foreach (var target in targets)
+            foreach (var target in enemies)
             {
                 if (target != null)
-                    Destroy(target.gameObject);
-                
+                {
+                    // Rotates the whole enemy, disable its AI,and collider
+                    target.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    target.transform.GetChild(1).rotation = Quaternion.Euler(0, 0, -90); // Gets enemy sprite child and rotates it
+                    target.GetComponentInChildren<Light2D>().enabled = false;
+                    target.GetComponent<EnemyAI>().enabled = false;
+                    target.GetComponent<Collider2D>().enabled = false;
+                    
+
+                    // Play knockout particles
+                    ParticleSystem particles = Instantiate(knockoutParticles, target.transform.position, Quaternion.identity);
+                    particles.Play();
+
+                }
             }
         }
     }

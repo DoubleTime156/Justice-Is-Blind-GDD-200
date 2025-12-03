@@ -1,2 +1,15 @@
 fileFormatVersion: 2
 guid: 9a186e6ab5803644d90768192bf82f70
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - knockoutParticles: {fileID: 1104930591671799747, guid: e0e73ffb190d399468fb203a23f9f11c,
+      type: 3}
+  - personAnimator: {instanceID: 0}
+  - _animator: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -9,6 +9,7 @@ public class Grid : MonoBehaviour
 {
     public Tilemap tilemap;
     public Tilemap collisionMap;
+    public Tilemap collisionDecoMap;
     public LayerMask unwalkableMask;
     public float nodeSize;
 
@@ -48,8 +49,10 @@ public class Grid : MonoBehaviour
             {
                 worldPoint = bottomLeft + new Vector3(x * nodeSize + nodeSize / 2f, y * nodeSize + nodeSize / 2f, 0);
                 bool walkable = !collisionMap.HasTile(new Vector3Int(collisionMap.cellBounds.xMin + x, collisionMap.cellBounds.yMin + y, 0));
+
                 // For collision in the future:
                 /* bool walkable = !Physics2D.OverlapCircle(new Vector3(worldPoint.x, worldPoint.y, 0), nodeSize / 2f - tiny, unwalkableMask); */
+
                 grid[x, y] = new Node(walkable, worldPoint, x, y);
             }
         }
