@@ -464,7 +464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34e360f299e23494f867acb6e56091b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visionRadius: 5
+  visionRadius: 3
   isMoving: 0
 --- !u!23 &7113713087504103376
 MeshRenderer:
