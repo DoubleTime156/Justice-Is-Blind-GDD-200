@@ -18,8 +18,8 @@ public class PersonAnimator : MonoBehaviour
 
 
         //if (onSwing) onSwing = false;
-        
-       // _animator.SetBool("CaneSmash", );
+
+        // _animator.SetBool("CaneSmash", );
     }
  
 }
