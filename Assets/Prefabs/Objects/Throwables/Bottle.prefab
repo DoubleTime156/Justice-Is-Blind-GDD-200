@@ -408,6 +408,8 @@ MonoBehaviour:
     m_Bits: 64
   rayCount: 512
   trailRadiusWorld: 0.8
+  trailHold: 0.08
+  trailHz: 100
   impactRadiusWorld: 6
   impactHold: 0.8
 --- !u!114 &-7942899025305146320
