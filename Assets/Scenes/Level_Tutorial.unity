@@ -879,7 +879,7 @@ PrefabInstance:
     - target: {fileID: 2969911981459378825, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
       propertyPath: orthographic size
-      value: 2.255
+      value: 2.115
       objectReference: {fileID: 0}
     - target: {fileID: 2969911981459378825, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
@@ -906,6 +906,11 @@ PrefabInstance:
       propertyPath: personAnimator
       value: 
       objectReference: {fileID: 329166481}
+    - target: {fileID: 4094326966453593539, guid: 114436765f7463c49826ba3a8920a5a2,
+        type: 3}
+      propertyPath: isChasingPlayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4094326966453593539, guid: 114436765f7463c49826ba3a8920a5a2,
         type: 3}
       propertyPath: playerViewRadius
@@ -53444,6 +53449,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerViewRadius: 3
   playerViewAngle: 45
+  isChasingPlayer: 0
   knockoutParticles: {fileID: 0}
   personAnimator: {fileID: 0}
   _animator: {fileID: 0}
