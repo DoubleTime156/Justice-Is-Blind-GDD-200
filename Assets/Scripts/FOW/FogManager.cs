@@ -7,6 +7,10 @@ public class FogManager : MonoBehaviour
     public Material fogPainterMaterial;
     public Material fogDisplayMaterial;
     public Transform player;
+    public RenderTexture unlitWorldTexture;
+    static readonly int UnlitWorldTexID = Shader.PropertyToID("_UnlitWorldTex");
+
+
 
     public int rtSize = 4096;
 
@@ -131,6 +135,7 @@ public class FogManager : MonoBehaviour
         {
             var b = bursts[i]; b.t -= Time.deltaTime;
             if (b.t <= 0f) bursts.RemoveAt(i); else bursts[i] = b;
+          
         }
 
         var liveMask = ResolveLiveMask();
@@ -207,6 +212,9 @@ public class FogManager : MonoBehaviour
                 fogDisplayMaterial.SetVectorArray(DispBurstRadID, radA);
             }
             fogDisplayMaterial.SetFloat(DispMemAlphaID, memoryAlpha);
+
+            if (unlitWorldTexture != null)
+                fogDisplayMaterial.SetTexture(UnlitWorldTexID, unlitWorldTexture);
         }
 
         Shader.SetGlobalTexture("_LiveMaskTex", liveMask);
