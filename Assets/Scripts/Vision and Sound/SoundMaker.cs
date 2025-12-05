@@ -21,6 +21,8 @@ public class SoundMaker : MonoBehaviour
     private int _pointCount;
     private List<Vector2> _pointPos;
 
+    private SoundMeter soundMeter;
+
     struct RaySample
     {
         public Vector2 pos;
@@ -38,6 +40,12 @@ public class SoundMaker : MonoBehaviour
 
     void Awake()
     {
+        // Setup Sound Meter
+        soundMeter = FindFirstObjectByType<SoundMeter>();
+        soundMeter.newSoundLevel = 1.0f;
+        soundMeter.transitionSpeed = 8.0f;
+
+        // Setup components
         IsMakingSound = false;
         active = true;
         mesh = new Mesh();
@@ -56,6 +64,7 @@ public class SoundMaker : MonoBehaviour
         float dt = Time.fixedDeltaTime;
         t += dt;
 
+        // Update rays and mesh
         UpdateRays(dt);
         BuildMeshAndCollider();
 
@@ -63,7 +72,13 @@ public class SoundMaker : MonoBehaviour
         if (t >= _lifetime) active = false;
         else return;
 
-        if (t >= _deathTime) Destroy(gameObject);
+        if (t >= _deathTime)
+        {
+            soundMeter.newSoundLevel = 0.075f;
+            soundMeter.transitionSpeed = 1.0f;
+
+            Destroy(gameObject);
+        }
     }
 
     void Trigger()
