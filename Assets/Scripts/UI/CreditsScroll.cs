@@ -17,6 +17,6 @@ public class CreditsScroll : MonoBehaviour
     {
         rectTransform.anchoredPosition += new Vector2(0, scrollSpeed*Time.deltaTime);
         //Debug.Log(rectTransform.position.y);
-        if(rectTransform.position.y> 2600) { gameManager.mainMenu(); }
+        if(rectTransform.position.y> 3500) { gameManager.mainMenu(); }
     }
 }
