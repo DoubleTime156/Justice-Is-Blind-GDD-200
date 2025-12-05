@@ -423,7 +423,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 1.5643e-10, y: -657.45}
-  m_SizeDelta: {x: 509.4476, y: 234.906}
+  m_SizeDelta: {x: 750, y: 234.906}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1862222313
 MonoBehaviour:
@@ -445,33 +445,57 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Credits
+  m_text: 'Design Director
 
+    Morgan Richter
 
-    Team Lead
+    
 
+    Technical Producer
 
-    Insert name here
+    Anders
+    Halverson
 
+    
 
-    Lead Programmer
+    Physics and UI Programming
 
+    Braden Wohlfeil
 
-    Insert
-    name here
+    
 
+    Gameplay
+    Programming
 
-    Programmers
+    Jesse Lor
 
+    Tara Pulera
 
-    Insert name here
+    
 
+    Audio Programming
 
-    Artists
+    Harper
+    Krumunaur
 
+    
 
-    Insert
-    name here'
+    Level Design
+
+    Charlie Steilen
+
+    
+
+    2D Animation
+
+    Lukas
+    Kelly
+
+    
+
+    2D Art Assets
+
+    Marissa Wendt'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c1ef773ec48426a40bcde3db7228e9df, type: 2}
   m_sharedMaterial: {fileID: 1830332523205378746, guid: c1ef773ec48426a40bcde3db7228e9df,
