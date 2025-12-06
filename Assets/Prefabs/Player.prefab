@@ -1231,7 +1231,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   tapKey: 32
-  tapRadiusWorld: 6
+  tapRadiusWorld: 7
   tapHoldSeconds: 0.8
   rayCount: 512
   objectSound: {fileID: 7406056349144967297}
