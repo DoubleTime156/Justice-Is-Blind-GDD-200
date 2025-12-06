@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     public void mainMenu() // Load main menu scene
     {
         Debug.Log("Quit to menu");
+        Time.timeScale = 1; //Prevents the game from still being paused if played again
         SceneManager.LoadScene("Main Menu");
         Time.timeScale = 1f;
     }

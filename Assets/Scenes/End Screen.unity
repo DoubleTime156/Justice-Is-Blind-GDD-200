@@ -244,7 +244,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.000061035, y: 0}
-  m_SizeDelta: {x: 4000, y: 4000}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1416736973
 MonoBehaviour:
@@ -399,6 +399,7 @@ GameObject:
   - component: {fileID: 1862222314}
   - component: {fileID: 1862222313}
   - component: {fileID: 1862222315}
+  - component: {fileID: 1862222316}
   m_Layer: 5
   m_Name: Credits
   m_TagString: Untagged
@@ -422,8 +423,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.5643e-10, y: -657.45}
-  m_SizeDelta: {x: 750, y: 234.906}
+  m_AnchoredPosition: {x: 0, y: -657.5}
+  m_SizeDelta: {x: 1300, y: 235}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1862222313
 MonoBehaviour:
@@ -445,57 +446,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Design Director
-
-    Morgan Richter
-
-
-
-    Technical Producer
-
-    Anders
-    Halverson
-
-
-
-    Physics and UI Programming
-
-    Braden Wohlfeil
-
-
-
-    Gameplay
-    Programming
-
-    Jesse Lor
-
-    Tara Pulera
-
-
-
-    Audio Programming
-
-    Harper
-    Krumunaur
-
-
-
-    Level Design
-
-    Charlie Steilen
-
-
-
-    2D Animation
-
-    Lukas
-    Kelly
-
-
-
-    2D Art Assets
-
-    Marissa Wendt'
+  m_text: "Design Director\r\nMorgan Richter\r\n\r\nTechnical Producer\r\nAnders
+    Halverson\r\n\r\nPhysics and UI Programming\r\nBraden Wohlfeil\r\n\r\nGameplay
+    Programming\r\nJesse Lor\r\nTara Pulera\r\n\r\nAudio Programming\r\nHarper Krumenauer\r\n\r\nLevel
+    Design\r\nCharlie Steilen\r\n\r\n2D Animation\r\nLukas Kelly\r\n\r\n2D Art Assets\r\nMarissa
+    Wendt \n\nFonts Used\n\rRobot Crush - Hawtpixel (dafont)\nTypewriter a602 - Mr.Fisk
+    Fonts (dafont)\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c1ef773ec48426a40bcde3db7228e9df, type: 2}
   m_sharedMaterial: {fileID: 1830332523205378746, guid: c1ef773ec48426a40bcde3db7228e9df,
@@ -588,6 +544,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 80
+  gameManager: {fileID: 1862222316}
+--- !u!114 &1862222316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1862222311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b17a1030d1f241b44b8c33e50cc15631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 684de57402381d94dbb0dd7a282858f3, type: 2}
 --- !u!1 &1920253022
 GameObject:
   m_ObjectHideFlags: 0
