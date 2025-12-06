@@ -156,7 +156,7 @@ public class SoundMaker : MonoBehaviour
 
         Color[] colors = new Color[vertices.Length];
 
-        // Find max distance (edge) for gradient scaling
+        // Find max distance for gradient scaling
         float maxDist = 0f;
         for (int i = 1; i < vertices.Length; i++)
             maxDist = Mathf.Max(maxDist, vertices[i].magnitude);
