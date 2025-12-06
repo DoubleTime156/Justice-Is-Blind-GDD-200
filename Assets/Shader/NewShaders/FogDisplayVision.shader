@@ -105,25 +105,27 @@ SubShader
                 }
 
                 float seenNow = max(liveMask, seenBurst);
-                if (seenNow > 0.001) return float4(0,0,0,0);
+                if (seenNow > 0.001)
+                    return float4(0,0,0,0);  
 
                 float memory = tex2D(_FogTex, fogUV).r;
 
                 float2 sceneUV = i.screenPos.xy / i.screenPos.w;
-                float4 sceneCol = sampleScene(sceneUV);
-                float gray = dot(sceneCol.rgb, float3(0.299, 0.587, 0.144));   
-                float3 desat = float3(gray,gray,gray);
+
+                float4 sceneCol = tex2D(_UnlitWorldTex, sceneUV);
+
+                float gray      = dot(sceneCol.rgb, float3(0.299, 0.587, 0.114));
+                float3 desat    = float3(gray, gray, gray);
 
                 if (memory > 0.001)
                 {
-
                     float3 mixCol = lerp(desat, _MemoryColor.rgb, _MemoryAlpha);
                     return float4(mixCol, 1.0);
                 }
 
                 return float4(_Darkness.rgb, 1.0);
-
             }
+
 
         ENDCG
     }

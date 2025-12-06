@@ -80,7 +80,7 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Intensity: 0.3
-    - _MemCoverageBiasWorld: 0.0036621094
+    - _MemCoverageBiasWorld: 0.024414062
     - _MemFalloffWorld: 0.75
     - _MemInsetWorld: 0.5
     - _MemWriteIntensity: 0.3
@@ -112,7 +112,7 @@ Material:
     - _PositionWorld: {r: 14.869669, g: 4.7296686, b: 0, a: 0}
     - _QueuedPos: {r: 0, g: 0, b: 0, a: 0}
     - _QueuedRad: {r: 0, g: 0, b: 0, a: 0}
-    - _WorldMin: {r: 17, g: -3, b: 0, a: 0}
-    - _WorldSize: {r: 39, g: 30, b: 0, a: 0}
+    - _WorldMin: {r: -100, g: -100, b: 0, a: 0}
+    - _WorldSize: {r: 200, g: 200, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

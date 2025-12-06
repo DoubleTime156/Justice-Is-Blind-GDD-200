@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class UnlitCamFfollower : MonoBehaviour
+public class UnlitCamFollower : MonoBehaviour
 {
-    private Camera _unlitCam;  
-    private Camera _mainCam;   
+    private Camera _unlitCam;
+    private Camera _mainCam;
 
     void Awake()
     {

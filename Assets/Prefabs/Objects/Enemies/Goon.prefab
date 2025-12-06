@@ -121,7 +121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6231759294062671307}
   - component: {fileID: 8916082329153397833}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LightVision
   m_TagString: Enemy
   m_Icon: {fileID: 0}
