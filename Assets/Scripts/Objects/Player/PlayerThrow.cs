@@ -22,6 +22,7 @@ public class PlayerThrow : MonoBehaviour
     // Player presses F to throw object
     public void OnThrow(InputAction.CallbackContext context)
     {
+        
         if (isCoolingDown) {
             Debug.Log("Throw object");
 
@@ -37,6 +38,8 @@ public class PlayerThrow : MonoBehaviour
 
     public void throwItem()
     {
+        if (GameOver.IsGameOver)
+            return;
         // Spawn at player’s position
         GameObject thrownObj = Instantiate(items[data.heldItem], transform.position, Quaternion.identity);
 
@@ -56,6 +59,8 @@ public class PlayerThrow : MonoBehaviour
 
     public void OnSwap(InputAction.CallbackContext context)
     {
+        if (GameOver.IsGameOver)
+            return;
         if (context.canceled) 
         {
             if(data.heldItem == 0)
