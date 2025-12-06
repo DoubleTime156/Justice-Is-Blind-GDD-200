@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 0
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 0000000003819490c93960fdb391b5f9
+  m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -214,6 +214,7 @@ GameObject:
   - component: {fileID: 3387461862684107182}
   - component: {fileID: 2068274418561207334}
   - component: {fileID: 461728616064917407}
+  - component: {fileID: 1184183380462476521}
   m_Layer: 3
   m_Name: Goon
   m_TagString: Enemy
@@ -459,3 +460,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderers: []
   lights: []
+--- !u!114 &1184183380462476521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7415120481951345619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f58aef2dfdc88a74783a2e40b8c7f296, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundInterval: 1
+  footstepParticles: {fileID: 1446875461017949426, guid: c6ddebcffaaea31459b2a9de95a9b850,
+    type: 3}
+  posThreshhold: 0.001
+  moveToFeet: -0.92

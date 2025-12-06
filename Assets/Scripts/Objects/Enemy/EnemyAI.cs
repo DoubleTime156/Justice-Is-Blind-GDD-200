@@ -26,6 +26,8 @@ public class EnemyAI : MonoBehaviour
     private float waitTimer;
 
     private Vector3 dir;
+    
+   
 
     void Awake()
     {
@@ -37,6 +39,7 @@ public class EnemyAI : MonoBehaviour
 
         isAlert = false;
     }
+    
 
     void FixedUpdate()
     {
@@ -47,12 +50,13 @@ public class EnemyAI : MonoBehaviour
         // Chase if vision or listen are activated
         if (vision.CanSeeTarget || listen.HearSound)
         {
+          
             isAlert = true;
             IsRoaming = false;
             waitTimer = 3f;
 
             // Wait for 0.75 seconds then chase
-            StartCoroutine(StartChase(0.75f));
+            StartCoroutine(StartChase(0.85f));
 
         }
         else if (Vector3.Distance(transform.position, lastKnownPos) <= data.chaseSpeed)
@@ -65,8 +69,7 @@ public class EnemyAI : MonoBehaviour
         if (IsChasing) // Enemy is chasing
         {
             transformer.SetSpeed(data.chaseSpeed);
-
-            //vision.UpdateVision(lastKnownPos);
+            vision.UpdateVision(lastKnownPos);
             if (vision.CanSeeTarget)
             {
                 dir = vision.TargetDir;
