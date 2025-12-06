@@ -8,6 +8,7 @@ public class CaneTap : MonoBehaviour
     public Material maskMaterial;
     public string fogMaskLayerName = "FogMask";
     public LayerMask obstacleMask;
+    public AudioSource tapSound;
 
     public KeyCode tapKey = KeyCode.Space;
     public float tapRadiusWorld = 6f;
@@ -39,6 +40,7 @@ public class CaneTap : MonoBehaviour
     {
         if (context.performed && !cooling)
         {
+            tapSound.Play();
             NoiseMask.Spawn(maskMaterial, fogMaskLayerName, obstacleMask, player.position, tapRadiusWorld, tapHoldSeconds, rayCount);
 
             if (objectSound != null) objectSound.IsMakingSound = true;

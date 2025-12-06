@@ -25,12 +25,12 @@ public class EnemyFootsteps : MonoBehaviour
 
         if (delta != lastPosition)
         {
-            Debug.Log("moving");
+            //Debug.Log("moving");
             return true;
         }
         else
         {
-            Debug.Log("not moving");
+            //Debug.Log("not moving");
             return false;
         }
 
