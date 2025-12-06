@@ -1803,6 +1803,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UnlitWorldCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 938313205585652344, guid: e6e719bbc69572545b90f4cc14f76fd1,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 8776994412918227710}
     - target: {fileID: 5514756681486635090, guid: e6e719bbc69572545b90f4cc14f76fd1,
         type: 3}
       propertyPath: mainCamera
