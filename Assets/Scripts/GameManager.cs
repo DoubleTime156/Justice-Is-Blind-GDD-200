@@ -8,31 +8,33 @@ public class GameManager : MonoBehaviour
 {
     public PlayerData data;
 
-    public void startGame() // Start game from beginning when Start is pressed on main menu
+    public void startGame() 
     {
-        SceneManager.LoadScene("Level_Tutorial");
         Time.timeScale = 1f;
+        SceneManager.LoadScene("Level_Tutorial");
     }
 
     public void quitGame()
     {
-        Application.Quit();
+        Time.timeScale = 1;
         Debug.Log("Exiting Game");
-        Time.timeScale = 1f;
+        Application.Quit();
+
     }
-    public void restartGame() // Reload the scene when restart is clicked
+    public void restartGame()
     {
         Debug.Log("restart");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
     }
 
-    public void mainMenu() // Load main menu scene
+    public void mainMenu()
     {
         Debug.Log("Quit to menu");
-        Time.timeScale = 1; //Prevents the game from still being paused if played again
+        Time.timeScale = 1; 
         SceneManager.LoadScene("Main Menu");
-        Time.timeScale = 1f;
+        
     }
    
 }

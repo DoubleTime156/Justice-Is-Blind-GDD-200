@@ -16,13 +16,12 @@ public class PlayerSwing : MonoBehaviour {
     private void Awake()
     {
         swingRange = transform.Find("SwingRange").gameObject;
+        
     }
 
     public void OnSwing(InputAction.CallbackContext context)
     {
-        if (GameOver.IsGameOver)
-            return;
-
+        
         // Only handle swing when the action is performed
         if (!context.performed) return;
 

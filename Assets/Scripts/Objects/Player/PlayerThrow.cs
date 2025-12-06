@@ -22,8 +22,7 @@ public class PlayerThrow : MonoBehaviour
     // Player presses F to throw object
     public void OnThrow(InputAction.CallbackContext context)
     {
-        if (GameOver.IsGameOver)
-            return;
+        
         if (isCoolingDown) {
             Debug.Log("Throw object");
 
