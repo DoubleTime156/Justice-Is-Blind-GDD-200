@@ -65,6 +65,8 @@ public class FogManager : MonoBehaviour
     static readonly int DispBurstPosID = Shader.PropertyToID("_BurstPos");
     static readonly int DispBurstRadID = Shader.PropertyToID("_BurstRad");
     static readonly int DispMemAlphaID = Shader.PropertyToID("_MemoryAlpha");
+    static readonly int UnlitUVScaleOffsetID = Shader.PropertyToID("_UnlitUVScaleOffset");
+
 
     void Start()
     {
@@ -90,6 +92,36 @@ public class FogManager : MonoBehaviour
         if (fogDisplayMaterial) { fogDisplayMaterial.SetVector(DispWorldMinID, minV); fogDisplayMaterial.SetVector(DispWorldSizeID, sizeV); }
 
         ClearFog();
+    }
+
+
+    void UpdateUnlitUVMapping()
+    {
+        if (unlitWorldTexture == null || fogDisplayMaterial == null) return;
+
+        Vector2 size = worldMax - worldMin;
+        float worldWidth = Mathf.Abs(size.x);
+        float worldHeight = Mathf.Abs(size.y);
+
+        float worldAspect = worldWidth / worldHeight;
+        float texAspect = (float)unlitWorldTexture.width / unlitWorldTexture.height;
+
+        Vector4 scaleOffset;
+
+        if (texAspect > worldAspect)
+        {
+            float scaleX = worldAspect / texAspect;        
+            float offsetX = (1f - scaleX) * 0.5f;
+            scaleOffset = new Vector4(scaleX, 1f, offsetX, 0f);
+        }
+        else
+        {
+            float scaleY = texAspect / worldAspect;
+            float offsetY = (1f - scaleY) * 0.5f;
+            scaleOffset = new Vector4(1f, scaleY, 0f, offsetY);
+        }
+
+        fogDisplayMaterial.SetVector(UnlitUVScaleOffsetID, scaleOffset);
     }
 
     void OnDestroy()
@@ -214,7 +246,10 @@ public class FogManager : MonoBehaviour
             fogDisplayMaterial.SetFloat(DispMemAlphaID, memoryAlpha);
 
             if (unlitWorldTexture != null)
+            {
                 fogDisplayMaterial.SetTexture(UnlitWorldTexID, unlitWorldTexture);
+                UpdateUnlitUVMapping();   
+            }
         }
 
         Shader.SetGlobalTexture("_LiveMaskTex", liveMask);

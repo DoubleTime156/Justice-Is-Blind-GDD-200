@@ -17,6 +17,9 @@ _WorldSize ("World Size", Vector) = (1,1,0,0)
     _BurstPos ("Burst Pos", Vector) = (0,0,0,0)
     _BurstRad ("Burst Rad", Vector) = (0,0,0,0)
     _UnlitWorldTex ("Unlit World", 2D) = "black" {}
+    _UnlitUVScaleOffset ("Unlit UV ScaleOffset", Vector) = (1,1,0,0)
+
+
 
 }
 SubShader
@@ -55,6 +58,8 @@ SubShader
         float4    _CameraOpaqueTexture_TexelSize;
         sampler2D _UnlitWorldTex;
         float4    _UnlitWorldTex_TexelSize;
+        float4 _UnlitUVScaleOffset;
+
 
 
         v2f vert(appdata v)
@@ -83,46 +88,43 @@ SubShader
         }
 
         fixed4 frag(v2f i) : SV_Target
-        {
-            float2 fogUV = saturate((i.worldPos - _WorldMin.xy) / _WorldSize.xy);
-
-            float liveMask = tex2D(_LiveMaskTex, fogUV).r;
-
-            int bcount = clamp(_BurstCount, 0, MAX_BURSTS);
-            float seenBurst = 0.0;
-            [unroll]
-            for (int k = 0; k < bcount; ++k)
             {
-                float2 cW = _BurstPos[k].xy;
-                float  rW = _BurstRad[k].x;
-                float  fW = max(1e-6f, _BurstRad[k].y);
-                seenBurst = max(seenBurst, circleSoft(i.worldPos, cW, rW, fW));
+                float2 fogUV = saturate((i.worldPos - _WorldMin.xy) / _WorldSize.xy);
+
+                float liveMask = tex2D(_LiveMaskTex, fogUV).r;
+
+                int bcount = clamp(_BurstCount, 0, MAX_BURSTS);
+                float seenBurst = 0.0;
+                [unroll]
+                for (int k = 0; k < bcount; ++k)
+                {
+                    float2 cW = _BurstPos[k].xy;
+                    float  rW = _BurstRad[k].x;
+                    float  fW = max(1e-6f, _BurstRad[k].y);
+                    seenBurst = max(seenBurst, circleSoft(i.worldPos, cW, rW, fW));
+                }
+
+                float seenNow = max(liveMask, seenBurst);
+                if (seenNow > 0.001) return float4(0,0,0,0);
+
+                float memory = tex2D(_FogTex, fogUV).r;
+
+                float2 sceneUV = i.screenPos.xy / i.screenPos.w;
+                float4 sceneCol = sampleScene(sceneUV);
+                float gray = dot(sceneCol.rgb, float3(0.299, 0.587, 0.144));   
+                float3 desat = float3(gray,gray,gray);
+
+                if (memory > 0.001)
+                {
+
+                    float3 mixCol = lerp(desat, _MemoryColor.rgb, _MemoryAlpha);
+                    return float4(mixCol, 1.0);
+                }
+
+                return float4(_Darkness.rgb, 1.0);
+
             }
 
-            float seenNow = max(liveMask, seenBurst);
-            if (seenNow > 0.001) return float4(0,0,0,0);
-
-            float memory = tex2D(_FogTex, fogUV).r;
-
-            float2 worldUV = saturate((i.worldPos - _WorldMin.xy) / _WorldSize.xy);
-            float4 sceneColUnlit = tex2D(_UnlitWorldTex, worldUV);
-            float3 baseCol = sceneColUnlit.rgb;
-            float gray = dot(baseCol, float3(0.299, 0.587, 0.114));
-
-            gray = saturate((gray - 0.15) * 2.2);
-
-            float desatAmount = 0.1;
-            float3 desatGray = float3(gray, gray, gray);
-            float3 desat = lerp(baseCol, desatGray, desatAmount);
-            
-            if (memory > 0.001)
-            {
-                float3 mixCol = lerp(desat, _MemoryColor.rgb, _MemoryAlpha);
-                return float4(mixCol, 1.0);
-            }
-
-            return float4(_Darkness.rgb, 1.0);
-        }
         ENDCG
     }
 }
