@@ -8,7 +8,7 @@ public class PlayerController2D : MonoBehaviour
 
     // Private variables 
     private Rigidbody2D rb; // Reference to the Rigidbody2D component attached to the player
-    private Vector2 movement; // Stores the direction of player movement
+    private Vector2 movement; // Stores the direction of player lookDirection
     private bool isMovingHorizontally = true; // Flag to track if the player is moving horizontally
 
     void Start()
@@ -25,17 +25,17 @@ public class PlayerController2D : MonoBehaviour
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
 
-        // Check if diagonal movement is allowed
+        // Check if diagonal lookDirection is allowed
         if (canMoveDiagonally)
         {
-            // Set movement direction based on input
+            // Set lookDirection direction based on input
             movement = new Vector2(horizontalInput, verticalInput);
-            // Optionally rotate the player based on movement direction
+            // Optionally rotate the player based on lookDirection direction
             RotatePlayer(horizontalInput, verticalInput);
         }
         else
         {
-            // Determine the priority of movement based on input
+            // Determine the priority of lookDirection based on input
             if (horizontalInput != 0)
             {
                 isMovingHorizontally = true;
@@ -45,7 +45,7 @@ public class PlayerController2D : MonoBehaviour
                 isMovingHorizontally = false;
             }
 
-            // Set movement direction and optionally rotate the player
+            // Set lookDirection direction and optionally rotate the player
             if (isMovingHorizontally)
             {
                 movement = new Vector2(horizontalInput, 0);
@@ -61,7 +61,7 @@ public class PlayerController2D : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Apply movement to the player in FixedUpdate for physics consistency
+        // Apply lookDirection to the player in FixedUpdate for physics consistency
         rb.linearVelocity = movement * speed;
     }
 

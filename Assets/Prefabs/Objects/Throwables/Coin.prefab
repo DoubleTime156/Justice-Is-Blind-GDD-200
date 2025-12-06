@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -5801125953512000106}
   - component: {fileID: 2765417716086006819}
   - component: {fileID: 4670974043389246146}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -390,17 +390,8 @@ MonoBehaviour:
     m_Bits: 64
   rayCount: 512
   trailRadiusWorld: 0.8
-  trailHold: 0.08
-  trailHz: 20
   impactRadiusWorld: 6
   impactHold: 0.8
-  useVelocityStop: 1
-  stopSpeed: 0.1
-  stopHoldTime: 0.05
-  revealOnFirstCollision: 1
-  objectSound: {fileID: 0}
-  logTrail: 0
-  logImpact: 1
 --- !u!114 &4670974043389246146
 MonoBehaviour:
   m_ObjectHideFlags: 0

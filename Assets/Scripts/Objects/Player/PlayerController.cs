@@ -19,6 +19,8 @@ public class PlayerController2D_InputSystem : MonoBehaviour
     public AudioSource bottlePickup;
     public AudioSource keyPickup;
 
+    private Vector2 lookDirection = new Vector2(1, 0);
+
     private int[] defaultInventory = { 0, 0 };
 
     //public Animator animator;
@@ -38,6 +40,15 @@ public class PlayerController2D_InputSystem : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         movement = context.ReadValue<Vector2>();
+
+        if (!Mathf.Approximately(movement.x, 0.0f) || 
+            !Mathf.Approximately(movement.y, 0.0f))
+        {
+            lookDirection.Set(movement.x, movement.y);
+            lookDirection.Normalize();
+        }
+
+        personAnimator.lookDirection = lookDirection;
         personAnimator.movement = movement;
     }
 
