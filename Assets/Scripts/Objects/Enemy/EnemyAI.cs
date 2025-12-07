@@ -21,6 +21,8 @@ public class EnemyAI : MonoBehaviour
 
     private bool isAlert;
 
+    private bool isChasingIsPlayer;
+
     private GameObject player;
     private Vector3 lastKnownPos;
     private float waitTimer;
@@ -56,8 +58,17 @@ public class EnemyAI : MonoBehaviour
         }
         else if (Vector3.Distance(transform.position, lastKnownPos) <= data.chaseSpeed)
         {
-            IsChasing = false;
-            isAlert = false;
+            if (Vector3.Distance(transform.position, player.transform.position) > data.chaseSpeed &&
+                isChasingIsPlayer)
+            {
+                lastKnownPos = player.transform.position;
+                StartCoroutine(StopChase(1.0f));
+            }
+            else
+            {
+                IsChasing = false;
+                isAlert = false;
+            }
         }
 
 
@@ -129,6 +140,7 @@ public class EnemyAI : MonoBehaviour
         if (sawTarget)
         {
             lastKnownPos = player.transform.position;
+            isChasingIsPlayer = true;
         }
         else
         {
@@ -136,6 +148,7 @@ public class EnemyAI : MonoBehaviour
             {
                 Vector3 listenPos = listen.ObjectEmitterTransform.position;
                 lastKnownPos = listenPos;
+                isChasingIsPlayer = false;
             }
             listen.SetHearSound(false);
         }
@@ -149,9 +162,24 @@ public class EnemyAI : MonoBehaviour
 
         // Update lastKnownPos after delay if saw target
         if (sawTarget && !IsChasing)
+        {
             lastKnownPos = player.transform.position;
+            isChasingIsPlayer = true;
+        }
 
         IsChasing = true;
+    }
+
+    IEnumerator StopChase(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        // Only stop chase if they still don't hear a sound a see player
+        if (!(vision.CanSeeTarget || listen.HearSound))
+        {
+            IsChasing = false;
+            isAlert = false;
+        }
     }
 
 
