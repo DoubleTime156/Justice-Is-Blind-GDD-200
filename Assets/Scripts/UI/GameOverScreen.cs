@@ -7,7 +7,7 @@ public class GameOver : MonoBehaviour
     public TextMeshProUGUI gameOverText;
     public Button restartButton;
     public Button quitButton;
-    public static bool IsGameOver { get; private set; }
+    public static bool IsGameOver { get;  set; }
     public void gameOver()
     {
         IsGameOver = true;
