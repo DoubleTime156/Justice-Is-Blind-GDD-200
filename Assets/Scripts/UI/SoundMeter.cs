@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Numerics;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UI.Extensions;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
@@ -8,8 +9,10 @@ using Vector3 = UnityEngine.Vector3;
 public class SoundMeter : MonoBehaviour
 {
     public int resolution;
-    public float soundLevel = 0.1f; // Sound from 0 to 1
+    public float newSoundLevel = 0.075f;
+    public float transitionSpeed = 1.0f;
 
+    private float soundLevel = 0.1f; // Sound from 0 to 1
     private float amplitude;
     private float _scalar;
 
@@ -25,6 +28,11 @@ public class SoundMeter : MonoBehaviour
 
     private void Update()
     {
+        float dt = Time.deltaTime;
+
+        if (soundLevel != newSoundLevel)
+            soundLevel = Mathf.MoveTowards(soundLevel, newSoundLevel, transitionSpeed * dt);
+
         _scalar = uiParent.localScale.x;
         amplitude = soundLevel * MathF.PI;
         DrawWave();
@@ -54,6 +62,7 @@ public class SoundMeter : MonoBehaviour
             points[i] = uiPos;
         }
 
+        lineRenderer.color = new Color(1.0f, 1.0f - soundLevel, 1.0f - soundLevel);
         lineRenderer.Points = points;
         lineRenderer.SetVerticesDirty();
     }
@@ -61,7 +70,7 @@ public class SoundMeter : MonoBehaviour
     float SoundFunction(float x)
     {
         return amplitude * (1.0f - Mathf.Pow(x / Mathf.PI, 2.0f)) *
-               (0.5f + MathF.Pow(Mathf.Cos(x - Time.time * 5.0f - amplitude), 2.0f) / 2.0f) *
-               Mathf.Sin((5.0f + 5.0f * amplitude) * x);
+               (0.5f + MathF.Pow(Mathf.Cos(x - Time.time * 5.0f), 2.0f) / 2.0f) *
+               Mathf.Sin((5.0f + 5.0f * Mathf.Pow(amplitude, 2.0f)) * x);
     }
 }
