@@ -97,7 +97,11 @@ public class EnemyAI : MonoBehaviour
             transformer.SetSpeed(data.roamingSpeed);
             roam.UpdateMovement();
             if (roam.RoamType != "path") _personAnimator.movement = new Vector2(0, 0);
-            else _personAnimator.movement = roam.newDir;
+            else
+            {
+                _personAnimator.movement = roam.newDir;
+                _personAnimator.lookDirection = roam.newDir;
+            }
         }
         else if (!isAlert) // Enemy is waiting or returning to roaming location
         {
@@ -121,6 +125,7 @@ public class EnemyAI : MonoBehaviour
         {
             transformer.UpdateDirection(dir);
             _personAnimator.movement = new Vector2(0, 0);
+            _personAnimator.lookDirection = dir;
             return;
         }
 
@@ -132,6 +137,7 @@ public class EnemyAI : MonoBehaviour
         transformer.UpdateDirection(dir);
 
         _personAnimator.movement = dir;
+        _personAnimator.lookDirection = dir;
 
         // Check any changes for pathfinding after transform
         pathfind.SetNextTargetNode();
