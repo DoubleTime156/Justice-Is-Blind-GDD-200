@@ -8,6 +8,12 @@ public class GameManager : MonoBehaviour
 {
     public PlayerData data;
 
+    private void Awake()
+    {
+        Time.timeScale = 1f;
+        GameOver.IsGameOver = false;
+    }
+
     public void startGame() 
     {
         Time.timeScale = 1f;
@@ -25,6 +31,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("restart");
         Time.timeScale = 1f;
+        GameOver.IsGameOver = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         
     }

@@ -48,7 +48,7 @@ public class PlayerThrow : MonoBehaviour
         mouseScreenPos.z = Camera.main.WorldToScreenPoint(transform.position).z;
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
 
-        // Initialize the object’s movement
+        // Initialize the object’s lookDirection
         thrownObj.GetComponent<Throwable>().Init(mouseWorldPos, speed[data.heldItem], data.heldItem);
         data.inventory[data.heldItem]--;
         inventoryUI.updateAmount();

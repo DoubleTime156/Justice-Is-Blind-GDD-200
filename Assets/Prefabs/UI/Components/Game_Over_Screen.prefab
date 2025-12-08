@@ -68,8 +68,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 3774876710692533872, guid: 49ed2b98bc9456f4ebfd5bcd587eb728,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: ba5db486e0a434ca49a15c21fe06fbe3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -149,9 +148,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 684de57402381d94dbb0dd7a282858f3, type: 2}
-  gameOverText: {fileID: 0}
-  restartButton: {fileID: 0}
-  quitButton: {fileID: 0}
 --- !u!1 &1885994591606476054
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,8 +216,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 3774876710692533872, guid: 49ed2b98bc9456f4ebfd5bcd587eb728,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: ba5db486e0a434ca49a15c21fe06fbe3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -301,9 +296,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 684de57402381d94dbb0dd7a282858f3, type: 2}
-  gameOverText: {fileID: 0}
-  restartButton: {fileID: 0}
-  quitButton: {fileID: 0}
 --- !u!1 &2720598594053334117
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,7 +586,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &451732328417086537
 RectTransform:
   m_ObjectHideFlags: 0

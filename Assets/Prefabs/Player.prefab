@@ -1458,6 +1458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 6040604634708551431}
   movement: {x: 0, y: 0}
+  lookDirection: {x: 0, y: 0}
   onSwing: 0
 --- !u!1 &7500031847232509037
 GameObject:
@@ -1820,6 +1821,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UnlitWorldCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 510277940169897799, guid: e6e719bbc69572545b90f4cc14f76fd1,
+        type: 3}
+      propertyPath: m_VolumeLayerMask.m_Bits
+      value: 1089
+      objectReference: {fileID: 0}
     - target: {fileID: 938313205585652344, guid: e6e719bbc69572545b90f4cc14f76fd1,
         type: 3}
       propertyPath: player
@@ -1830,6 +1836,16 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 2969911981459378825}
+    - target: {fileID: 8318357170195947600, guid: e6e719bbc69572545b90f4cc14f76fd1,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 3143
+      objectReference: {fileID: 0}
+    - target: {fileID: 8473252800761741937, guid: e6e719bbc69572545b90f4cc14f76fd1,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

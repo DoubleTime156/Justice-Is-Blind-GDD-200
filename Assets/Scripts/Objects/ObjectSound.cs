@@ -19,19 +19,14 @@ public class ObjectSound : MonoBehaviour
         IsMakingSound = false;
     }
 
-    private float tempTimer = 0f;
-
     void FixedUpdate()
     {
-        if (IsMakingSound && tempTimer <= 0)
+        if (IsMakingSound)
         {
             IsMakingSound = false;
-            tempTimer = 3f;
             soundMaker.transform.position = gameObject.transform.position;
             Instantiate(soundMaker);
         }
-
-        tempTimer -= Time.fixedDeltaTime;
     }
 
     // Debug - Sound Circle
