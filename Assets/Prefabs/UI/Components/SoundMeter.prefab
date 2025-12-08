@@ -51,7 +51,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resolution: 300
-  soundLevel: 0.1
+  newSoundLevel: 0.075
+  transitionSpeed: 15
   uiParent: {fileID: 8480371566624831681}
   lineRenderer: {fileID: 5111012543926557866}
 --- !u!222 &8234839787006735487
