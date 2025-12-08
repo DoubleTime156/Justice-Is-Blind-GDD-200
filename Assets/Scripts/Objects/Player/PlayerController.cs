@@ -2,6 +2,7 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.GraphicsBuffer;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController2D_InputSystem : MonoBehaviour
@@ -9,7 +10,6 @@ public class PlayerController2D_InputSystem : MonoBehaviour
     public PlayerData data;
     public PersonAnimator personAnimator;
     public VisionRaycast visionRaycast;
-
     private Rigidbody2D rb;
     private Vector2 movement;
     private Inventory inventoryUI;
@@ -18,6 +18,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
     public AudioSource coinPickup;
     public AudioSource bottlePickup;
     public AudioSource keyPickup;
+    public ParticleSystem knockoutParticles;
 
     private Vector2 lookDirection = new Vector2(1, 0);
 
@@ -53,18 +54,18 @@ public class PlayerController2D_InputSystem : MonoBehaviour
         personAnimator.movement = movement;
     }
 
-    public void OnRun(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            data.moveMulti = 2.0f;
-        }
-        else if (context.canceled)
-        {
-            data.moveMulti = 1.0f;
-        }
+    //public void OnRun(InputAction.CallbackContext context)
+    //{
+    //    if (context.performed)
+    //    {
+    //        data.moveMulti = 2.0f;
+    //    }
+    //    else if (context.canceled)
+    //    {
+    //        data.moveMulti = 1.0f;
+    //    }
 
-    }
+    //}
 
     public void OnPause(InputAction.CallbackContext context)
     {
@@ -89,7 +90,23 @@ public class PlayerController2D_InputSystem : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            
+
+            if (knockoutParticles != null)
+            {
+                var ps = Instantiate(knockoutParticles, transform.position, Quaternion.identity);
+                var main = ps.main;
+                main.useUnscaledTime = true;
+                ps.Play();
+            }
+
+            //Transform child = transform.Find("JustineCase");
+            //if (child != null)
+            //{
+            //    child.Rotate(0f, 0f, 90f);
+            //}
             gameOverUI.gameOver();
+
             this.enabled = false;
         }
     }
@@ -119,6 +136,15 @@ public class PlayerController2D_InputSystem : MonoBehaviour
             data.hasKey = true;
             inventoryUI.updateAmount();
             Destroy(collision.gameObject);
+        }
+    }
+
+    void Awake()
+    {
+        if (knockoutParticles != null)
+        {
+            var main = knockoutParticles.main;
+            main.useUnscaledTime = true; 
         }
     }
 }

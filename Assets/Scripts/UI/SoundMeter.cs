@@ -19,6 +19,13 @@ public class SoundMeter : MonoBehaviour
     [SerializeField] private RectTransform uiParent;
     [SerializeField] private UILineRenderer lineRenderer;
 
+    public static SoundMeter Instance;
+
+    void Awake()
+    {
+        Instance = this;
+    }
+
     void Start()
     {
         _scalar = uiParent.localScale.x;

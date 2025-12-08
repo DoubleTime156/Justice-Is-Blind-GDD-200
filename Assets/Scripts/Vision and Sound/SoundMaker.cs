@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 //using Mono.Cecil.Cil;
@@ -38,10 +39,13 @@ public class SoundMaker : MonoBehaviour
 
     float _deathTime = 0.2f;
 
-    void Awake()
+
+    IEnumerator Start()
     {
+        yield return new WaitUntil(() => SoundMeter.Instance != null);
+
         // Setup Sound Meter
-        soundMeter = FindFirstObjectByType<SoundMeter>();
+        soundMeter = SoundMeter.Instance;
         soundMeter.newSoundLevel = 1.0f;
         soundMeter.transitionSpeed = 8.0f;
 
@@ -58,6 +62,7 @@ public class SoundMaker : MonoBehaviour
 
         Trigger();
     }
+
 
     void FixedUpdate()
     {
@@ -196,5 +201,17 @@ public class SoundMaker : MonoBehaviour
     {
         Gizmos.color = Color.blueViolet;
         Gizmos.DrawWireSphere(transform.position, soundRadius);
+    }
+
+    IEnumerator SetupSoundMeter()
+    {
+        while (soundMeter == null)
+        {
+            soundMeter = FindFirstObjectByType<SoundMeter>();
+            yield return null;
+        }
+
+        soundMeter.newSoundLevel = 1.0f;
+        soundMeter.transitionSpeed = 8.0f;
     }
 }

@@ -69,9 +69,9 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Darkness: {r: 0, g: 0, b: 0, a: 1}
     - _MemoryColor: {r: 0.1764706, g: 0.1764706, b: 0.20392157, a: 1}
-    - _PlayerPos: {r: 10.534934, g: -4.221322, b: 0, a: 0}
+    - _PlayerPos: {r: 6.3629646, g: 3.504997, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-    - _UnlitUVScaleOffset: {r: 0.56213874, g: 1, b: 0.21893063, a: 0}
+    - _UnlitUVScaleOffset: {r: 0.5625, g: 1, b: 0.21875, a: 0}
     - _WorldMax: {r: 10, g: 10, b: 0, a: 0}
     - _WorldMin: {r: -100, g: -100, b: 0, a: 0}
     - _WorldSize: {r: 200, g: 200, b: 0, a: 0}

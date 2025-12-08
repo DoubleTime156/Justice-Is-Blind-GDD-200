@@ -788,6 +788,8 @@ MonoBehaviour:
   coinPickup: {fileID: -6507755775882685442}
   bottlePickup: {fileID: -8865577757524450621}
   keyPickup: {fileID: -6507755775882685442}
+  knockoutParticles: {fileID: 1104930591671799747, guid: e0e73ffb190d399468fb203a23f9f11c,
+    type: 3}
 --- !u!114 &4212852649017227333
 MonoBehaviour:
   m_ObjectHideFlags: 0

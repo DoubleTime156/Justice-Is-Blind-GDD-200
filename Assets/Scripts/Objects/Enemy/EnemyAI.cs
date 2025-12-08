@@ -81,7 +81,7 @@ public class EnemyAI : MonoBehaviour
         {
             transformer.SetSpeed(data.chaseSpeed);
             vision.UpdateVision(lastKnownPos);
-            if (vision.CanSeeTarget)
+            if (vision.CanSeeTarget && !vision.CanSeeSemiObstacle)
             {
                 dir = vision.TargetDir;
             }
