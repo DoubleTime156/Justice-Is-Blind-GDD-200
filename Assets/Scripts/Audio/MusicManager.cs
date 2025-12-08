@@ -202,4 +202,9 @@ public class MusicManager : MonoBehaviour
 
         fadeCoroutine = null;
     }
+
+    public void OnGameOver()
+    {
+        audioSource.Stop();
+    }
 }
