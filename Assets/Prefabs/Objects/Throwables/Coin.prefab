@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -5801125953512000106}
   - component: {fileID: 2765417716086006819}
   - component: {fileID: 4670974043389246146}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,9 +83,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847,
+  m_Sprite: {fileID: -7550884671860986779, guid: 543c787977c912d4fa4155489f9fabec,
     type: 3}
-  m_Color: {r: 0.899371, g: 0.899371, b: 0.899371, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -107,9 +107,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c596633959c9f848bb723b9dfda77f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fogManager: {fileID: 0}
   objectSound: {fileID: 4670974043389246146}
   throwSound: {fileID: 49488760603439227}
   impactSound: {fileID: -5801125953512000106}
+  shatterParticles: {fileID: 0}
+  knockoutParticles: {fileID: 0}
   inAir: 1
 --- !u!58 &2481678513796734709
 CircleCollider2D:
@@ -145,8 +148,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0033611855, y: 0.0054651103}
-  m_Radius: 0.4947296
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.15
 --- !u!50 &2116555235714269520
 Rigidbody2D:
   serializedVersion: 5
@@ -380,16 +383,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2855f5d276aa65d45a21d3a8ce7d3e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fogManager: {fileID: 0}
+  maskMaterial: {fileID: 2100000, guid: 30e1334e4a7032249a94f34b407fb133, type: 2}
+  fogMaskLayerName: FogMask
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 64
+  rayCount: 512
   trailRadiusWorld: 0.8
-  trailHold: 0.08
-  trailHz: 20
-  radiusWorld: 3
-  whiteHold: 0.8
-  useVelocityStop: 1
-  stopSpeed: 0.1
-  stopHoldTime: 0.05
-  revealOnFirstCollision: 1
+  impactRadiusWorld: 6
+  impactHold: 0.8
 --- !u!114 &4670974043389246146
 MonoBehaviour:
   m_ObjectHideFlags: 0

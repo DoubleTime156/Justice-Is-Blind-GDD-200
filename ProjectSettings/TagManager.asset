@@ -6,17 +6,22 @@ TagManager:
   tags:
   - Enemy
   - Pickup
-  - Sound
   - Key
   - Interactable
+  - Sound
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Enemy
   - Water
   - UI
-  - Enemy
+  - Obstacle
+  - Player
+  - FogMask
+  - World
+  - SemiObstacle
+  - Throwables
   - 
   - 
   - 
@@ -28,14 +33,9 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Layer 1
+  - Layer 2
+  - Layer 3
   - 
   - 
   - 
@@ -45,6 +45,18 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Layer 2
+    uniqueID: 4250941897
+    locked: 0
+  - name: Layer 3
+    uniqueID: 4189426099
+    locked: 0
+  - name: FogOfWar
+    uniqueID: 2425651459
+    locked: 0
+  - name: LineOverlayUI
+    uniqueID: 503713
     locked: 0
   m_RenderingLayers:
   - Default

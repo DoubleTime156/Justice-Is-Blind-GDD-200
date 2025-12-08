@@ -1,7 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
-using Mono.Cecil.Cil;
+//using Mono.Cecil.Cil;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -21,6 +22,8 @@ public class SoundMaker : MonoBehaviour
     private int _pointCount;
     private List<Vector2> _pointPos;
 
+    private SoundMeter soundMeter;
+
     struct RaySample
     {
         public Vector2 pos;
@@ -36,8 +39,17 @@ public class SoundMaker : MonoBehaviour
 
     float _deathTime = 0.2f;
 
-    void Awake()
+
+    IEnumerator Start()
     {
+        yield return new WaitUntil(() => SoundMeter.Instance != null);
+
+        // Setup Sound Meter
+        soundMeter = SoundMeter.Instance;
+        soundMeter.newSoundLevel = 1.0f;
+        soundMeter.transitionSpeed = 8.0f;
+
+        // Setup components
         IsMakingSound = false;
         active = true;
         mesh = new Mesh();
@@ -51,11 +63,13 @@ public class SoundMaker : MonoBehaviour
         Trigger();
     }
 
+
     void FixedUpdate()
     {
         float dt = Time.fixedDeltaTime;
         t += dt;
 
+        // Update rays and mesh
         UpdateRays(dt);
         BuildMeshAndCollider();
 
@@ -63,7 +77,13 @@ public class SoundMaker : MonoBehaviour
         if (t >= _lifetime) active = false;
         else return;
 
-        if (t >= _deathTime) Destroy(gameObject);
+        if (t >= _deathTime)
+        {
+            soundMeter.newSoundLevel = 0.075f;
+            soundMeter.transitionSpeed = 1.0f;
+
+            Destroy(gameObject);
+        }
     }
 
     void Trigger()
@@ -141,7 +161,7 @@ public class SoundMaker : MonoBehaviour
 
         Color[] colors = new Color[vertices.Length];
 
-        // Find max distance (edge) for gradient scaling
+        // Find max distance for gradient scaling
         float maxDist = 0f;
         for (int i = 1; i < vertices.Length; i++)
             maxDist = Mathf.Max(maxDist, vertices[i].magnitude);
@@ -181,5 +201,17 @@ public class SoundMaker : MonoBehaviour
     {
         Gizmos.color = Color.blueViolet;
         Gizmos.DrawWireSphere(transform.position, soundRadius);
+    }
+
+    IEnumerator SetupSoundMeter()
+    {
+        while (soundMeter == null)
+        {
+            soundMeter = FindFirstObjectByType<SoundMeter>();
+            yield return null;
+        }
+
+        soundMeter.newSoundLevel = 1.0f;
+        soundMeter.transitionSpeed = 8.0f;
     }
 }

@@ -16,7 +16,8 @@ public class Throwable : MonoBehaviour
     private float targetRadius = 0.05f;
     private float[] forceMultiplier = { 1, 3 };
     private bool isTriggered = false;
-    private float previousDistance;
+    private Vector2 direction;
+    private Vector2 prevDirection;
     private float timeToReach;
     public ObjectSound objectSound;
     public AudioSource throwSound;
@@ -30,7 +31,10 @@ public class Throwable : MonoBehaviour
         target = targetPos;
         speed = initMoveSpeed;
         item = heldItem;
+        if (item == 1) speed = 10.0f;
         rb = GetComponent<Rigidbody2D>();
+        direction = (target - transform.position).normalized;
+        prevDirection = direction;
         distance = Vector2.Distance(transform.position, targetPos / forceMultiplier[heldItem]);
         timeToReach = distance / speed;
         throwSound.Play();
@@ -38,21 +42,25 @@ public class Throwable : MonoBehaviour
 
     void FixedUpdate()
     {
-
         // Move towards target (Mouse position)
-        Vector2 direction = (target - transform.position).normalized;
-        if (item == 1) { rb.rotation += -15f; } //Apply spin to bottle
-        distance = Vector2.Distance(transform.position, target);
-        speed = distance / timeToReach;
+        direction = (target - transform.position).normalized;
+        if (item == 1) { rb.rotation += -15f; } // Apply spin to bottle
+
+        if (item == 0)
+        {
+            distance = Vector2.Distance(transform.position, target);
+            speed = distance / timeToReach;
+        }
 
         rb.linearVelocity = direction * speed;
 
         // When destination reached, perform item specific behaviors
-        if (Vector2.Distance(transform.position, target) <= targetRadius && !isTriggered) //rb.linearVelocity.magnitude < 0.5
+        if (Vector2.Distance(transform.position, target) <= speed * Time.fixedDeltaTime && !isTriggered)
         {
             itemBehavior();
         }
-        previousDistance = Vector2.Distance(transform.position, target);
+
+        prevDirection = direction;
     }
 
     private void itemBehavior()
@@ -76,6 +84,7 @@ public class Throwable : MonoBehaviour
                 objectSound.IsMakingSound = true;
               //  RevealFog(0.07f);
                 isTriggered = true;
+                speed = 0;
                 break;
         }
     }
@@ -94,41 +103,43 @@ public class Throwable : MonoBehaviour
   //  }
 
 
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("throwable hit wall!");
-        inAir = false;
-        switch (item)
-        {
-            case 0:
-                itemBehavior();
-                break;
-            case 1:
-                itemBehavior();
-                break;
-        }
-    }
+  public void OnCollisionEnter2D(Collision2D collision)
+  {
+      if (collision.gameObject.CompareTag("Enemy") && item == 1 &&
+          inAir) // If a bottle is still in air, destroy enemies they touch
+      {
+          Debug.Log("Has found an enemy collider tag");
+          knockoutParticles = Instantiate(knockoutParticles, collision.transform.position, Quaternion.identity);
+          Destroy(collision.gameObject);
+          rb.linearVelocity = new Vector2(0, 0);
+          itemBehavior();
+          fogManager.TriggerVisionBurstAt(transform.position, Mathf.Max(0f, radiusWorld), Mathf.Max(0.0001f, whiteHold),
+              fogManager.defaultBurstFalloff);
 
-    public void OnTriggerEnter2D(Collider2D collision) 
-    {
-        Debug.Log("Has Triggered Collider");
-        if (collision.CompareTag("Enemy") && item == 1 && inAir) // If a bottle is still in air, destroy enemies they touch
-        {
-            Debug.Log("Has found an enemy collider tag");
-            knockoutParticles = Instantiate(knockoutParticles, collision.transform.position, Quaternion.identity);
-            Destroy(collision.gameObject);
-            rb.linearVelocity = new Vector2(0, 0);
-            itemBehavior();
-            fogManager.TriggerVisionBurstAt(transform.position, Mathf.Max(0f, radiusWorld), Mathf.Max(0.0001f, whiteHold), fogManager.defaultBurstFalloff);
+      }
 
-        }
-        if (collision.CompareTag("Enemy") && item == 0 && !inAir) // When an enemy inspects a coin, pick it up before going back to path
-        {
-            StartCoroutine(enemyPickupCoin(2.5f));
-        }
-    }
+      if (collision.gameObject.CompareTag("Enemy") && item == 0 &&
+          !inAir) // When an enemy inspects a coin, pick it up before going back to path
+      {
+          StartCoroutine(enemyPickupCoin(2.5f));
+      }
 
-    private void spawnParticles()
+      if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+      {
+          inAir = false;
+          switch (item)
+          {
+              case 0:
+                  itemBehavior();
+                  break;
+              case 1:
+                  itemBehavior();
+                  break;
+          }
+      }
+    } 
+  
+  private void spawnParticles()
     {
         shatterParticles = Instantiate(shatterParticles, transform.position, Quaternion.identity);
     }
@@ -141,6 +152,8 @@ public class Throwable : MonoBehaviour
 
         // Stop making sound after time has past
         objectSound.IsMakingSound = false;
+
+        //if (item == 1) Destroy(gameObject);
     }
 
     IEnumerator enemyPickupCoin(float waitTime) // When the enemy reaches the coin, the coin will wait a few seconds before disappearing

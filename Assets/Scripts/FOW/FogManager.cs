@@ -1,13 +1,16 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-[DefaultExecutionOrder(-50)]
 public class FogManager : MonoBehaviour
 {
     public PlayerPosition playerVision;
     public Material fogPainterMaterial;
     public Material fogDisplayMaterial;
     public Transform player;
+    public RenderTexture unlitWorldTexture;
+    static readonly int UnlitWorldTexID = Shader.PropertyToID("_UnlitWorldTex");
+
+
 
     public int rtSize = 4096;
 
@@ -62,6 +65,8 @@ public class FogManager : MonoBehaviour
     static readonly int DispBurstPosID = Shader.PropertyToID("_BurstPos");
     static readonly int DispBurstRadID = Shader.PropertyToID("_BurstRad");
     static readonly int DispMemAlphaID = Shader.PropertyToID("_MemoryAlpha");
+    static readonly int UnlitUVScaleOffsetID = Shader.PropertyToID("_UnlitUVScaleOffset");
+
 
     void Start()
     {
@@ -87,6 +92,36 @@ public class FogManager : MonoBehaviour
         if (fogDisplayMaterial) { fogDisplayMaterial.SetVector(DispWorldMinID, minV); fogDisplayMaterial.SetVector(DispWorldSizeID, sizeV); }
 
         ClearFog();
+    }
+
+
+    void UpdateUnlitUVMapping()
+    {
+        if (unlitWorldTexture == null || fogDisplayMaterial == null) return;
+
+        Vector2 size = worldMax - worldMin;
+        float worldWidth = Mathf.Abs(size.x);
+        float worldHeight = Mathf.Abs(size.y);
+
+        float worldAspect = worldWidth / worldHeight;
+        float texAspect = (float)unlitWorldTexture.width / unlitWorldTexture.height;
+
+        Vector4 scaleOffset;
+
+        if (texAspect > worldAspect)
+        {
+            float scaleX = worldAspect / texAspect;        
+            float offsetX = (1f - scaleX) * 0.5f;
+            scaleOffset = new Vector4(scaleX, 1f, offsetX, 0f);
+        }
+        else
+        {
+            float scaleY = texAspect / worldAspect;
+            float offsetY = (1f - scaleY) * 0.5f;
+            scaleOffset = new Vector4(1f, scaleY, 0f, offsetY);
+        }
+
+        fogDisplayMaterial.SetVector(UnlitUVScaleOffsetID, scaleOffset);
     }
 
     void OnDestroy()
@@ -132,6 +167,7 @@ public class FogManager : MonoBehaviour
         {
             var b = bursts[i]; b.t -= Time.deltaTime;
             if (b.t <= 0f) bursts.RemoveAt(i); else bursts[i] = b;
+          
         }
 
         var liveMask = ResolveLiveMask();
@@ -208,6 +244,16 @@ public class FogManager : MonoBehaviour
                 fogDisplayMaterial.SetVectorArray(DispBurstRadID, radA);
             }
             fogDisplayMaterial.SetFloat(DispMemAlphaID, memoryAlpha);
+
+            if (unlitWorldTexture != null)
+            {
+                fogDisplayMaterial.SetTexture(UnlitWorldTexID, unlitWorldTexture);
+                UpdateUnlitUVMapping();   
+            }
         }
+
+        Shader.SetGlobalTexture("_LiveMaskTex", liveMask);
+        Shader.SetGlobalVector("_WorldMin", new Vector4(worldMin.x, worldMin.y, 0, 0));
+        Shader.SetGlobalVector("_WorldSize", new Vector4(size.x, size.y, 0, 0));
     }
 }

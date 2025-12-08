@@ -1,21 +1,26 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.GraphicsBuffer;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController2D_InputSystem : MonoBehaviour
 {
     public PlayerData data;
     public PersonAnimator personAnimator;
-
+    public VisionRaycast visionRaycast;
     private Rigidbody2D rb;
     private Vector2 movement;
-    private GameManager gameManager;
     private Inventory inventoryUI;
     private GameOver gameOverUI;
+    private PauseGame pauseMenu;
     public AudioSource coinPickup;
     public AudioSource bottlePickup;
     public AudioSource keyPickup;
+    public ParticleSystem knockoutParticles;
+
+    private Vector2 lookDirection = new Vector2(1, 0);
 
     private int[] defaultInventory = { 0, 0 };
 
@@ -26,6 +31,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         gameOverUI = GameObject.Find("Game_Over_Screen").GetComponent<GameOver>();
         inventoryUI = GameObject.Find("Inventory").GetComponent<Inventory>();
+        pauseMenu = GameObject.Find("PauseButton").GetComponent<PauseGame>();
 
         // Reset PlayerData
         data.heldItem = 1;
@@ -36,22 +42,78 @@ public class PlayerController2D_InputSystem : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         movement = context.ReadValue<Vector2>();
+
+        if (!Mathf.Approximately(movement.x, 0.0f) || 
+            !Mathf.Approximately(movement.y, 0.0f))
+        {
+            lookDirection.Set(movement.x, movement.y);
+            lookDirection.Normalize();
+        }
+
+        personAnimator.lookDirection = lookDirection;
         personAnimator.movement = movement;
+    }
+
+    //public void OnRun(InputAction.CallbackContext context)
+    //{
+    //    if (context.performed)
+    //    {
+    //        data.moveMulti = 2.0f;
+    //    }
+    //    else if (context.canceled)
+    //    {
+    //        data.moveMulti = 1.0f;
+    //    }
+
+    //}
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        Debug.Log("Escape Pressed");
+        if (!pauseMenu.isPaused)
+        {
+            pauseMenu.pauseGame();
+        }
+        else
+        {
+            pauseMenu.unpauseGame();
+        }
     }
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * data.moveSpeed);
+        rb.MovePosition(rb.position + movement * data.moveSpeed * data.moveMulti);
+        visionRaycast.isMoving = movement.x != 0 || movement.y != 0;
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            
+
+            if (knockoutParticles != null)
+            {
+                var ps = Instantiate(knockoutParticles, transform.position, Quaternion.identity);
+                var main = ps.main;
+                main.useUnscaledTime = true;
+                ps.Play();
+            }
+
+            //Transform child = transform.Find("JustineCase");
+            //if (child != null)
+            //{
+            //    child.Rotate(0f, 0f, 90f);
+            //}
             gameOverUI.gameOver();
+
             this.enabled = false;
         }
-        else if (collision.gameObject.CompareTag("Pickup"))
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Pickup"))
         {
             data.inventory[collision.GetComponent<Pickup>().pickupType]++;
             inventoryUI.updateAmount();
@@ -74,6 +136,15 @@ public class PlayerController2D_InputSystem : MonoBehaviour
             data.hasKey = true;
             inventoryUI.updateAmount();
             Destroy(collision.gameObject);
+        }
+    }
+
+    void Awake()
+    {
+        if (knockoutParticles != null)
+        {
+            var main = knockoutParticles.main;
+            main.useUnscaledTime = true; 
         }
     }
 }
