@@ -9,7 +9,7 @@ public class Grid : MonoBehaviour
 {
     public Tilemap tilemap;
     public Tilemap collisionMap;
-    public Tilemap collisionDecoMap;
+    public Tilemap semiCollisionMap;
     public LayerMask unwalkableMask;
     public float nodeSize;
 
@@ -21,6 +21,9 @@ public class Grid : MonoBehaviour
     private Vector3 worldPoint;
     private Vector3 bottomLeft;
 
+    private int semiGridSizeX;
+    private int semiGridSizeY;
+
     void Awake()
     {
         CreateGrid();
@@ -29,6 +32,7 @@ public class Grid : MonoBehaviour
 
     void CreateGrid()
     {
+        // Setup Obstacle Map
         BoundsInt bounds = collisionMap.cellBounds;
 
         // Width and height in cells
@@ -38,8 +42,14 @@ public class Grid : MonoBehaviour
         // Set grid size and bottomleft position
         grid = new Node[gridSizeX, gridSizeY];
         bottomLeft = collisionMap.CellToWorld(bounds.min);
-    }
 
+        // Setup Semi-Obstacle Map
+        BoundsInt semiBounds = semiCollisionMap.cellBounds;
+
+        // Width and height in cells
+        semiGridSizeX = semiBounds.size.x;
+        semiGridSizeY = semiBounds.size.y;
+    }
 
     void UpdateGrid()
     {
@@ -47,16 +57,25 @@ public class Grid : MonoBehaviour
         {
             for (int y = 0; y < gridSizeY; y++)
             {
-                worldPoint = bottomLeft + new Vector3(x * nodeSize + nodeSize / 2f, y * nodeSize + nodeSize / 2f, 0);
-                bool walkable = !collisionMap.HasTile(new Vector3Int(collisionMap.cellBounds.xMin + x, collisionMap.cellBounds.yMin + y, 0));
+                worldPoint = bottomLeft + new Vector3(
+                    x * nodeSize + nodeSize / 2f,
+                    y * nodeSize + nodeSize / 2f,
+                    0f
+                );
 
-                // For collision in the future:
-                /* bool walkable = !Physics2D.OverlapCircle(new Vector3(worldPoint.x, worldPoint.y, 0), nodeSize / 2f - tiny, unwalkableMask); */
+                Vector3Int cellObstacle = collisionMap.WorldToCell(worldPoint);
+                Vector3Int cellSemi = semiCollisionMap.WorldToCell(worldPoint);
+
+                bool hasObstacle = collisionMap.HasTile(cellObstacle);
+                bool hasSemiObstacle = semiCollisionMap.HasTile(cellSemi);
+
+                bool walkable = !(hasObstacle || hasSemiObstacle);
 
                 grid[x, y] = new Node(walkable, worldPoint, x, y);
             }
         }
     }
+
 
     public Node NodeFromWorldPoint(Vector3 worldPos)
     {

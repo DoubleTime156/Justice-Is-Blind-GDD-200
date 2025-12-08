@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 
@@ -15,10 +16,12 @@ public class PlayerSwing : MonoBehaviour {
     private void Awake()
     {
         swingRange = transform.Find("SwingRange").gameObject;
+        
     }
 
     public void OnSwing(InputAction.CallbackContext context)
     {
+        
         // Only handle swing when the action is performed
         if (!context.performed) return;
 
@@ -101,6 +104,8 @@ public class PlayerSwing : MonoBehaviour {
         Gizmos.DrawLine(transform.position, transform.position + leftDir);
         Gizmos.DrawLine(transform.position, transform.position + rightDir);
     }
+
+    
 }
 
 

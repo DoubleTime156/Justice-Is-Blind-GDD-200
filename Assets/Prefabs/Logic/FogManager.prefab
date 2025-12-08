@@ -48,8 +48,18 @@ MonoBehaviour:
   fogPainterMaterial: {fileID: 2100000, guid: 62c38e4fd275e5b40aa8ec157c960444, type: 2}
   fogDisplayMaterial: {fileID: 2100000, guid: 24efac89a47560449b45e6350ed67b64, type: 2}
   player: {fileID: 0}
+  unlitWorldTexture: {fileID: 0}
   rtSize: 4096
   worldMin: {x: -100, y: -100}
   worldMax: {x: 100, y: 100}
+  maskController: {fileID: 0}
+  liveMaskOverride: {fileID: 0}
+  liveFalloff: 0.75
+  memoryAlpha: 0.35
+  memoryIntensity: 0.3
+  writeLiveToMemory: 1
+  writeBurstsToMemory: 1
+  writeQueuedToMemory: 0
   defaultBurstFalloff: 0.75
   maxBursts: 8
+  memCoverageBiasTexels: 0.5

@@ -17,6 +17,8 @@ public class EnemyRoaming : MonoBehaviour
     public string RoamType; // [empty for no path], "path", "circular"
     public Transform[] Nodes;
 
+    public Vector2 newDir;
+
 
     private void Awake()
     {
@@ -82,7 +84,7 @@ public class EnemyRoaming : MonoBehaviour
 
         // When pathfinding script is ready, use A* for each node instead if raycast to next code is hit
         transform.position += _roamingSpeed * dir;
-        Vector2 newDir = Vector2.Lerp(_lightVision.transform.up, dir.normalized, _rotateSpeed);
+        newDir = Vector2.Lerp(_lightVision.transform.up, dir.normalized, _rotateSpeed);
         _lightVision.transform.up = newDir;
 
         if (Vector3.Distance(transform.position, target.position) < _roamingSpeed

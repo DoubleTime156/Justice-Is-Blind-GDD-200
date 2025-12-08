@@ -16,11 +16,15 @@ public class MusicManager : MonoBehaviour
 
     private bool allEnemiesCalm = true;
 
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         enemyInTrigger = GameObject.FindGameObjectsWithTag("Enemy");
     }
+
+
 
     // Update is called once per frame
     void Update()
@@ -79,6 +83,8 @@ public class MusicManager : MonoBehaviour
 
     }
 
+
+
     private void toggleToChase()
     {
         //if audiosource is not playing chase, play chase
@@ -104,4 +110,13 @@ public class MusicManager : MonoBehaviour
 
     }
 
+    public void OnGameOver()
+    {
+        if (audioSource != null)
+        {
+            audioSource.Stop();
+        }
+
+        enabled = false;
+    }
 }

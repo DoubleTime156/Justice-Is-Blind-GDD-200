@@ -9,6 +9,7 @@ public class EnemyVision : MonoBehaviour
     private GameObject _lightVision;
 
     public bool CanSeeTarget { get; private set; }
+    public bool CanSeeSemiObstacle { get; private set; }
     public Vector2 TargetDir { get; private set; }
 
     void Awake()
@@ -29,12 +30,22 @@ public class EnemyVision : MonoBehaviour
 
             if (angle <= viewAngle)
             {
+                // Check for Obstacles
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, TargetDir, distance, 
-                    LayerMask.GetMask("Obstacle")); // Check for obstacles
+                    LayerMask.GetMask("Obstacle")); 
 
                 if (!hit)
                 {
                     CanSeeTarget = true;
+                }
+
+                // Check for SemiObstacles
+                RaycastHit2D hitSemi = Physics2D.Raycast(transform.position, TargetDir, distance,
+                    LayerMask.GetMask("SemiObstacle"));
+
+                if (hitSemi)
+                {
+                    CanSeeSemiObstacle = true;
                 }
             }
         }

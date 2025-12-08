@@ -12,12 +12,14 @@ public class PlayerController2D_InputSystem : MonoBehaviour
 
     private Rigidbody2D rb;
     private Vector2 movement;
-    private GameManager gameManager;
     private Inventory inventoryUI;
     private GameOver gameOverUI;
+    private PauseGame pauseMenu;
     public AudioSource coinPickup;
     public AudioSource bottlePickup;
     public AudioSource keyPickup;
+
+    private Vector2 lookDirection = new Vector2(1, 0);
 
     private int[] defaultInventory = { 0, 0 };
 
@@ -28,6 +30,7 @@ public class PlayerController2D_InputSystem : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         gameOverUI = GameObject.Find("Game_Over_Screen").GetComponent<GameOver>();
         inventoryUI = GameObject.Find("Inventory").GetComponent<Inventory>();
+        pauseMenu = GameObject.Find("PauseButton").GetComponent<PauseGame>();
 
         // Reset PlayerData
         data.heldItem = 1;
@@ -38,6 +41,15 @@ public class PlayerController2D_InputSystem : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         movement = context.ReadValue<Vector2>();
+
+        if (!Mathf.Approximately(movement.x, 0.0f) || 
+            !Mathf.Approximately(movement.y, 0.0f))
+        {
+            lookDirection.Set(movement.x, movement.y);
+            lookDirection.Normalize();
+        }
+
+        personAnimator.lookDirection = lookDirection;
         personAnimator.movement = movement;
     }
 
@@ -52,6 +64,19 @@ public class PlayerController2D_InputSystem : MonoBehaviour
             data.moveMulti = 1.0f;
         }
 
+    }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        Debug.Log("Escape Pressed");
+        if (!pauseMenu.isPaused)
+        {
+            pauseMenu.pauseGame();
+        }
+        else
+        {
+            pauseMenu.unpauseGame();
+        }
     }
 
     void FixedUpdate()
