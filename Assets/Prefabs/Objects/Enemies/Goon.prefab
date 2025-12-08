@@ -330,6 +330,7 @@ MonoBehaviour:
   roam: {fileID: 1540599939337548769}
   pathfind: {fileID: 3710078822244877346}
   transformer: {fileID: -8701913800614786865}
+  footsteps: {fileID: 1184183380462476521}
   _personAnimator: {fileID: 7719095956339340370}
 --- !u!114 &2532074790492072682
 MonoBehaviour:

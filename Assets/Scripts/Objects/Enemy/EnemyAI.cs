@@ -19,6 +19,9 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private EnemyRoaming roam;
     [SerializeField] private EnemyPathfinding pathfind;
     [SerializeField] private EnemyTransformer transformer;
+
+    // Visuals
+    [SerializeField] private EnemyFootsteps footsteps;
     [SerializeField] private PersonAnimator _personAnimator;
 
     private bool isAlert;
@@ -91,6 +94,8 @@ public class EnemyAI : MonoBehaviour
                 pathfind.SetTargetNodeTransforms();
                 dir = pathfind.TargetDir;
             }
+
+            footsteps.soundInterval = 0.4f;
         }
         else if (IsRoaming) // Enemy is roaming
         {
@@ -102,6 +107,8 @@ public class EnemyAI : MonoBehaviour
                 _personAnimator.movement = roam.newDir;
                 _personAnimator.lookDirection = roam.newDir;
             }
+
+            footsteps.soundInterval = 0.75f;
         }
         else if (!isAlert) // Enemy is waiting or returning to roaming location
         {

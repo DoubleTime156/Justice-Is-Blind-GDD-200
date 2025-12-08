@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemyFootsteps : MonoBehaviour
 {
     private Rigidbody2D rb;
-    public float soundInterval = 1f;
+    public float soundInterval = 0.75f;
     private float intervalTimer = 0f;
     private Vector3 lastPosition;
     public ParticleSystem footstepParticles;
