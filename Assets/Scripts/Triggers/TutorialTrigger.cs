@@ -32,7 +32,7 @@ public class TutorialTrigger : MonoBehaviour
     public void OnTriggerExit2D(Collider2D collision)
     {
         // Check for player
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && textObject != null)
         {
             // Disable text
             textObject.enabled = false;

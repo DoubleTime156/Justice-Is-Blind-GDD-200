@@ -1715,6 +1715,24 @@ PrefabInstance:
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3724801594447472379, guid: 2d139a0f093b6bb42b21a07850c7679c,
+        type: 3}
+      propertyPath: onJuke
+      value: 
+      objectReference: {fileID: -6608296718218486522, guid: 1513167ec28ea3b43af433193916b9a7,
+        type: 3}
+    - target: {fileID: 3724801594447472379, guid: 2d139a0f093b6bb42b21a07850c7679c,
+        type: 3}
+      propertyPath: offJuke
+      value: 
+      objectReference: {fileID: -4022612629342725949, guid: 9e14ef80ce00b5b42be3c20e83a82cb4,
+        type: 3}
+    - target: {fileID: 4472828685000576702, guid: 2d139a0f093b6bb42b21a07850c7679c,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -8366756818828385497, guid: 1513167ec28ea3b43af433193916b9a7,
+        type: 3}
     - target: {fileID: 5330941391605183892, guid: 2d139a0f093b6bb42b21a07850c7679c,
         type: 3}
       propertyPath: m_Name
@@ -1728,12 +1746,12 @@ PrefabInstance:
     - target: {fileID: 9219757270736167529, guid: 2d139a0f093b6bb42b21a07850c7679c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16
+      value: -15.19
       objectReference: {fileID: 0}
     - target: {fileID: 9219757270736167529, guid: 2d139a0f093b6bb42b21a07850c7679c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.5
+      value: 2.7
       objectReference: {fileID: 0}
     - target: {fileID: 9219757270736167529, guid: 2d139a0f093b6bb42b21a07850c7679c,
         type: 3}
@@ -1784,6 +1802,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 898301519}
+    - targetCorrespondingSourceObject: {fileID: 5330941391605183892, guid: 2d139a0f093b6bb42b21a07850c7679c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 898301520}
   m_SourcePrefab: {fileID: 100100000, guid: 2d139a0f093b6bb42b21a07850c7679c, type: 3}
 --- !u!1 &415501180
 GameObject:
@@ -4064,6 +4086,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &898301520
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898301513}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 036834834b9bd144eb98567fd0cd9f19, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &914390012
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4574,6 +4618,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SoundMeter
+      objectReference: {fileID: 0}
+    - target: {fileID: 7917829887886926898, guid: ec1976d0c5348bd46a019903d900664a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8480371566624831681, guid: ec1976d0c5348bd46a019903d900664a,
         type: 3}
