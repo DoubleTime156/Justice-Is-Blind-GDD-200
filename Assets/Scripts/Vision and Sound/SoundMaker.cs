@@ -190,10 +190,11 @@ public class SoundMaker : MonoBehaviour
 
         // Create collider
         Vector2[] pts = new Vector2[_pointCount];
-        for (int i = 0; i < _pointCount; i++)
-            pts[i] = vertices[i + 1];
+        for (int i = 0; i < _pointCount; i++) 
+            pts[i] = transform.InverseTransformPoint(_pointPos[i]);
 
         poly.SetPath(0, pts);
+
     }
 
     // Debug - Sound Circle

@@ -330,6 +330,7 @@ MonoBehaviour:
   roam: {fileID: 1540599939337548769}
   pathfind: {fileID: 3710078822244877346}
   transformer: {fileID: -8701913800614786865}
+  footsteps: {fileID: 1184183380462476521}
   _personAnimator: {fileID: 7719095956339340370}
 --- !u!114 &2532074790492072682
 MonoBehaviour:
@@ -491,7 +492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f58aef2dfdc88a74783a2e40b8c7f296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundInterval: 1
+  soundInterval: 0.75
   footstepParticles: {fileID: 1446875461017949426, guid: c6ddebcffaaea31459b2a9de95a9b850,
     type: 3}
   posThreshhold: 0.001
