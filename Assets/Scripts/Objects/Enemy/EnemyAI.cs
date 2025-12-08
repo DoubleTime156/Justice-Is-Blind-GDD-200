@@ -5,6 +5,7 @@ using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
+using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
 public class EnemyAI : MonoBehaviour
@@ -18,14 +19,18 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private EnemyRoaming roam;
     [SerializeField] private EnemyPathfinding pathfind;
     [SerializeField] private EnemyTransformer transformer;
+    [SerializeField] private PersonAnimator _personAnimator;
 
     private bool isAlert;
+
+    private bool isChasingIsPlayer;
 
     private GameObject player;
     private Vector3 lastKnownPos;
     private float waitTimer;
 
     private Vector3 dir;
+
 
     void Awake()
     {
@@ -38,35 +43,44 @@ public class EnemyAI : MonoBehaviour
         isAlert = false;
     }
 
+
     void FixedUpdate()
     {
         // Vision and Listen sense
         vision.UpdateVision(player.transform.position);
-        listen.UpdateListen();
 
         // Chase if vision or listen are activated
         if (vision.CanSeeTarget || listen.HearSound)
         {
+
             isAlert = true;
             IsRoaming = false;
             waitTimer = 3f;
 
             // Wait for 0.75 seconds then chase
-            StartCoroutine(StartChase(0.75f));
+            StartCoroutine(StartChase(0.85f));
 
         }
         else if (Vector3.Distance(transform.position, lastKnownPos) <= data.chaseSpeed)
         {
-            IsChasing = false;
-            isAlert = false;
+            if (Vector3.Distance(transform.position, player.transform.position) > data.chaseSpeed &&
+                isChasingIsPlayer)
+            {
+                lastKnownPos = player.transform.position;
+                StartCoroutine(StopChase(1.0f));
+            }
+            else
+            {
+                IsChasing = false;
+                isAlert = false;
+            }
         }
 
 
         if (IsChasing) // Enemy is chasing
         {
             transformer.SetSpeed(data.chaseSpeed);
-
-            //vision.UpdateVision(lastKnownPos);
+            vision.UpdateVision(lastKnownPos);
             if (vision.CanSeeTarget)
             {
                 dir = vision.TargetDir;
@@ -82,6 +96,12 @@ public class EnemyAI : MonoBehaviour
         {
             transformer.SetSpeed(data.roamingSpeed);
             roam.UpdateMovement();
+            if (roam.RoamType != "path") _personAnimator.movement = new Vector2(0, 0);
+            else
+            {
+                _personAnimator.movement = roam.newDir;
+                _personAnimator.lookDirection = roam.newDir;
+            }
         }
         else if (!isAlert) // Enemy is waiting or returning to roaming location
         {
@@ -101,9 +121,11 @@ public class EnemyAI : MonoBehaviour
                 dir = new Vector3(0, 0, 0);
             }
         }
-        else
+        else // Enemy is looking at player and doesn't move
         {
             transformer.UpdateDirection(dir);
+            _personAnimator.movement = new Vector2(0, 0);
+            _personAnimator.lookDirection = dir;
             return;
         }
 
@@ -114,15 +136,18 @@ public class EnemyAI : MonoBehaviour
         transformer.UpdateMovement(dir);
         transformer.UpdateDirection(dir);
 
+        _personAnimator.movement = dir;
+        _personAnimator.lookDirection = dir;
+
         // Check any changes for pathfinding after transform
         pathfind.SetNextTargetNode();
 
         // If at roaming location, start roaming
-        if (!IsChasing && Vector3.Distance(transform.position, roam.Nodes[roam.AtNode].position) < 1) 
+        if (!IsChasing && Vector3.Distance(transform.position, roam.Nodes[roam.AtNode].position) < 1)
             IsRoaming = true;
     }
 
-    
+
     IEnumerator StartChase(float delay)
     {
         bool sawTarget = vision.CanSeeTarget;
@@ -131,6 +156,7 @@ public class EnemyAI : MonoBehaviour
         if (sawTarget)
         {
             lastKnownPos = player.transform.position;
+            isChasingIsPlayer = true;
         }
         else
         {
@@ -138,6 +164,7 @@ public class EnemyAI : MonoBehaviour
             {
                 Vector3 listenPos = listen.ObjectEmitterTransform.position;
                 lastKnownPos = listenPos;
+                isChasingIsPlayer = false;
             }
             listen.SetHearSound(false);
         }
@@ -151,9 +178,24 @@ public class EnemyAI : MonoBehaviour
 
         // Update lastKnownPos after delay if saw target
         if (sawTarget && !IsChasing)
+        {
             lastKnownPos = player.transform.position;
+            isChasingIsPlayer = true;
+        }
 
         IsChasing = true;
+    }
+
+    IEnumerator StopChase(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        // Only stop chase if they still don't hear a sound a see player
+        if (!(vision.CanSeeTarget || listen.HearSound))
+        {
+            IsChasing = false;
+            isAlert = false;
+        }
     }
 
 

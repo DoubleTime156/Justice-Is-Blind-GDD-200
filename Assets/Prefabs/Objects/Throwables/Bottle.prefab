@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 2483730834216912078}
   - component: {fileID: -4940368058419682588}
   - component: {fileID: -7942899025305146320}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bottle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35,7 +35,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -907767961651953922, guid: af2c25152b0d3954c9cd1371d2d2cbae,
+  m_Sprite: {fileID: 1886131093569576385, guid: 283b387e6450cef4dae46190f19b3ae0,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -193,7 +193,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 2016bb683de77794dbfd8f3b9f020e2c, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.75
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -407,9 +407,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   rayCount: 512
-  trailRadiusWorld: 0.8
-  impactRadiusWorld: 6
-  impactHold: 0.8
+  trailRadius: 0.8
+  trailTime: 0.08
+  trailVisibility: 100
+  impactRadius: 6
+  impactTime: 0.8
 --- !u!114 &-7942899025305146320
 MonoBehaviour:
   m_ObjectHideFlags: 0

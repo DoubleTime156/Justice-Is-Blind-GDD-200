@@ -22,6 +22,7 @@ public class PlayerThrow : MonoBehaviour
     // Player presses F to throw object
     public void OnThrow(InputAction.CallbackContext context)
     {
+        
         if (isCoolingDown) {
             Debug.Log("Throw object");
 
@@ -37,6 +38,8 @@ public class PlayerThrow : MonoBehaviour
 
     public void throwItem()
     {
+        if (GameOver.IsGameOver)
+            return;
         // Spawn at player’s position
         GameObject thrownObj = Instantiate(items[data.heldItem], transform.position, Quaternion.identity);
 
@@ -45,7 +48,7 @@ public class PlayerThrow : MonoBehaviour
         mouseScreenPos.z = Camera.main.WorldToScreenPoint(transform.position).z;
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
 
-        // Initialize the object’s movement
+        // Initialize the object’s lookDirection
         thrownObj.GetComponent<Throwable>().Init(mouseWorldPos, speed[data.heldItem], data.heldItem);
         data.inventory[data.heldItem]--;
         inventoryUI.updateAmount();
@@ -56,6 +59,8 @@ public class PlayerThrow : MonoBehaviour
 
     public void OnSwap(InputAction.CallbackContext context)
     {
+        if (GameOver.IsGameOver)
+            return;
         if (context.canceled) 
         {
             if(data.heldItem == 0)
