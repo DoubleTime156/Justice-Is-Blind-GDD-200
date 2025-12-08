@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
+using System.Collections.Generic; // Added back for the List
 
-
-public class PlayerSwing : MonoBehaviour {
+public class PlayerSwing : MonoBehaviour
+{
 
     public float playerViewRadius;
     public float playerViewAngle;
@@ -15,7 +16,6 @@ public class PlayerSwing : MonoBehaviour {
     private void Awake()
     {
         swingRange = transform.Find("SwingRange").gameObject;
-
     }
 
     public void OnSwing(InputAction.CallbackContext context)
@@ -57,7 +57,7 @@ public class PlayerSwing : MonoBehaviour {
                 // Raycast towards the enemy to check for obstacles
                 RaycastHit2D hitObstacle = Physics2D.Raycast(swingRange.transform.position, dir, distance, LayerMask.GetMask("Obstacle"));
 
-                // If no obstacle hit, mark this enemy as a valid target
+                // If no obstacle hit, mark this enemy as a valid target, and get enemy data
                 if (hitObstacle.collider == null)
                 {
                     enemies.Add(enemyCollider);
@@ -71,15 +71,30 @@ public class PlayerSwing : MonoBehaviour {
         {
             foreach (var target in enemies)
             {
-                EnemyAI enemyAI = target.GetComponent<EnemyAI>();
-                if (target != null && enemyAI.IsChasing == false)
+                if (target != null)
                 {
+                    //FIX: Get the target's EnemyAI component
+                    EnemyAI targetAI = target.GetComponent<EnemyAI>();
+
                     // Rotates the whole enemy, disable its AI,and collider
                     target.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    target.transform.GetChild(0).rotation = Quaternion.Euler(0, 0, -90); // Gets enemy sprite child and rotates it
-                    target.GetComponent<EnemyAI>().enabled = false;
-                    target.GetComponent<Collider2D>().enabled = false;
+                    target.transform.GetChild(1).rotation = Quaternion.Euler(0, 0, -90); // Gets enemy sprite child and rotates it
                     target.GetComponentInChildren<Light2D>().enabled = false;
+
+                    // Disable the AI component using the retrieved reference
+                    if (targetAI != null)
+                    {
+                        targetAI.enabled = false;
+                    }
+                    target.GetComponent<EnemyAI>().enabled = false; // Original duplicate line removed
+                    target.GetComponent<Collider2D>().enabled = false;
+
+                    //FIX: Pass the correct targetAI component to the MusicManager
+                    if (MusicManager.Instance != null && targetAI != null)
+                    {
+                        MusicManager.Instance.RemoveEnemy(targetAI);
+                    }
+
 
                     // Play knockout particles
                     ParticleSystem particles = Instantiate(knockoutParticles, target.transform.position, Quaternion.identity);
