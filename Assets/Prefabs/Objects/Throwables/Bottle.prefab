@@ -109,7 +109,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fogManager: {fileID: 0}
-  speed: 10
   objectSound: {fileID: 2483730834216912078}
   throwSound: {fileID: -1651317461757201175}
   impactSound: {fileID: 4101873241110360144}
@@ -194,7 +193,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 2016bb683de77794dbfd8f3b9f020e2c, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.75
   m_Pitch: 1
   Loop: 0
   Mute: 0

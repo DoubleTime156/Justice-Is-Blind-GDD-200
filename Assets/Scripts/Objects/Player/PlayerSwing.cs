@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 
@@ -16,12 +15,11 @@ public class PlayerSwing : MonoBehaviour {
     private void Awake()
     {
         swingRange = transform.Find("SwingRange").gameObject;
-        
+
     }
 
     public void OnSwing(InputAction.CallbackContext context)
     {
-        
         // Only handle swing when the action is performed
         if (!context.performed) return;
 
@@ -59,7 +57,7 @@ public class PlayerSwing : MonoBehaviour {
                 // Raycast towards the enemy to check for obstacles
                 RaycastHit2D hitObstacle = Physics2D.Raycast(swingRange.transform.position, dir, distance, LayerMask.GetMask("Obstacle"));
 
-                // If no obstacle hit, mark this enemy as a valid target, and get enemy data
+                // If no obstacle hit, mark this enemy as a valid target
                 if (hitObstacle.collider == null)
                 {
                     enemies.Add(enemyCollider);
@@ -73,15 +71,15 @@ public class PlayerSwing : MonoBehaviour {
         {
             foreach (var target in enemies)
             {
-                if (target != null)
+                EnemyAI enemyAI = target.GetComponent<EnemyAI>();
+                if (target != null && enemyAI.IsChasing == false)
                 {
                     // Rotates the whole enemy, disable its AI,and collider
                     target.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    target.transform.GetChild(1).rotation = Quaternion.Euler(0, 0, -90); // Gets enemy sprite child and rotates it
-                    target.GetComponentInChildren<Light2D>().enabled = false;
+                    target.transform.GetChild(0).rotation = Quaternion.Euler(0, 0, -90); // Gets enemy sprite child and rotates it
                     target.GetComponent<EnemyAI>().enabled = false;
                     target.GetComponent<Collider2D>().enabled = false;
-                    
+                    target.GetComponentInChildren<Light2D>().enabled = false;
 
                     // Play knockout particles
                     ParticleSystem particles = Instantiate(knockoutParticles, target.transform.position, Quaternion.identity);
@@ -104,63 +102,4 @@ public class PlayerSwing : MonoBehaviour {
         Gizmos.DrawLine(transform.position, transform.position + leftDir);
         Gizmos.DrawLine(transform.position, transform.position + rightDir);
     }
-
-    
 }
-
-
-/*
-public class PlayerSwing : MonoBehaviour
-{
-    public GameObject Enemy;
-    public GameObject SwingRange;
-    //public PlayerActions playerSwing;
-
-    bool enemyIsInRange;
-
-    private InputAction swing;
-    private PlayerController2D_InputSystem playerController;
-
-    private void Start()
-    {
-        playerController = GetComponent<PlayerController2D_InputSystem>();
-        enemyIsInRange = false;
-    }
-
-   
-
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject == Enemy)
-        {
-            Debug.Log("Enemy hit by swing!");
-            // Add logic for damaging the enemy here
-            enemyIsInRange = true;
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject == Enemy)
-        {
-            Debug.Log("Enemy exited swing area.");
-            // Add logic for when the enemy exits the swing area here
-        }
-    }
-
-    public void OnSwing(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            Debug.Log("Player swung weapon!");
-            // Add swing logic here
-            if (enemyIsInRange) {
-                Destroy(Enemy);
-                Debug.Log("Enemy destroyed by swing!");
-
-            }
-        }   
-    }
-}
-*/
