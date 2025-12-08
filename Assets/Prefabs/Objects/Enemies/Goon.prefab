@@ -492,7 +492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f58aef2dfdc88a74783a2e40b8c7f296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundInterval: 1
+  soundInterval: 0.75
   footstepParticles: {fileID: 1446875461017949426, guid: c6ddebcffaaea31459b2a9de95a9b850,
     type: 3}
   posThreshhold: 0.001
