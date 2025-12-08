@@ -15,7 +15,6 @@ public class PlayerSwing : MonoBehaviour {
     private void Awake()
     {
         swingRange = transform.Find("SwingRange").gameObject;
-
     }
 
     public void OnSwing(InputAction.CallbackContext context)
@@ -71,6 +70,7 @@ public class PlayerSwing : MonoBehaviour {
         {
             foreach (var target in enemies)
             {
+
                 EnemyAI enemyAI = target.GetComponent<EnemyAI>();
                 if (target != null && enemyAI.IsChasing == false)
                 {
@@ -80,11 +80,11 @@ public class PlayerSwing : MonoBehaviour {
                     target.GetComponent<EnemyAI>().enabled = false;
                     target.GetComponent<Collider2D>().enabled = false;
                     target.GetComponentInChildren<Light2D>().enabled = false;
+                    target.GetComponentInChildren<Animator>().enabled = false;   
 
                     // Play knockout particles
                     ParticleSystem particles = Instantiate(knockoutParticles, target.transform.position, Quaternion.identity);
-                    particles.Play();
-
+                    particles.Play();        
                 }
             }
         }
