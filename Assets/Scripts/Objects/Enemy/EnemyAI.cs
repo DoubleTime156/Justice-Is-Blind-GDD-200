@@ -102,7 +102,7 @@ public class EnemyAI : MonoBehaviour
             // If chasing an object, max chase time is 5 seconds
             if (!isChasingIsPlayer)
                 overChaseTimer += Time.fixedDeltaTime;
-            if (overChaseTimer >= 5.0f)
+            if (overChaseTimer >= OverChaseTime)
             {
                 overChaseTimer = 0.0f;
                 IsChasing = false;

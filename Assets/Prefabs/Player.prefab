@@ -1041,6 +1041,7 @@ MonoBehaviour:
   playerViewAngle: 45
   knockoutParticles: {fileID: 1104930591671799747, guid: e0e73ffb190d399468fb203a23f9f11c,
     type: 3}
+  swing: {fileID: 6611623720370115179, guid: 0fcf63fd886af7741913cb8b5cc952d0, type: 3}
   personAnimator: {fileID: 7641100827236162740}
   _animator: {fileID: 6040604634708551431}
 --- !u!82 &-6507755775882685442
@@ -1802,6 +1803,7 @@ MonoBehaviour:
   playerViewRadius: 3
   playerViewAngle: 45
   knockoutParticles: {fileID: 0}
+  swing: {fileID: 0}
   personAnimator: {fileID: 7641100827236162740}
   _animator: {fileID: 6040604634708551431}
 --- !u!1 &8167058829865836958

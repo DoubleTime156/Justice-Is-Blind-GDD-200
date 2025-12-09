@@ -9,6 +9,7 @@ public class PlayerSwing : MonoBehaviour
     public float playerViewRadius;
     public float playerViewAngle;
     public ParticleSystem knockoutParticles;
+    public GameObject swing;
 
     [SerializeField] private PersonAnimator personAnimator;
     [SerializeField] private Animator _animator;
@@ -35,6 +36,11 @@ public class PlayerSwing : MonoBehaviour
         Vector3 direction = mouseWorldPos - swingRange.transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
         swingRange.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        // Create Swing animation and destroy after 0.45 seconds
+        GameObject s = Instantiate(swing, transform.position + direction.normalized * 1.2f, Quaternion.Euler(0, 0, angle));
+        s.transform.SetParent(transform); 
+        Destroy(s, 0.45f);
 
 
         // Collect only the valid targets (in angle and not blocked)
