@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
-using System.Collections.Generic; // Added back for the List
+using System.Collections.Generic;
+using UnityEngine.InputSystem.Controls; // Added back for the List
 
 public class PlayerSwing : MonoBehaviour
 {
@@ -14,13 +15,37 @@ public class PlayerSwing : MonoBehaviour
     [SerializeField] private PersonAnimator personAnimator;
     [SerializeField] private Animator _animator;
     private GameObject swingRange;
+
+    public float swingCooldown = 1f;
+    private float timer = 0f;
+    private bool swinging = false;
+
     private void Awake()
     {
         swingRange = transform.Find("SwingRange").gameObject;
     }
 
+    private void Update()
+    {
+        if (swinging == true)
+        {
+            timer += Time.deltaTime;
+            if (timer > 1f)
+            {
+                swinging = false;
+            }
+        }
+    }
+
     public void OnSwing(InputAction.CallbackContext context)
     {
+        if (swinging == true)
+        {
+            return;
+        }
+        timer = 0f;
+
+
         // Only handle swing when the action is performed
         if (!context.performed) return;
 
@@ -69,6 +94,7 @@ public class PlayerSwing : MonoBehaviour
                     enemies.Add(enemyCollider);
                 }
             }
+            
         }
 
 
@@ -109,6 +135,7 @@ public class PlayerSwing : MonoBehaviour
                 }
             }
         }
+        swinging = true;
     }
 
     // Debug - Vision cone visual
