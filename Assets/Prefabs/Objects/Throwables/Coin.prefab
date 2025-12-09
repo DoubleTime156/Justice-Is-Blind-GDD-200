@@ -389,9 +389,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   rayCount: 512
-  trailRadiusWorld: 0.8
-  impactRadiusWorld: 6
-  impactHold: 0.8
+  trailRadius: 0.8
+  trailTime: 0.08
+  trailVisibility: 100
+  impactRadius: 6
+  impactTime: 0.8
 --- !u!114 &4670974043389246146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,6 +406,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24581dd133dbd8d43ad47f3fe59dc242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundRadius: 6
+  soundRadius: 7
   soundMaker: {fileID: 2013124798389018593, guid: 89d363a34648e9d44b3d05f2d995a2cf,
     type: 3}
