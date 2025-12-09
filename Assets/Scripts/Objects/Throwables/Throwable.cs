@@ -55,7 +55,7 @@ public class Throwable : MonoBehaviour
         rb.linearVelocity = direction * speed;
 
         // When destination reached, perform item specific behaviors
-        if (Vector2.Distance(transform.position, target) <= speed * Time.fixedDeltaTime && !isTriggered)
+        if (Vector2.Distance(transform.position, target) <= targetRadius && !isTriggered)
         {
             itemBehavior();
         }
@@ -73,8 +73,8 @@ public class Throwable : MonoBehaviour
             case 0:
                 Debug.Log("Coin landed");
                 objectSound.IsMakingSound = true;
-             //   RevealFog(0.05f);
-                rb.linearVelocity = new Vector2(0, 0); 
+                //   RevealFog(0.05f);
+                rb.linearVelocity = new Vector2(0, 0);
                 isTriggered = true;
                 break;
             case 1:
@@ -82,7 +82,7 @@ public class Throwable : MonoBehaviour
                 spawnParticles();
                 GetComponent<Renderer>().enabled = false;
                 objectSound.IsMakingSound = true;
-              //  RevealFog(0.07f);
+                //  RevealFog(0.07f);
                 isTriggered = true;
                 speed = 0;
                 break;
@@ -90,56 +90,56 @@ public class Throwable : MonoBehaviour
     }
 
     //void RevealFog(float radius)
-   // {
-   //     FogManager fog = FindFirstObjectByType<FogManager>();
-   //     if (fog == null) return;
-//
-     //   FogRevealer revealer = gameObject.AddComponent<FogRevealer>();
-   //     revealer.fogManager = fog;
-   //     revealer.revealRadiusUV = radius;
+    // {
+    //     FogManager fog = FindFirstObjectByType<FogManager>();
+    //     if (fog == null) return;
+    //
+    //   FogRevealer revealer = gameObject.AddComponent<FogRevealer>();
+    //     revealer.fogManager = fog;
+    //     revealer.revealRadiusUV = radius;
     //    revealer.fullRevealDuration = 2f;
-   //     revealer.fadeDuration = 3f;      
-   //     revealer.TriggerReveal();
-  //  }
+    //     revealer.fadeDuration = 3f;      
+    //     revealer.TriggerReveal();
+    //  }
 
 
-  public void OnCollisionEnter2D(Collision2D collision)
-  {
-      if (collision.gameObject.CompareTag("Enemy") && item == 1 &&
-          inAir) // If a bottle is still in air, destroy enemies they touch
-      {
-          Debug.Log("Has found an enemy collider tag");
-          knockoutParticles = Instantiate(knockoutParticles, collision.transform.position, Quaternion.identity);
-          Destroy(collision.gameObject);
-          rb.linearVelocity = new Vector2(0, 0);
-          itemBehavior();
-          fogManager.TriggerVisionBurstAt(transform.position, Mathf.Max(0f, radiusWorld), Mathf.Max(0.0001f, whiteHold),
-              fogManager.defaultBurstFalloff);
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy") && item == 1 &&
+            inAir) // If a bottle is still in air, destroy enemies they touch
+        {
+            Debug.Log("Has found an enemy collider tag");
+            knockoutParticles = Instantiate(knockoutParticles, collision.transform.position, Quaternion.identity);
+            Destroy(collision.gameObject);
+            rb.linearVelocity = new Vector2(0, 0);
+            itemBehavior();
+            fogManager.TriggerVisionBurstAt(transform.position, Mathf.Max(0f, radiusWorld), Mathf.Max(0.0001f, whiteHold),
+                fogManager.defaultBurstFalloff);
 
-      }
+        }
 
-      if (collision.gameObject.CompareTag("Enemy") && item == 0 &&
-          !inAir) // When an enemy inspects a coin, pick it up before going back to path
-      {
-          StartCoroutine(enemyPickupCoin(2.5f));
-      }
+        if (collision.gameObject.CompareTag("Enemy") && item == 0 &&
+            !inAir) // When an enemy inspects a coin, pick it up before going back to path
+        {
+            StartCoroutine(enemyPickupCoin(2.5f));
+        }
 
-      if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
-      {
-          inAir = false;
-          switch (item)
-          {
-              case 0:
-                  itemBehavior();
-                  break;
-              case 1:
-                  itemBehavior();
-                  break;
-          }
-      }
-    } 
-  
-  private void spawnParticles()
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+        {
+            inAir = false;
+            switch (item)
+            {
+                case 0:
+                    itemBehavior();
+                    break;
+                case 1:
+                    itemBehavior();
+                    break;
+            }
+        }
+    }
+
+    private void spawnParticles()
     {
         shatterParticles = Instantiate(shatterParticles, transform.position, Quaternion.identity);
     }
@@ -157,7 +157,7 @@ public class Throwable : MonoBehaviour
     }
 
     IEnumerator enemyPickupCoin(float waitTime) // When the enemy reaches the coin, the coin will wait a few seconds before disappearing
-    { 
+    {
         yield return new WaitForSeconds(waitTime);
         Destroy(gameObject);
     }

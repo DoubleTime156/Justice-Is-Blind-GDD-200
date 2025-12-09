@@ -39,6 +39,10 @@ public class PlayerSwing : MonoBehaviour
 
     public void OnSwing(InputAction.CallbackContext context)
     {
+        if (GameOver.IsGameOver)
+        {
+            return;
+        }
         if (swinging == true)
         {
             return;
@@ -64,7 +68,7 @@ public class PlayerSwing : MonoBehaviour
 
         // Create Swing animation and destroy after 0.45 seconds
         GameObject s = Instantiate(swing, transform.position + direction.normalized * 1.2f, Quaternion.Euler(0, 0, angle));
-        s.transform.SetParent(transform); 
+        s.transform.SetParent(transform);
         Destroy(s, 0.45f);
 
 
@@ -94,7 +98,7 @@ public class PlayerSwing : MonoBehaviour
                     enemies.Add(enemyCollider);
                 }
             }
-            
+
         }
 
 
