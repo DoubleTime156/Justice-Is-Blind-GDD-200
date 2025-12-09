@@ -31,8 +31,12 @@ public class EnemyAI : MonoBehaviour
     private GameObject player;
     private Vector3 lastKnownPos;
     private float waitTimer;
+    private float overChaseTimer = 0.0f;
 
     private Vector3 dir;
+
+    private const float WaitTime = 3.0f;
+    private const float OverChaseTime = 5.0f;
 
 
     void Awake()
@@ -58,7 +62,7 @@ public class EnemyAI : MonoBehaviour
 
             isAlert = true;
             IsRoaming = false;
-            waitTimer = 3f;
+            waitTimer = WaitTime;
 
             // Wait for 0.75 seconds then chase
             StartCoroutine(StartChase(0.85f));
@@ -67,12 +71,12 @@ public class EnemyAI : MonoBehaviour
         else if (Vector3.Distance(transform.position, lastKnownPos) <= data.chaseSpeed)
         {
             if (Vector3.Distance(transform.position, player.transform.position) > data.chaseSpeed &&
-                isChasingIsPlayer)
+                isChasingIsPlayer) // Wait to stop if chasing player
             {
                 lastKnownPos = player.transform.position;
                 StartCoroutine(StopChase(1.0f));
             }
-            else
+            else // Stop immediately if chasing anything else
             {
                 IsChasing = false;
                 isAlert = false;
@@ -93,6 +97,16 @@ public class EnemyAI : MonoBehaviour
                 pathfind.UpdatePath(lastKnownPos);
                 pathfind.SetTargetNodeTransforms();
                 dir = pathfind.TargetDir;
+            }
+
+            // If chasing an object, max chase time is 5 seconds
+            if (!isChasingIsPlayer)
+                overChaseTimer += Time.fixedDeltaTime;
+            if (overChaseTimer >= 5.0f)
+            {
+                overChaseTimer = 0.0f;
+                IsChasing = false;
+                isAlert = false;
             }
 
             footsteps.soundInterval = 0.4f;
