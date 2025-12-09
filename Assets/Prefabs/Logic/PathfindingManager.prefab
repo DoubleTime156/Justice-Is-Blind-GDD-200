@@ -45,13 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 128b355a0e7ee164c8dec8e6a5292f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tilemap: {fileID: 0}
+  collisionMap: {fileID: 0}
+  semiCollisionMap: {fileID: 0}
   unwalkableMask:
     serializedVersion: 2
-    m_Bits: 64
-  gridSizeX: 27
-  gridSizeY: 27
+    m_Bits: 1088
   nodeSize: 1.28
-  player: {fileID: 7796668368597870007, guid: a83be97de161946479314af76f2ebc9a, type: 3}
 --- !u!114 &2361082758901517208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,5 +64,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18a0229a13449034d95033c717d41a3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 7796668368597870007, guid: a83be97de161946479314af76f2ebc9a, type: 3}
   grid: {fileID: 5477427776460520072}
