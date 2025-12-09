@@ -42,7 +42,7 @@ public class EnemyFootsteps : MonoBehaviour
         if (footstepParticles != null) {
             Vector3 spawnPos = transform.position;
             spawnPos.y += moveToFeet;
-
+            spawnPos.z = 0f;
             ParticleSystem ps = Instantiate(footstepParticles, spawnPos, Quaternion.identity);
 
             ps.Play();
