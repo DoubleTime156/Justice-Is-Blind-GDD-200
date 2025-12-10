@@ -124,7 +124,7 @@ public class Throwable : MonoBehaviour
             StartCoroutine(enemyPickupCoin(2.5f));
         }
 
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+        if (!collision.gameObject.CompareTag("Enemy"))
         {
             inAir = false;
             switch (item)
