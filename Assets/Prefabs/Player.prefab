@@ -464,7 +464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34e360f299e23494f867acb6e56091b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visionRadius: 3
+  visionRadius: 3.5
   isMoving: 0
 --- !u!23 &7113713087504103376
 MeshRenderer:
@@ -1044,6 +1044,7 @@ MonoBehaviour:
   swing: {fileID: 6611623720370115179, guid: 0fcf63fd886af7741913cb8b5cc952d0, type: 3}
   personAnimator: {fileID: 7641100827236162740}
   _animator: {fileID: 6040604634708551431}
+  swingCooldown: 1
 --- !u!82 &-6507755775882685442
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1806,6 +1807,7 @@ MonoBehaviour:
   swing: {fileID: 0}
   personAnimator: {fileID: 7641100827236162740}
   _animator: {fileID: 6040604634708551431}
+  swingCooldown: 1
 --- !u!1 &8167058829865836958
 GameObject:
   m_ObjectHideFlags: 0

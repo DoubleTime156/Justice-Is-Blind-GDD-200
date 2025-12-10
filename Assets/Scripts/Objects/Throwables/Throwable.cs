@@ -31,7 +31,6 @@ public class Throwable : MonoBehaviour
         target = targetPos;
         speed = initMoveSpeed;
         item = heldItem;
-        if (item == 1) speed = 10.0f;
         rb = GetComponent<Rigidbody2D>();
         direction = (target - transform.position).normalized;
         prevDirection = direction;
@@ -46,7 +45,7 @@ public class Throwable : MonoBehaviour
         direction = (target - transform.position).normalized;
         if (item == 1) { rb.rotation += -15f; } // Apply spin to bottle
 
-        if (item == 0)
+        if (item == 0 || item ==1)
         {
             distance = Vector2.Distance(transform.position, target);
             speed = distance / timeToReach;
@@ -84,7 +83,7 @@ public class Throwable : MonoBehaviour
                 objectSound.IsMakingSound = true;
                 //  RevealFog(0.07f);
                 isTriggered = true;
-                speed = 0;
+                rb.linearVelocity = new Vector2(0, 0);
                 break;
         }
     }
