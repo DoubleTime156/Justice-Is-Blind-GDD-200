@@ -1982,6 +1982,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UnlitWorldCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 445409405496634982, guid: e6e719bbc69572545b90f4cc14f76fd1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 510277940169897799, guid: e6e719bbc69572545b90f4cc14f76fd1,
         type: 3}
       propertyPath: m_VolumeLayerMask.m_Bits

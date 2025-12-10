@@ -1,0 +1,621 @@
+fileFormatVersion: 2
+guid: bcffd28b8c3704a42bc3db351e1a8f42
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7447864182375142088
+    second: GSS_0
+  - first:
+      213: 9061798906775647770
+    second: GSS_1
+  - first:
+      213: 7426687669063325365
+    second: GSS_2
+  - first:
+      213: -9181853186184989498
+    second: GSS_3
+  - first:
+      213: -1353456502110898992
+    second: GSS_4
+  - first:
+      213: 5294558771653864357
+    second: GSS_5
+  - first:
+      213: -3378107657393438776
+    second: GSS_6
+  - first:
+      213: 1239377319735382453
+    second: GSS_7
+  - first:
+      213: -5610983769164910203
+    second: GSS_8
+  - first:
+      213: -6513430486110709083
+    second: GSS_9
+  - first:
+      213: -235845161875834322
+    second: GSS_10
+  - first:
+      213: 5875420486321637566
+    second: GSS_11
+  - first:
+      213: -2098178650116948849
+    second: GSS_12
+  - first:
+      213: 2600771880903469591
+    second: GSS_13
+  - first:
+      213: -1611083976283279690
+    second: GSS_14
+  - first:
+      213: 8391377906369045217
+    second: GSS_15
+  - first:
+      213: 1660207440109725649
+    second: GSS_16
+  - first:
+      213: -5865142867998031565
+    second: GSS_17
+  - first:
+      213: 8536968422916314980
+    second: GSS_18
+  - first:
+      213: -363913343942956166
+    second: GSS_19
+  - first:
+      213: 2516354936402025143
+    second: GSS_20
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: GSS_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 780
+        width: 221
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c253dd63012c5760800000000000000
+      internalID: 7447864182375142088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GSS_1
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 780
+        width: 221
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a16b260281af1cd70800000000000000
+      internalID: 9061798906775647770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GSS_2
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 780
+        width: 221
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b61b443615e01760800000000000000
+      internalID: 7426687669063325365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GSS_3
+      rect:
+        serializedVersion: 2
+        x: 663
+        y: 780
+        width: 221
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c4b7a9bc21839080800000000000000
+      internalID: -9181853186184989498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GSS_4
+      rect:
+        serializedVersion: 2
+        x: 884
+        y: 780
+        width: 221
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d4bcb47b7e873de0800000000000000
+      internalID: -1353456502110898992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GSS_5
+      rect:
+        serializedVersion: 2
+        x: 1105
+        y: 780
+        width: 221
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ab6bdaa62d0a7940800000000000000
+      internalID: 5294558771653864357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GSS_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 520
+        width: 221
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cf790ccbfc8e11d0800000000000000
+      internalID: -3378107657393438776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GSS_7
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 520
+        width: 221
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b1d0851b17233110800000000000000
+      internalID: 1239377319735382453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GSS_8
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 520
+        width: 221
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 581717e7df7c122b0800000000000000
+      internalID: -5610983769164910203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GSS_9
+      rect:
+        serializedVersion: 2
+        x: 663
+        y: 520
+        width: 221
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5aadb268b75ab95a0800000000000000
+      internalID: -6513430486110709083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GSS_10
+      rect:
+        serializedVersion: 2
+        x: 884
+        y: 520
+        width: 221
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2a7568231c1abcf0800000000000000
+      internalID: -235845161875834322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GSS_11
+      rect:
+        serializedVersion: 2
+        x: 1105
+        y: 520
+        width: 221
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb801419dcfa98150800000000000000
+      internalID: 5875420486321637566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GSS_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 260
+        width: 221
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8c787462a5c1e2e0800000000000000
+      internalID: -2098178650116948849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GSS_13
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 260
+        width: 221
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71a63170f3cc71420800000000000000
+      internalID: 2600771880903469591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GSS_14
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 260
+        width: 221
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6beaf42d8a744a9e0800000000000000
+      internalID: -1611083976283279690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GSS_15
+      rect:
+        serializedVersion: 2
+        x: 663
+        y: 260
+        width: 221
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e220351fb9247470800000000000000
+      internalID: 8391377906369045217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GSS_16
+      rect:
+        serializedVersion: 2
+        x: 884
+        y: 260
+        width: 221
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d76331eedd3a0710800000000000000
+      internalID: 1660207440109725649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GSS_17
+      rect:
+        serializedVersion: 2
+        x: 1105
+        y: 260
+        width: 221
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 331cf0ce2a3da9ea0800000000000000
+      internalID: -5865142867998031565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GSS_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 221
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46757a2cc87697670800000000000000
+      internalID: 8536968422916314980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: f1b730269a30b4dd8a9b673eb8bbf02c
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":true,"gridCellCount":{"x":6.0,"y":4.0},"gridSpriteSize":{"x":221.0,"y":260.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+      - key: SpriteEditor.SliceOnImport
+        value: True
+    nameFileIdTable:
+      GSS_0: 7447864182375142088
+      GSS_1: 9061798906775647770
+      GSS_10: -235845161875834322
+      GSS_11: 5875420486321637566
+      GSS_12: -2098178650116948849
+      GSS_13: 2600771880903469591
+      GSS_14: -1611083976283279690
+      GSS_15: 8391377906369045217
+      GSS_16: 1660207440109725649
+      GSS_17: -5865142867998031565
+      GSS_18: 8536968422916314980
+      GSS_2: 7426687669063325365
+      GSS_3: -9181853186184989498
+      GSS_4: -1353456502110898992
+      GSS_5: 5294558771653864357
+      GSS_6: -3378107657393438776
+      GSS_7: 1239377319735382453
+      GSS_8: -5610983769164910203
+      GSS_9: -6513430486110709083
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
